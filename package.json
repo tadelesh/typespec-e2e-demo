@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "@typespec/compiler": "^0.62.0",
+    "@typespec/http": "^0.62.0",
+    "@typespec/http-server-csharp": "^0.58.0-alpha.5",
+    "@typespec/json-schema": "^0.62.0",
+    "@typespec/openapi": "^0.62.0",
+    "@typespec/openapi3": "^0.62.0",
+    "@typespec/rest": "^0.62.0"
+  }
+}
