@@ -259,7 +259,7 @@ namespace TodoItems {
   ): WithStandardErrors<NoContentResponse | NotFoundResponse>;
 
   @route("{itemId}/attachments")
-  namespace Attachments {
+  interface Attachments {
     // @list op list(
     //   @path itemId: TodoItem.id,
     // ): WithStandardErrors<TodoAttachment[] | NotFoundResponse>;
