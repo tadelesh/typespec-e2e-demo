@@ -398,4 +398,4 @@ FodyWeavers.xsd
 *.sln.iml
 
 # Skip any generated service code
-server/**/generated/
+servers/**/generated/
