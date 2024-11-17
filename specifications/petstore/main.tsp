@@ -1,69 +1,98 @@
 import "@typespec/rest";
 import "@typespec/openapi";
 
-using TypeSpec.Http;
-
 @service({
   title: "Pet Store Service",
 })
-@doc("This is a sample server Petstore server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.")
 namespace PetStore;
 
-// Model types
+using TypeSpec.Http;
+using TypeSpec.Rest;
+using TypeSpec.Rest.Resource;
+
+@error
+model PetStoreError {
+  code: int32;
+  message: string;
+}
+
+@resource("pets")
 model Pet {
+  @key("petId")
+  id: int32;
+
   name: string;
   tag?: string;
 
   @minValue(0)
   @maxValue(20)
   age: int32;
+
+  ownerId: int64;
 }
 
+@resource("toys")
+@parentResource(Pet)
 model Toy {
+  @key("toyId")
   id: int64;
+
   petId: int64;
   name: string;
 }
 
-@doc("Error")
-@error
-model Error {
-  code: int32;
-  message: string;
+@resource("owners")
+model Owner {
+  @key("ownerId")
+  id: int64;
+
+  name: string;
+  age: int32;
 }
 
-@doc("Not modified")
-model NotModified<Body> {
-  @statusCode _: 304;
-  @body body: Body;
+@resource("checkups")
+model Checkup {
+  @key("checkupId")
+  id: int32;
+
+  vetName: string;
+  notes: string;
 }
 
-@friendlyName("{name}ListResults", Item)
-model ResponsePage<Item> {
-  items: Item[];
-  nextLink?: string;
+@segment("insurance")
+model Insurance {
+  provider: string;
+  premium: int32;
+  deductible: int32;
 }
 
-model PetId {
-  @path petId: int32;
+interface Pets extends ResourceOperations<Pet, PetStoreError> {}
+
+interface PetCheckups
+  extends ExtensionResourceCreateOrUpdate<Checkup, Pet, PetStoreError>,
+    ExtensionResourceList<Checkup, Pet, PetStoreError> {}
+
+interface PetInsurance extends SingletonResourceOperations<Insurance, Pet, PetStoreError> {}
+
+interface Toys extends ResourceRead<Toy, PetStoreError> {
+  @autoRoute
+  @listsResource(Toy)
+  list(
+    ...ParentKeysOf<Toy>,
+    @query nameFilter: string,
+  ): CollectionWithNextLink<Toy> | PetStoreError;
 }
 
-@doc("Manage your pets.")
-@route("/pets")
-interface Pets {
-  @doc("Delete a pet.")
-  @delete
-  op delete(...PetId): OkResponse | Error;
+interface ToyInsurance extends SingletonResourceOperations<Insurance, Toy, PetStoreError> {}
 
-  op list(@query nextLink?: string): ResponsePage<Pet> | Error;
+interface Checkups
+  extends ResourceCreateOrUpdate<Checkup, PetStoreError>,
+    ResourceList<Checkup, PetStoreError> {}
 
-  @doc("Returns a pet. Supports eTags.")
-  op read(...PetId): Pet | (NotModifiedResponse & Pet) | Error;
+interface Owners extends ResourceOperations<Owner, PetStoreError> {}
 
-  @post op create(@body pet: Pet): Pet | Error;
-}
+interface OwnerCheckups
+  extends ExtensionResourceCreateOrUpdate<Checkup, Owner, PetStoreError>,
+    ExtensionResourceList<Checkup, Owner, PetStoreError> {}
 
-@route("/pets/{petId}/toys")
-interface ListPetToysResponse {
-  op list(@path petId: string, @query nameFilter: string): ResponsePage<Toy> | Error;
-}
+interface OwnerInsurance extends SingletonResourceOperations<Insurance, Owner, PetStoreError> {}

@@ -6,51 +6,15 @@ If you want to recreate this folder from scratch, please see [steps below.](#ste
 
 ## Testing the server code
 
-1. Compile TypeSpec under `/specifications/widget` with `npx tsp compile
-1. Build and run Asp.net server project
-1. Test the server via http://localhost:[PORT]/swagger/index.html
+[Follow these steps](../README.md#testing-the-server-code)
 
 ## Steps to create the executable server project
 
-This folder was created from scratch with following steps.
+If you would like to recreate the server folder from scratch, please follow these steps.
 
-1. Create an `ASP.NET Core Web API` project with following command:
+1. First follow the [basic ASP.NET project setup steps](../README.md#steps-to-create-the-executable-server-projects).
 
-    ```dotnetcli
-       dotnet new webapi --use-controllers
-    ```
-
-2. Run following command to add Swagger endpoint to project for easy testing
-
-    ```dotnetcli
-       dotnet add package Swashbuckle.AspNetCore
-    ```
-
-3. Replace content of `Program.cs` with code below:
-
-    ```csharp
-        var builder = WebApplication.CreateBuilder(args);
-        
-        builder.Services.AddControllers();
-        builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
-        
-        var app = builder.Build();
-        
-        // Configure the HTTP request pipeline.
-        if (app.Environment.IsDevelopment())
-        {
-            app.UseSwagger();
-            app.UseSwaggerUI();
-        }
-        
-        app.UseAuthorization();
-        app.MapControllers();
-        
-        app.Run();
-    ```
-
-4. Create `Controllers` folder and add concrete controller class `WidgetServiceController.cs`. This bare bone controller extends generated base controller and instantiate service implementation.
+1. Create `Controllers` folder and add concrete controller class `WidgetServiceController.cs`. This bare bone controller extends generated base controller and instantiate service implementation.
 
     ```csharp
     using Microsoft.AspNetCore.Mvc;
@@ -66,7 +30,7 @@ This folder was created from scratch with following steps.
     }
     ```
 
-5. Add `WidgetService.cs` to provide a simple in-memory data store service implementation for each of the operations.
+1. Add `WidgetService.cs` to provide a simple in-memory data store service implementation for each of the operations.
 
     ```csharp
     using DemoService.Service.Models;
