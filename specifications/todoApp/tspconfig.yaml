@@ -2,4 +2,4 @@ emit:
   - "@typespec/http-server-csharp"
 options:
   "@typespec/http-server-csharp":
-    emitter-output-dir: "{project-root}/../../server/aspnet/todoApp/generated"  
+    emitter-output-dir: "{project-root}/../../servers/aspnet/todoApp/generated"  

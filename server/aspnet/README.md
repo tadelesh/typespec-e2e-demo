@@ -7,8 +7,8 @@ If you want to recreate this folder from scratch, please see [steps below.](#ste
 ## Testing the server code
 
 1. Compile any TypeSpec under `/specifications/[SpecName]` with `npx tsp compile .`.
-1. The generated service code will be placed in `generated` folder under `/server/[SpecName]` from options
-1. Change path to `/server/[SpecName]` and run ASP.NET server project with `dotnet run`.
+1. The generated service code will be placed in `generated` folder under `/servers/[SpecName]` from options
+1. Change path to `/servers/[SpecName]` and run ASP.NET server project with `dotnet run`.
 1. Open a browser with `http://localhost:[PORT]/swagger/index.html` to test the server code. Use the `[Port]` number from previous step output.
 
 ## Steps to create the executable server projects

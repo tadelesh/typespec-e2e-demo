@@ -22,7 +22,7 @@ npm install
 
 ## Try out generated service code
 
-To try out generated service code for a TypeSpec, please follow the `README.MD` under `/server/[PLATFORM]/[spec].
+To try out generated service code for a TypeSpec, please follow the `README.MD` under `/servers/[PLATFORM]/[spec].
 
 ## License
 
