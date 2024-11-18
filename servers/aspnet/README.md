@@ -51,4 +51,4 @@ Each of the test server folder should have been set up so it is runnable. Howeve
         app.Run();
     ```
 
-1. Please follow the `README.md` file under each of the service for additional scaffolding setup.
+1. Please follow the `README.md` file under each of the service to create service stubs and controllers to enable full server functionality.
