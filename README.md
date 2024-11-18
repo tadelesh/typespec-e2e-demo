@@ -16,7 +16,7 @@ Before you begin, ensure you have met the following requirements:
 
 ## Repo Initialization
 
-To install or update TypeSpec and libraries, run the following command **once or every time `package.json` is updated**:
+Run the following command **once or every time `package.json` is updated**:
 
 ```sh
 npm install
@@ -24,9 +24,13 @@ npm install
 
 ## Try out generated service code
 
-To try out generated service code for a TypeSpec, please follow the `README.MD` under `/servers/[PLATFORM]/[spec].
+| Spec | Description | ASP.NET | Node |
+|----------|---------------|-------------|-------------|
+| widget  |  Sample REST service spec  | [:white_check_mark: Yes](./servers/aspnet/widget/) | -- |
+| petstore  |  Sample pet store spec | [:white_check_mark: Yes](./servers/aspnet/petstore/) | -- |
 
-Please review [README.md](./servers/aspnet/README.md)
+To try out generated service code for a TypeSpec, please follow the `README.MD` under `/servers/[PLATFORM]/[spec]. If an existing
+spec does not have corresponding server project listed, it means it is still work in progress.
 
 ## License
 

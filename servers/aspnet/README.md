@@ -2,16 +2,14 @@
 
 `/server/aspnet` folder contains a list of test server projects that coorespond to the TypeSpec specifications under `/specifications` folder.
 
-If you want to recreate this folder from scratch, please see [steps below.](#steps-to-create)
-
 ## Testing the server code
 
-1. Compile any TypeSpec under `/specifications/[SpecName]` with `npx tsp compile .`.
-1. The generated service code will be placed in `generated` folder under `/servers/[SpecName]` from options
-1. Change path to `/servers/[SpecName]` and run ASP.NET server project with `dotnet run`.
-1. Open a browser with `http://localhost:[PORT]/swagger/index.html` to test the server code. Use the `[Port]` number from previous step output.
+1. Compile any TypeSpec under `/specifications/[service]` with `npx tsp compile .`.
+1. The generated service code will be placed in respective server `generated` folders.
+1. Change path to `/servers/[service]` and execute `dotnet run`.
+1. Open a browser with `http://localhost:[PORT#]/swagger/index.html` to test the server code with built-in swagger UI.
 
-## Steps to create the executable server projects
+## Steps to create basic ASP.NET WebAPI projects
 
 Each of the test server folder should have been set up so it is runnable. However, if you would like to recreate the server folder from scratch, please follow these steps.
 
