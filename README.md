@@ -2,9 +2,9 @@
 
 This repository contains a number of TypeSpec API specifications and has been set up to test generated server code.
 
-As the server implementations vary, TypeSpec service emitters currently only generate API artifacts such as Models and Controllers as building blocks. This eliminates the need to synchronize any changes between TypeSpec and the service API surface. With the generated building blocks, you will still need to provide service scaffolding and business logic for a runnable server.
+As the server implementations vary, TypeSpec service emitters currently only generate API artifacts such as Models and Controllers as building blocks. This allows automatic updates to the service API and eliminates the need to manually keep them in sync with the API definitions.
 
-However, in this repository, we have added a small amount of scaffolding code and minimal service stub code so that the demo server projects can all be started for testing. We have provided the steps in the README.md in each folder. If you wish to recreate this folder from scratch or review the scaffolding steps, please see [README.md sections under /servers](./servers/aspnet/README.md).
+With these generated building blocks, you will need to provide service scaffolding and business logic for a runnable server. However, in this repository, we have added a small amount of scaffolding code and minimal service stub code so that the demo server projects can all be started for testing. We have provided the steps in the README.md in each folder. If you wish to recreate this folder from scratch or review the scaffolding steps, please see [README.md sections under /servers](./servers/aspnet/README.md).
 
 ## Prerequisites
 
