@@ -4,7 +4,9 @@ This repository contains a number of TypeSpec API specifications and has been se
 
 As the server implementations vary, TypeSpec service emitters currently only generate API artifacts such as Models and Controllers as building blocks. This allows automatic updates to the service API and eliminates the need to manually keep them in sync with the API definitions.
 
-With these generated building blocks, you will need to provide service scaffolding and business logic for a runnable server. However, in this repository, we have added a small amount of scaffolding code and minimal service stub code so that the demo server projects can all be started for testing. We have provided the steps in the README.md in each folder. If you wish to recreate this folder from scratch or review the scaffolding steps, please see [README.md sections under /servers](./servers/aspnet/README.md).
+With these generated building blocks, you will need to provide service scaffolding and business logic for a runnable server. However, in this repository, we have added a small amount of scaffolding code and minimal service stub code so that the demo server projects can all be started for testing.
+
+We have provided the steps in the README.md in each folder. If you wish to recreate this folder from scratch or review the scaffolding steps, please see [README.md sections under /servers](./servers/aspnet/README.md).
 
 ## Prerequisites
 
@@ -24,7 +26,16 @@ npm install
 
 ## Try out generated service code
 
-| Spec | Description | ASP.NET | Node |
+List of TypeSpec server emitters:
+
+| Emitters enabled | Emitter Source |
+|----------|---------------|
+| C# ASP.NET  | [GitHub Source](https://github.com/microsoft/typespec/tree/main/packages/http-server-csharp) |
+| Node.JS/Express  |  Coming Soon |
+
+List of specification with server demos:
+
+| specification | Description | ASP.NET | Node |
 |----------|---------------|-------------|-------------|
 | widget  |  Sample REST service spec  | [:white_check_mark: Yes](./servers/aspnet/widget/) | -- |
 | petstore  |  Sample pet store spec | [:white_check_mark: Yes](./servers/aspnet/petstore/) | -- |
