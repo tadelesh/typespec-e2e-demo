@@ -5,6 +5,7 @@
     "@azure-tools/typespec-client-generator-core": "^0.48.1",
     "@typespec/compiler": "^0.62.0",
     "@typespec/http": "^0.62.0",
+    "@typespec/http-client-csharp": "^0.1.9-alpha.20241118.3",
     "@typespec/http-server-csharp": "^0.58.0-alpha.5",
     "@typespec/json-schema": "^0.62.0",
     "@typespec/openapi": "^0.62.0",
