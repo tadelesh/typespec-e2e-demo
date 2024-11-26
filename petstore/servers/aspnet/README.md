@@ -4,7 +4,7 @@ The current folder contains Widget ASP.NET core basic project with basic service
 
 ## Testing the server code
 
-[Follow these steps](../README.md#testing-the-server-code)
+[Follow these steps](../../../how-to-test-server-api.md)
 
 ## Steps to re-create the executable server project
 
