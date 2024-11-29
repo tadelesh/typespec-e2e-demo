@@ -1,5 +1,8 @@
 emit:
   - "@typespec/http-server-csharp"
+  - "@typespec/http-client-csharp"
 options:
   "@typespec/http-server-csharp":
-    emitter-output-dir: "{project-root}/../servers/aspnet/generated"  
+    emitter-output-dir: "{project-root}/../servers/aspnet/generated"
+  "@typespec/http-client-csharp":
+    emitter-output-dir: "{project-root}/../clients/dotnet"  

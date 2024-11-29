@@ -199,9 +199,8 @@ namespace TodoItems {
   }
 
   model TodoPage {
-    @pageItems
     /** The items in the page */
-    items: TodoItem[];
+    @pageItems items: TodoItem[];
 
     /** The number of items returned in this page */
     pageSize: int32;
@@ -239,6 +238,10 @@ namespace TodoItems {
     @statusCode statusCode: 422;
   }
 
+  model Page<T> {
+    @pageItems items: T[];
+  }
+
   @list op list(...PaginationControls): WithStandardErrors<TodoPage>;
 
   @post
@@ -259,10 +262,10 @@ namespace TodoItems {
   ): WithStandardErrors<NoContentResponse | NotFoundResponse>;
 
   @route("{itemId}/attachments")
-  interface Attachments {
-    // @list op list(
-    //   @path itemId: TodoItem.id,
-    // ): WithStandardErrors<TodoAttachment[] | NotFoundResponse>;
+  namespace Attachments {
+    @list op list(
+      @path itemId: TodoItem.id,
+    ): WithStandardErrors<Page<TodoAttachment> | NotFoundResponse>;
 
     @sharedRoute
     @post
