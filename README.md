@@ -6,7 +6,7 @@ As the server implementations vary, TypeSpec service emitters currently only gen
 
 With these generated building blocks, you will still need service scaffolding and business logic for a runnable server. However, in this repository, scaffolding code and minimal service stub code have been added so that the demo server projects can all be started for testing. README.md in `/servers` and each of service folders will provide more information.
 
-If you wish to recreate this folder from scratch or review the scaffolding steps, please see [README.md sections under /servers](./servers/aspnet/README.md).
+If you wish to recreate this folder from scratch or review the scaffolding steps, please see [this guide](./how-to-test-server-api.md).
 
 ## Prerequisites
 
@@ -37,8 +37,8 @@ List of specification with server demos:
 
 | specification | Description | ASP.NET | Node |
 |----------|---------------|-------------|-------------|
-| widget  |  Sample REST service spec  | [:white_check_mark: Yes](./servers/aspnet/widget/) | -- |
-| petstore  |  Sample pet store spec | [:white_check_mark: Yes](./servers/aspnet/petstore/) | -- |
+| widget  |  Sample REST service spec  | [:white_check_mark: Yes](./widget/servers/aspnet/) | -- |
+| petstore  |  Sample pet store spec | [:white_check_mark: Yes](./petstore/servers/aspnet/) | -- |
 
 To try out generated service code for a TypeSpec, please follow the `README.MD` under `[spec]/servers/[PLATFORM]/`. If an existing
 spec does not have corresponding server project listed, it means it is still work in progress.

@@ -1,9 +1,13 @@
 emit:
  - "@typespec/http-server-csharp"
  - "@typespec/http-server-javascript"
+ - "@typespec/http-client-csharp"
+ - "@typespec/http-client-java"
 options:
   "@typespec/http-server-csharp":
     emitter-output-dir: "{project-root}/../servers/aspnet/generated"  
   "@typespec/http-server-javascript":
     emitter-output-dir: "{project-root}/../servers/node/tsp-output/@typespec/http-server-javascript"  
     express: true
+  "@typespec/http-client-java":
+    emitter-output-dir: "{project-root}/../clients/java"

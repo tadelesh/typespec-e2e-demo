@@ -199,25 +199,24 @@ namespace TodoItems {
   }
 
   model TodoPage {
-    @pageItems
     /** The items in the page */
-    items: TodoItem[];
+    @pageItems items: TodoItem[];
 
-    pagination: {
-      /** The number of items returned in this page */
-      pageSize: int32;
+    /** The number of items returned in this page */
+    pageSize: int32;
 
-      /** The total number of items */
-      totalSize: int32;
+    /** The total number of items */
+    totalSize: int32;
 
-      ...PaginationControls;
+    ...PaginationControls;
 
-      /** A link to the previous page, if it exists */
-      prevLink?: url;
+    /** A link to the previous page, if it exists */
+    @prevLink
+    prevLink?: url;
 
-      /** A link to the next page, if it exists */
-      nextLink?: url;
-    };
+    /** A link to the next page, if it exists */
+    @nextLink
+    nextLink?: url;
   }
 
   // deeply annoying that I have to copy/paste this...
@@ -237,6 +236,10 @@ namespace TodoItems {
 
   model InvalidTodoItem extends ApiError {
     @statusCode statusCode: 422;
+  }
+
+  model Page<T> {
+    @pageItems items: T[];
   }
 
   @list op list(...PaginationControls): WithStandardErrors<TodoPage>;
@@ -259,10 +262,10 @@ namespace TodoItems {
   ): WithStandardErrors<NoContentResponse | NotFoundResponse>;
 
   @route("{itemId}/attachments")
-  interface Attachments {
-    // @list op list(
-    //   @path itemId: TodoItem.id,
-    // ): WithStandardErrors<TodoAttachment[] | NotFoundResponse>;
+  namespace Attachments {
+    @list op list(
+      @path itemId: TodoItem.id,
+    ): WithStandardErrors<Page<TodoAttachment> | NotFoundResponse>;
 
     @sharedRoute
     @post
