@@ -17,9 +17,12 @@ model Widget {
 
 @error
 model Error {
+  @statusCode
+  @minValue(400)
+  @maxValue(599)
   code: int32;
+
   message: string;
 }
 
-interface WidgetService extends Resource.ResourceOperations<Widget, Error> {
-}
+interface WidgetService extends Resource.ResourceOperations<Widget, Error> {}

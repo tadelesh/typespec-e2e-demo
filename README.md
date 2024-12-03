@@ -31,7 +31,7 @@ List of TypeSpec server emitters:
 | Emitters enabled | Emitter Source |
 |----------|---------------|
 | C# ASP.NET  | [GitHub Source](https://github.com/microsoft/typespec/tree/main/packages/http-server-csharp) |
-| Node.JS/Express  |  Coming Soon |
+| Node.JS/Express  |  [GitHub Source](https://github.com/microsoft/typespec/tree/main/packages/http-server-javascript) |
 
 List of specification with server demos:
 
@@ -40,7 +40,7 @@ List of specification with server demos:
 | widget  |  Sample REST service spec  | [:white_check_mark: Yes](./widget/servers/aspnet/) | -- |
 | petstore  |  Sample pet store spec | [:white_check_mark: Yes](./petstore/servers/aspnet/) | -- |
 
-To try out generated service code for a TypeSpec, please follow the `README.MD` under `/servers/[PLATFORM]/[spec]. If an existing
+To try out generated service code for a TypeSpec, please follow the `README.MD` under `[spec]/servers/[PLATFORM]/`. If an existing
 spec does not have corresponding server project listed, it means it is still work in progress.
 
 ## License
