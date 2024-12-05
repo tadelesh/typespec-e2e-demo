@@ -1,6 +1,6 @@
-# TypeSpec Server Emitter Demo Repo
+# TypeSpec E2E Demo Repo
 
-This repository contains a number of TypeSpec API specifications and has been set up to test generated server code.
+This repository contains a number of TypeSpec API specifications and has been set up to test generated client and server code.
 
 As the server implementations vary, TypeSpec service emitters currently only generate API artifacts such as Models and Controllers as building blocks. This allows automatic updates to the service API and eliminates the need to manually keep them in sync with the API definitions.
 
@@ -28,17 +28,18 @@ npm install
 
 List of TypeSpec server emitters:
 
-| Emitters enabled | Emitter Source |
-|----------|---------------|
-| C# ASP.NET  | [GitHub Source](https://github.com/microsoft/typespec/tree/main/packages/http-server-csharp) |
-| Node.JS/Express  |  [GitHub Source](https://github.com/microsoft/typespec/tree/main/packages/http-server-javascript) |
+| Emitters enabled | Emitter Source                                                                                   |
+| ---------------- | ------------------------------------------------------------------------------------------------ |
+| C# ASP.NET       | [GitHub Source](https://github.com/microsoft/typespec/tree/main/packages/http-server-csharp)     |
+| Node.JS/Express  | [GitHub Source](https://github.com/microsoft/typespec/tree/main/packages/http-server-javascript) |
 
 List of specification with server demos:
 
-| specification | Description | ASP.NET | Node |
-|----------|---------------|-------------|-------------|
-| widget  |  Sample REST service spec  | [:white_check_mark: Yes](./widget/servers/aspnet/) | -- |
-| petstore  |  Sample pet store spec | [:white_check_mark: Yes](./petstore/servers/aspnet/) | -- |
+| specification | Description              | ASP.NET                                              | Node                                               | C# Client                                            |
+| ------------- | ------------------------ | ---------------------------------------------------- | -------------------------------------------------- | ---------------------------------------------------- |
+| widget        | Sample REST service      | [:white_check_mark: Yes](./widget/servers/aspnet/)   | [:white_check_mark: Yes](./widget/servers/aspnet/) | -                                                    |
+| petstore      | Sample Pet Store Service | [:white_check_mark: Yes](./petstore/servers/aspnet/) | [:white_check_mark: Yes](./petstore/servers/node/) | [:white_check_mark: Yes](./petstore/clients/dotnet/) |
+| todoApp       | Sample ToDo App          |                                                      |                                                    |                                                      |
 
 To try out generated service code for a TypeSpec, please follow the `README.MD` under `[spec]/servers/[PLATFORM]/`. If an existing
 spec does not have corresponding server project listed, it means it is still work in progress.

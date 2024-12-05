@@ -6,13 +6,14 @@ using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace DemoService.Service.Models
+namespace PetStore.Service.Models
 {
 
-    public partial class Error
+    ///<summary>
+    /// Resource deleted successfully.
+    ///</summary>
+    public partial class ResourceDeletedResponse
     {
-        public string Message { get; set; }
-
 
     }
 }

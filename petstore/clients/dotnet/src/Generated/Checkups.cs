@@ -5,6 +5,7 @@
 using System;
 using System.ClientModel;
 using System.ClientModel.Primitives;
+using System.Threading;
 using System.Threading.Tasks;
 using PetStore.Models;
 
@@ -111,15 +112,16 @@ namespace PetStore
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         public virtual ClientResult<CheckupCollectionWithNextLink> List()
         {
-            ClientResult result = List(null);
+            ClientResult result = List(options: null);
             return ClientResult.FromValue((CheckupCollectionWithNextLink)result, result.GetRawResponse());
         }
 
         /// <summary> Lists all instances of the resource. </summary>
+        /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual async Task<ClientResult<CheckupCollectionWithNextLink>> ListAsync()
+        public virtual async Task<ClientResult<CheckupCollectionWithNextLink>> ListAsync(CancellationToken cancellationToken = default)
         {
-            ClientResult result = await ListAsync(null).ConfigureAwait(false);
+            ClientResult result = await ListAsync(cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null).ConfigureAwait(false);
             return ClientResult.FromValue((CheckupCollectionWithNextLink)result, result.GetRawResponse());
         }
     }

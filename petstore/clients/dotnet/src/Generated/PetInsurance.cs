@@ -5,6 +5,7 @@
 using System;
 using System.ClientModel;
 using System.ClientModel.Primitives;
+using System.Threading;
 using System.Threading.Tasks;
 using PetStore.Models;
 
@@ -70,16 +71,17 @@ namespace PetStore
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         public virtual ClientResult<Insurance> Get(int petId)
         {
-            ClientResult result = Get(petId, null);
+            ClientResult result = Get(petId, options: null);
             return ClientResult.FromValue((Insurance)result, result.GetRawResponse());
         }
 
         /// <summary> Gets the singleton resource. </summary>
         /// <param name="petId"></param>
+        /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual async Task<ClientResult<Insurance>> GetAsync(int petId)
+        public virtual async Task<ClientResult<Insurance>> GetAsync(int petId, CancellationToken cancellationToken = default)
         {
-            ClientResult result = await GetAsync(petId, null).ConfigureAwait(false);
+            ClientResult result = await GetAsync(petId, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null).ConfigureAwait(false);
             return ClientResult.FromValue((Insurance)result, result.GetRawResponse());
         }
 
