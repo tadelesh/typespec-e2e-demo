@@ -9,8 +9,7 @@ import io.clientcore.core.http.models.RequestOptions;
 import io.clientcore.core.http.models.Response;
 import io.clientcore.core.util.binarydata.BinaryData;
 import petstore.implementation.OwnerInsurancesImpl;
-import petstore.models.Insurance;
-import typespec.rest.resource.models.InsuranceUpdate;
+import typespec.rest.resource.InsuranceUpdate;
 
 /**
  * Initializes a new instance of the synchronous PetStoreClient type.

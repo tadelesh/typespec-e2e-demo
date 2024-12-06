@@ -9,10 +9,9 @@ import io.clientcore.core.http.models.RequestOptions;
 import io.clientcore.core.http.models.Response;
 import io.clientcore.core.util.binarydata.BinaryData;
 import petstore.implementation.OwnersImpl;
-import petstore.models.Owner;
-import typespec.rest.resource.models.OwnerCollectionWithNextLink;
-import typespec.rest.resource.models.OwnerCreate;
-import typespec.rest.resource.models.OwnerUpdate;
+import typespec.rest.resource.OwnerCollectionWithNextLink;
+import typespec.rest.resource.OwnerCreate;
+import typespec.rest.resource.OwnerUpdate;
 
 /**
  * Initializes a new instance of the synchronous PetStoreClient type.

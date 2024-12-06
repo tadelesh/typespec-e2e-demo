@@ -9,7 +9,7 @@ import io.clientcore.core.http.models.RequestOptions;
 import io.clientcore.core.http.models.Response;
 import io.clientcore.core.util.binarydata.BinaryData;
 import todo.implementation.TodoItemsAttachmentsImpl;
-import todo.todoitems.models.PageTodoAttachment;
+import todo.todoitems.PageTodoAttachment;
 
 /**
  * Initializes a new instance of the synchronous TodoClient type.

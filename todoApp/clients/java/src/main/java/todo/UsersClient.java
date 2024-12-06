@@ -9,8 +9,6 @@ import io.clientcore.core.http.models.RequestOptions;
 import io.clientcore.core.http.models.Response;
 import io.clientcore.core.util.binarydata.BinaryData;
 import todo.implementation.UsersImpl;
-import todo.models.CreateResponse1;
-import todo.models.User;
 
 /**
  * Initializes a new instance of the synchronous TodoClient type.

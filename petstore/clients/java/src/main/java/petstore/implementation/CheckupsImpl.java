@@ -15,8 +15,9 @@ import io.clientcore.core.http.models.HttpMethod;
 import io.clientcore.core.http.models.RequestOptions;
 import io.clientcore.core.http.models.Response;
 import io.clientcore.core.util.binarydata.BinaryData;
-import petstore.models.Checkup;
-import typespec.rest.resource.models.CheckupCollectionWithNextLink;
+import petstore.Checkup;
+import petstore.PetStoreError;
+import typespec.rest.resource.CheckupCollectionWithNextLink;
 
 /**
  * An instance of this class provides access to all the operations defined in Checkups.
@@ -52,20 +53,14 @@ public final class CheckupsImpl {
             method = HttpMethod.PATCH,
             path = "/checkups/{checkupId}",
             expectedStatusCodes = { 200, 201 })
-        @UnexpectedResponseExceptionDetail(exceptionTypeName = "CLIENT_AUTHENTICATION", statusCode = { 401 })
-        @UnexpectedResponseExceptionDetail(exceptionTypeName = "RESOURCE_NOT_FOUND", statusCode = { 404 })
-        @UnexpectedResponseExceptionDetail(exceptionTypeName = "RESOURCE_MODIFIED", statusCode = { 409 })
-        @UnexpectedResponseExceptionDetail
+        @UnexpectedResponseExceptionDetail(exceptionBodyClass = PetStoreError.class)
         Response<Checkup> createOrUpdateSync(@HostParam("endpoint") String endpoint,
             @PathParam("checkupId") int checkupId, @HeaderParam("Content-Type") String contentType,
             @HeaderParam("Accept") String accept, @BodyParam("application/json") BinaryData resource,
             RequestOptions requestOptions);
 
         @HttpRequestInformation(method = HttpMethod.GET, path = "/checkups", expectedStatusCodes = { 200 })
-        @UnexpectedResponseExceptionDetail(exceptionTypeName = "CLIENT_AUTHENTICATION", statusCode = { 401 })
-        @UnexpectedResponseExceptionDetail(exceptionTypeName = "RESOURCE_NOT_FOUND", statusCode = { 404 })
-        @UnexpectedResponseExceptionDetail(exceptionTypeName = "RESOURCE_MODIFIED", statusCode = { 409 })
-        @UnexpectedResponseExceptionDetail
+        @UnexpectedResponseExceptionDetail(exceptionBodyClass = PetStoreError.class)
         Response<CheckupCollectionWithNextLink> listSync(@HostParam("endpoint") String endpoint,
             @HeaderParam("Accept") String accept, RequestOptions requestOptions);
     }

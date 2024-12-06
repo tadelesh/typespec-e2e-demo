@@ -15,8 +15,9 @@ import io.clientcore.core.http.models.HttpMethod;
 import io.clientcore.core.http.models.RequestOptions;
 import io.clientcore.core.http.models.Response;
 import io.clientcore.core.util.binarydata.BinaryData;
-import petstore.models.Owner;
-import typespec.rest.resource.models.OwnerCollectionWithNextLink;
+import petstore.Owner;
+import petstore.PetStoreError;
+import typespec.rest.resource.OwnerCollectionWithNextLink;
 
 /**
  * An instance of this class provides access to all the operations defined in Owners.
@@ -49,44 +50,29 @@ public final class OwnersImpl {
     @ServiceInterface(name = "PetStoreClientOwners", host = "{endpoint}")
     public interface OwnersService {
         @HttpRequestInformation(method = HttpMethod.GET, path = "/owners/{ownerId}", expectedStatusCodes = { 200 })
-        @UnexpectedResponseExceptionDetail(exceptionTypeName = "CLIENT_AUTHENTICATION", statusCode = { 401 })
-        @UnexpectedResponseExceptionDetail(exceptionTypeName = "RESOURCE_NOT_FOUND", statusCode = { 404 })
-        @UnexpectedResponseExceptionDetail(exceptionTypeName = "RESOURCE_MODIFIED", statusCode = { 409 })
-        @UnexpectedResponseExceptionDetail
+        @UnexpectedResponseExceptionDetail(exceptionBodyClass = PetStoreError.class)
         Response<Owner> getSync(@HostParam("endpoint") String endpoint, @PathParam("ownerId") long ownerId,
             @HeaderParam("Accept") String accept, RequestOptions requestOptions);
 
         @HttpRequestInformation(method = HttpMethod.PATCH, path = "/owners/{ownerId}", expectedStatusCodes = { 200 })
-        @UnexpectedResponseExceptionDetail(exceptionTypeName = "CLIENT_AUTHENTICATION", statusCode = { 401 })
-        @UnexpectedResponseExceptionDetail(exceptionTypeName = "RESOURCE_NOT_FOUND", statusCode = { 404 })
-        @UnexpectedResponseExceptionDetail(exceptionTypeName = "RESOURCE_MODIFIED", statusCode = { 409 })
-        @UnexpectedResponseExceptionDetail
+        @UnexpectedResponseExceptionDetail(exceptionBodyClass = PetStoreError.class)
         Response<Owner> updateSync(@HostParam("endpoint") String endpoint, @PathParam("ownerId") long ownerId,
             @HeaderParam("Content-Type") String contentType, @HeaderParam("Accept") String accept,
             @BodyParam("application/json") BinaryData properties, RequestOptions requestOptions);
 
         @HttpRequestInformation(method = HttpMethod.DELETE, path = "/owners/{ownerId}", expectedStatusCodes = { 200 })
-        @UnexpectedResponseExceptionDetail(exceptionTypeName = "CLIENT_AUTHENTICATION", statusCode = { 401 })
-        @UnexpectedResponseExceptionDetail(exceptionTypeName = "RESOURCE_NOT_FOUND", statusCode = { 404 })
-        @UnexpectedResponseExceptionDetail(exceptionTypeName = "RESOURCE_MODIFIED", statusCode = { 409 })
-        @UnexpectedResponseExceptionDetail
+        @UnexpectedResponseExceptionDetail(exceptionBodyClass = PetStoreError.class)
         Response<Void> deleteSync(@HostParam("endpoint") String endpoint, @PathParam("ownerId") long ownerId,
             @HeaderParam("Accept") String accept, RequestOptions requestOptions);
 
         @HttpRequestInformation(method = HttpMethod.POST, path = "/owners", expectedStatusCodes = { 200, 201 })
-        @UnexpectedResponseExceptionDetail(exceptionTypeName = "CLIENT_AUTHENTICATION", statusCode = { 401 })
-        @UnexpectedResponseExceptionDetail(exceptionTypeName = "RESOURCE_NOT_FOUND", statusCode = { 404 })
-        @UnexpectedResponseExceptionDetail(exceptionTypeName = "RESOURCE_MODIFIED", statusCode = { 409 })
-        @UnexpectedResponseExceptionDetail
+        @UnexpectedResponseExceptionDetail(exceptionBodyClass = PetStoreError.class)
         Response<Owner> createSync(@HostParam("endpoint") String endpoint,
             @HeaderParam("Content-Type") String contentType, @HeaderParam("Accept") String accept,
             @BodyParam("application/json") BinaryData resource, RequestOptions requestOptions);
 
         @HttpRequestInformation(method = HttpMethod.GET, path = "/owners", expectedStatusCodes = { 200 })
-        @UnexpectedResponseExceptionDetail(exceptionTypeName = "CLIENT_AUTHENTICATION", statusCode = { 401 })
-        @UnexpectedResponseExceptionDetail(exceptionTypeName = "RESOURCE_NOT_FOUND", statusCode = { 404 })
-        @UnexpectedResponseExceptionDetail(exceptionTypeName = "RESOURCE_MODIFIED", statusCode = { 409 })
-        @UnexpectedResponseExceptionDetail
+        @UnexpectedResponseExceptionDetail(exceptionBodyClass = PetStoreError.class)
         Response<OwnerCollectionWithNextLink> listSync(@HostParam("endpoint") String endpoint,
             @HeaderParam("Accept") String accept, RequestOptions requestOptions);
     }

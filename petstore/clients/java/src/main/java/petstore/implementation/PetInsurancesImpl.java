@@ -15,7 +15,8 @@ import io.clientcore.core.http.models.HttpMethod;
 import io.clientcore.core.http.models.RequestOptions;
 import io.clientcore.core.http.models.Response;
 import io.clientcore.core.util.binarydata.BinaryData;
-import petstore.models.Insurance;
+import petstore.Insurance;
+import petstore.PetStoreError;
 
 /**
  * An instance of this class provides access to all the operations defined in PetInsurances.
@@ -51,10 +52,7 @@ public final class PetInsurancesImpl {
             method = HttpMethod.GET,
             path = "/pets/{petId}/insurance",
             expectedStatusCodes = { 200 })
-        @UnexpectedResponseExceptionDetail(exceptionTypeName = "CLIENT_AUTHENTICATION", statusCode = { 401 })
-        @UnexpectedResponseExceptionDetail(exceptionTypeName = "RESOURCE_NOT_FOUND", statusCode = { 404 })
-        @UnexpectedResponseExceptionDetail(exceptionTypeName = "RESOURCE_MODIFIED", statusCode = { 409 })
-        @UnexpectedResponseExceptionDetail
+        @UnexpectedResponseExceptionDetail(exceptionBodyClass = PetStoreError.class)
         Response<Insurance> getSync(@HostParam("endpoint") String endpoint, @PathParam("petId") int petId,
             @HeaderParam("Accept") String accept, RequestOptions requestOptions);
 
@@ -62,10 +60,7 @@ public final class PetInsurancesImpl {
             method = HttpMethod.PATCH,
             path = "/pets/{petId}/insurance",
             expectedStatusCodes = { 200 })
-        @UnexpectedResponseExceptionDetail(exceptionTypeName = "CLIENT_AUTHENTICATION", statusCode = { 401 })
-        @UnexpectedResponseExceptionDetail(exceptionTypeName = "RESOURCE_NOT_FOUND", statusCode = { 404 })
-        @UnexpectedResponseExceptionDetail(exceptionTypeName = "RESOURCE_MODIFIED", statusCode = { 409 })
-        @UnexpectedResponseExceptionDetail
+        @UnexpectedResponseExceptionDetail(exceptionBodyClass = PetStoreError.class)
         Response<Insurance> updateSync(@HostParam("endpoint") String endpoint, @PathParam("petId") int petId,
             @HeaderParam("Content-Type") String contentType, @HeaderParam("Accept") String accept,
             @BodyParam("application/json") BinaryData properties, RequestOptions requestOptions);

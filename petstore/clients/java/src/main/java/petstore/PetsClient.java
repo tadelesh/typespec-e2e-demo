@@ -9,10 +9,9 @@ import io.clientcore.core.http.models.RequestOptions;
 import io.clientcore.core.http.models.Response;
 import io.clientcore.core.util.binarydata.BinaryData;
 import petstore.implementation.PetsImpl;
-import petstore.models.Pet;
-import typespec.rest.resource.models.PetCollectionWithNextLink;
-import typespec.rest.resource.models.PetCreate;
-import typespec.rest.resource.models.PetUpdate;
+import typespec.rest.resource.PetCollectionWithNextLink;
+import typespec.rest.resource.PetCreate;
+import typespec.rest.resource.PetUpdate;
 
 /**
  * Initializes a new instance of the synchronous PetStoreClient type.

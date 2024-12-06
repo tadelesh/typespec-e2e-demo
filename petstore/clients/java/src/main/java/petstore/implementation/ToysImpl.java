@@ -14,8 +14,9 @@ import io.clientcore.core.http.exception.HttpResponseException;
 import io.clientcore.core.http.models.HttpMethod;
 import io.clientcore.core.http.models.RequestOptions;
 import io.clientcore.core.http.models.Response;
-import petstore.models.Toy;
-import typespec.rest.resource.models.ToyCollectionWithNextLink;
+import petstore.PetStoreError;
+import petstore.Toy;
+import typespec.rest.resource.ToyCollectionWithNextLink;
 
 /**
  * An instance of this class provides access to all the operations defined in Toys.
@@ -51,18 +52,12 @@ public final class ToysImpl {
             method = HttpMethod.GET,
             path = "/pets/{petId}/toys/{toyId}",
             expectedStatusCodes = { 200 })
-        @UnexpectedResponseExceptionDetail(exceptionTypeName = "CLIENT_AUTHENTICATION", statusCode = { 401 })
-        @UnexpectedResponseExceptionDetail(exceptionTypeName = "RESOURCE_NOT_FOUND", statusCode = { 404 })
-        @UnexpectedResponseExceptionDetail(exceptionTypeName = "RESOURCE_MODIFIED", statusCode = { 409 })
-        @UnexpectedResponseExceptionDetail
+        @UnexpectedResponseExceptionDetail(exceptionBodyClass = PetStoreError.class)
         Response<Toy> getSync(@HostParam("endpoint") String endpoint, @PathParam("petId") int petId,
             @PathParam("toyId") long toyId, @HeaderParam("Accept") String accept, RequestOptions requestOptions);
 
         @HttpRequestInformation(method = HttpMethod.GET, path = "/pets/{petId}/toys", expectedStatusCodes = { 200 })
-        @UnexpectedResponseExceptionDetail(exceptionTypeName = "CLIENT_AUTHENTICATION", statusCode = { 401 })
-        @UnexpectedResponseExceptionDetail(exceptionTypeName = "RESOURCE_NOT_FOUND", statusCode = { 404 })
-        @UnexpectedResponseExceptionDetail(exceptionTypeName = "RESOURCE_MODIFIED", statusCode = { 409 })
-        @UnexpectedResponseExceptionDetail
+        @UnexpectedResponseExceptionDetail(exceptionBodyClass = PetStoreError.class)
         Response<ToyCollectionWithNextLink> listSync(@HostParam("endpoint") String endpoint,
             @PathParam("petId") int petId, @QueryParam("nameFilter") String nameFilter,
             @HeaderParam("Accept") String accept, RequestOptions requestOptions);

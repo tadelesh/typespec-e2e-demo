@@ -4,10 +4,12 @@ module todo {
     requires transitive io.clientcore.core;
 
     exports todo;
-    exports todo.models;
-    exports todo.todoitems.models;
+    exports todo.users;
+    exports todo.implementation;
+    exports todo.todoitems;
 
-    opens todo.implementation.models to io.clientcore.core;
-    opens todo.models to io.clientcore.core;
-    opens todo.todoitems.models to io.clientcore.core;
+    opens todo to io.clientcore.core;
+    opens todo.users to io.clientcore.core;
+    opens todo.implementation to io.clientcore.core;
+    opens todo.todoitems to io.clientcore.core;
 }
