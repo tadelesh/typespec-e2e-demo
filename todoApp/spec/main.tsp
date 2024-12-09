@@ -238,6 +238,20 @@ namespace TodoItems {
     @statusCode statusCode: 422;
   }
 
+  /**
+   * We need to decorate NotFoundResponse with an explicit `@error` decorator so it's clear that
+   * it is not a valid response
+   */
+  @error
+  model NotFoundErrorResponse is NotFoundResponse;
+
+  /**
+   * We need to decorate NoContentResponse with an explicit `@error` decorator so it's clear that
+   * it is not a valid response
+   */
+  @error
+  model NoContentErrorResponse is NoContentResponse;
+
   model Page<T> {
     @pageItems items: T[];
   }
@@ -251,7 +265,7 @@ namespace TodoItems {
     attachments?: TodoAttachment[],
   ): WithStandardErrors<TodoItem | InvalidTodoItem>;
 
-  @get op get(@path id: TodoItem.id): TodoItem | NotFoundResponse;
+  @get op get(@path id: TodoItem.id): TodoItem | NotFoundErrorResponse;
   @patch op update(
     @header contentType: "application/merge-patch+json",
     @path id: TodoItem.id,
@@ -259,19 +273,19 @@ namespace TodoItems {
   ): TodoItem;
   @delete op delete(
     @path id: TodoItem.id,
-  ): WithStandardErrors<NoContentResponse | NotFoundResponse>;
+  ): WithStandardErrors<NoContentErrorResponse | NotFoundErrorResponse>;
 
   @route("{itemId}/attachments")
   namespace Attachments {
     @list op list(
       @path itemId: TodoItem.id,
-    ): WithStandardErrors<Page<TodoAttachment> | NotFoundResponse>;
+    ): WithStandardErrors<Page<TodoAttachment> | NotFoundErrorResponse>;
 
     @sharedRoute
     @post
     op createAttachment(
       @path itemId: TodoItem.id,
       @body contents: TodoAttachment,
-    ): WithStandardErrors<NoContentResponse | NotFoundResponse>;
+    ): WithStandardErrors<NoContentErrorResponse | NotFoundErrorResponse>;
   }
 }
