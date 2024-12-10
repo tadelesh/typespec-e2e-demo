@@ -9,15 +9,11 @@ import io.clientcore.core.http.models.RequestOptions;
 import io.clientcore.core.http.models.Response;
 import io.clientcore.core.util.binarydata.BinaryData;
 import java.util.List;
+import todo.implementation.CreateRequest;
 import todo.implementation.JsonMergePatchHelper;
 import todo.implementation.TodoItemsImpl;
-import todo.implementation.models.CreateRequest;
-import todo.models.CreateResponse;
-import todo.models.GetResponse;
-import todo.models.TodoItem;
-import todo.models.UpdateResponse;
-import todo.todoitems.models.TodoItemPatch;
-import todo.todoitems.models.TodoPage;
+import todo.todoitems.TodoItemPatch;
+import todo.todoitems.TodoPage;
 
 /**
  * Initializes a new instance of the synchronous TodoClient type.

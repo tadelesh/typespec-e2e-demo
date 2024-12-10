@@ -2,7 +2,7 @@
 
 package todo.implementation;
 
-import todo.todoitems.models.TodoItemPatch;
+import todo.todoitems.TodoItemPatch;
 
 /**
  * This is the Helper class to enable json merge patch serialization for a model.

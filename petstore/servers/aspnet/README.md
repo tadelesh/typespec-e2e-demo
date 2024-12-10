@@ -16,16 +16,16 @@ If you would like to recreate the server folder from scratch, please follow thes
 
 1. Create `Controllers` folder and add controller classes `XXXServiceController.cs`. These bare bone controller extends emitter ControllerBase code and links to the service stub code in previous step.
 
-    ```csharp
-    using Microsoft.AspNetCore.Mvc;
-    
-    // Replace `XXX` with the name of the controller
-    namespace PetStore.Service.Controllers
+```csharp
+using Microsoft.AspNetCore.Mvc;
+
+// Replace `XXX` with the name of the controller
+namespace PetStore.Service.Controllers
+{
+    [ApiController]
+    public class `XXX`Controller : `XXX`ControllerBase
     {
-        [ApiController]
-        public class `XXX`Controller : `XXX`ControllerBase
-        {
-            internal override I`XXX` `XXX`Impl => new `XXX`();
-        }
+        internal override I`XXX` `XXX`Impl => new `XXX`();
     }
-    ```
+}
+```

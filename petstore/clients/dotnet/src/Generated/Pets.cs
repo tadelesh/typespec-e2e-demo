@@ -5,6 +5,7 @@
 using System;
 using System.ClientModel;
 using System.ClientModel.Primitives;
+using System.Threading;
 using System.Threading.Tasks;
 using PetStore.Models;
 
@@ -70,16 +71,17 @@ namespace PetStore
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         public virtual ClientResult<Pet> Get(int petId)
         {
-            ClientResult result = Get(petId, null);
+            ClientResult result = Get(petId, options: null);
             return ClientResult.FromValue((Pet)result, result.GetRawResponse());
         }
 
         /// <summary> Gets an instance of the resource. </summary>
         /// <param name="petId"></param>
+        /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual async Task<ClientResult<Pet>> GetAsync(int petId)
+        public virtual async Task<ClientResult<Pet>> GetAsync(int petId, CancellationToken cancellationToken = default)
         {
-            ClientResult result = await GetAsync(petId, null).ConfigureAwait(false);
+            ClientResult result = await GetAsync(petId, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null).ConfigureAwait(false);
             return ClientResult.FromValue((Pet)result, result.GetRawResponse());
         }
 
@@ -168,15 +170,16 @@ namespace PetStore
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         public virtual ClientResult Delete(int petId)
         {
-            return Delete(petId, null);
+            return Delete(petId, options: null);
         }
 
         /// <summary> Deletes an existing instance of the resource. </summary>
         /// <param name="petId"></param>
+        /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual async Task<ClientResult> DeleteAsync(int petId)
+        public virtual async Task<ClientResult> DeleteAsync(int petId, CancellationToken cancellationToken = default)
         {
-            return await DeleteAsync(petId, null).ConfigureAwait(false);
+            return await DeleteAsync(petId, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -229,19 +232,20 @@ namespace PetStore
         {
             Argument.AssertNotNull(resource, nameof(resource));
 
-            ClientResult result = Create(resource, null);
+            ClientResult result = Create(resource, options: null);
             return ClientResult.FromValue((Pet)result, result.GetRawResponse());
         }
 
         /// <summary> Creates a new instance of the resource. </summary>
         /// <param name="resource"></param>
+        /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resource"/> is null. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual async Task<ClientResult<Pet>> CreateAsync(PetCreate resource)
+        public virtual async Task<ClientResult<Pet>> CreateAsync(PetCreate resource, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resource, nameof(resource));
 
-            ClientResult result = await CreateAsync(resource, null).ConfigureAwait(false);
+            ClientResult result = await CreateAsync(resource, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null).ConfigureAwait(false);
             return ClientResult.FromValue((Pet)result, result.GetRawResponse());
         }
 
@@ -283,15 +287,16 @@ namespace PetStore
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         public virtual ClientResult<PetCollectionWithNextLink> List()
         {
-            ClientResult result = List(null);
+            ClientResult result = List(options: null);
             return ClientResult.FromValue((PetCollectionWithNextLink)result, result.GetRawResponse());
         }
 
         /// <summary> Lists all instances of the resource. </summary>
+        /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual async Task<ClientResult<PetCollectionWithNextLink>> ListAsync()
+        public virtual async Task<ClientResult<PetCollectionWithNextLink>> ListAsync(CancellationToken cancellationToken = default)
         {
-            ClientResult result = await ListAsync(null).ConfigureAwait(false);
+            ClientResult result = await ListAsync(cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null).ConfigureAwait(false);
             return ClientResult.FromValue((PetCollectionWithNextLink)result, result.GetRawResponse());
         }
     }

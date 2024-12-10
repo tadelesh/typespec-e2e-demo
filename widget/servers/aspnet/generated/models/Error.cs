@@ -11,8 +11,6 @@ namespace DemoService.Service.Models
 
     public partial class Error
     {
-        public int Code { get; set; }
-
         public string Message { get; set; }
 
 
