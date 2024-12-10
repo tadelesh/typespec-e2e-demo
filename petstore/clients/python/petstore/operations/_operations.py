@@ -21,7 +21,7 @@ from corehttp.runtime.pipeline import PipelineResponse
 from corehttp.utils import case_insensitive_dict
 
 from .. import models as _models
-from .._model_base import SdkJSONEncoder, _deserialize
+from .._model_base import SdkJSONEncoder, _deserialize, _failsafe_deserialize
 from .._serialization import Serializer
 
 if sys.version_info >= (3, 9):
@@ -571,7 +571,7 @@ class PetsOperations:
                 except (StreamConsumedError, StreamClosedError):
                     pass
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = _deserialize(_models.PetStoreError, response.json())
+            error = _failsafe_deserialize(_models.PetStoreError, response.json())
             raise HttpResponseError(response=response, model=error)
 
         if _stream:
@@ -694,7 +694,7 @@ class PetsOperations:
                 except (StreamConsumedError, StreamClosedError):
                     pass
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = _deserialize(_models.PetStoreError, response.json())
+            error = _failsafe_deserialize(_models.PetStoreError, response.json())
             raise HttpResponseError(response=response, model=error)
 
         if _stream:
@@ -746,7 +746,7 @@ class PetsOperations:
 
         if response.status_code not in [200]:
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = _deserialize(_models.PetStoreError, response.json())
+            error = _failsafe_deserialize(_models.PetStoreError, response.json())
             raise HttpResponseError(response=response, model=error)
 
         if cls:
@@ -849,7 +849,7 @@ class PetsOperations:
                 except (StreamConsumedError, StreamClosedError):
                     pass
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = _deserialize(_models.PetStoreError, response.json())
+            error = _failsafe_deserialize(_models.PetStoreError, response.json())
             raise HttpResponseError(response=response, model=error)
 
         if _stream:
@@ -904,7 +904,7 @@ class PetsOperations:
                 except (StreamConsumedError, StreamClosedError):
                     pass
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = _deserialize(_models.PetStoreError, response.json())
+            error = _failsafe_deserialize(_models.PetStoreError, response.json())
             raise HttpResponseError(response=response, model=error)
 
         if _stream:
@@ -1068,7 +1068,7 @@ class PetCheckupsOperations:
                 except (StreamConsumedError, StreamClosedError):
                     pass
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = _deserialize(_models.PetStoreError, response.json())
+            error = _failsafe_deserialize(_models.PetStoreError, response.json())
             raise HttpResponseError(response=response, model=error)
 
         if _stream:
@@ -1126,7 +1126,7 @@ class PetCheckupsOperations:
                 except (StreamConsumedError, StreamClosedError):
                     pass
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = _deserialize(_models.PetStoreError, response.json())
+            error = _failsafe_deserialize(_models.PetStoreError, response.json())
             raise HttpResponseError(response=response, model=error)
 
         if _stream:
@@ -1201,7 +1201,7 @@ class PetInsuranceOperations:
                 except (StreamConsumedError, StreamClosedError):
                     pass
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = _deserialize(_models.PetStoreError, response.json())
+            error = _failsafe_deserialize(_models.PetStoreError, response.json())
             raise HttpResponseError(response=response, model=error)
 
         if _stream:
@@ -1326,7 +1326,7 @@ class PetInsuranceOperations:
                 except (StreamConsumedError, StreamClosedError):
                     pass
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = _deserialize(_models.PetStoreError, response.json())
+            error = _failsafe_deserialize(_models.PetStoreError, response.json())
             raise HttpResponseError(response=response, model=error)
 
         if _stream:
@@ -1404,7 +1404,7 @@ class ToysOperations:
                 except (StreamConsumedError, StreamClosedError):
                     pass
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = _deserialize(_models.PetStoreError, response.json())
+            error = _failsafe_deserialize(_models.PetStoreError, response.json())
             raise HttpResponseError(response=response, model=error)
 
         if _stream:
@@ -1465,7 +1465,7 @@ class ToysOperations:
                 except (StreamConsumedError, StreamClosedError):
                     pass
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = _deserialize(_models.PetStoreError, response.json())
+            error = _failsafe_deserialize(_models.PetStoreError, response.json())
             raise HttpResponseError(response=response, model=error)
 
         if _stream:
@@ -1543,7 +1543,7 @@ class ToyInsuranceOperations:
                 except (StreamConsumedError, StreamClosedError):
                     pass
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = _deserialize(_models.PetStoreError, response.json())
+            error = _failsafe_deserialize(_models.PetStoreError, response.json())
             raise HttpResponseError(response=response, model=error)
 
         if _stream:
@@ -1683,7 +1683,7 @@ class ToyInsuranceOperations:
                 except (StreamConsumedError, StreamClosedError):
                     pass
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = _deserialize(_models.PetStoreError, response.json())
+            error = _failsafe_deserialize(_models.PetStoreError, response.json())
             raise HttpResponseError(response=response, model=error)
 
         if _stream:
@@ -1826,7 +1826,7 @@ class CheckupsOperations:
                 except (StreamConsumedError, StreamClosedError):
                     pass
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = _deserialize(_models.PetStoreError, response.json())
+            error = _failsafe_deserialize(_models.PetStoreError, response.json())
             raise HttpResponseError(response=response, model=error)
 
         if _stream:
@@ -1881,7 +1881,7 @@ class CheckupsOperations:
                 except (StreamConsumedError, StreamClosedError):
                     pass
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = _deserialize(_models.PetStoreError, response.json())
+            error = _failsafe_deserialize(_models.PetStoreError, response.json())
             raise HttpResponseError(response=response, model=error)
 
         if _stream:
@@ -1956,7 +1956,7 @@ class OwnersOperations:
                 except (StreamConsumedError, StreamClosedError):
                     pass
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = _deserialize(_models.PetStoreError, response.json())
+            error = _failsafe_deserialize(_models.PetStoreError, response.json())
             raise HttpResponseError(response=response, model=error)
 
         if _stream:
@@ -2081,7 +2081,7 @@ class OwnersOperations:
                 except (StreamConsumedError, StreamClosedError):
                     pass
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = _deserialize(_models.PetStoreError, response.json())
+            error = _failsafe_deserialize(_models.PetStoreError, response.json())
             raise HttpResponseError(response=response, model=error)
 
         if _stream:
@@ -2133,7 +2133,7 @@ class OwnersOperations:
 
         if response.status_code not in [200]:
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = _deserialize(_models.PetStoreError, response.json())
+            error = _failsafe_deserialize(_models.PetStoreError, response.json())
             raise HttpResponseError(response=response, model=error)
 
         if cls:
@@ -2236,7 +2236,7 @@ class OwnersOperations:
                 except (StreamConsumedError, StreamClosedError):
                     pass
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = _deserialize(_models.PetStoreError, response.json())
+            error = _failsafe_deserialize(_models.PetStoreError, response.json())
             raise HttpResponseError(response=response, model=error)
 
         if _stream:
@@ -2291,7 +2291,7 @@ class OwnersOperations:
                 except (StreamConsumedError, StreamClosedError):
                     pass
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = _deserialize(_models.PetStoreError, response.json())
+            error = _failsafe_deserialize(_models.PetStoreError, response.json())
             raise HttpResponseError(response=response, model=error)
 
         if _stream:
@@ -2455,7 +2455,7 @@ class OwnerCheckupsOperations:
                 except (StreamConsumedError, StreamClosedError):
                     pass
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = _deserialize(_models.PetStoreError, response.json())
+            error = _failsafe_deserialize(_models.PetStoreError, response.json())
             raise HttpResponseError(response=response, model=error)
 
         if _stream:
@@ -2513,7 +2513,7 @@ class OwnerCheckupsOperations:
                 except (StreamConsumedError, StreamClosedError):
                     pass
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = _deserialize(_models.PetStoreError, response.json())
+            error = _failsafe_deserialize(_models.PetStoreError, response.json())
             raise HttpResponseError(response=response, model=error)
 
         if _stream:
@@ -2588,7 +2588,7 @@ class OwnerInsuranceOperations:
                 except (StreamConsumedError, StreamClosedError):
                     pass
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = _deserialize(_models.PetStoreError, response.json())
+            error = _failsafe_deserialize(_models.PetStoreError, response.json())
             raise HttpResponseError(response=response, model=error)
 
         if _stream:
@@ -2718,7 +2718,7 @@ class OwnerInsuranceOperations:
                 except (StreamConsumedError, StreamClosedError):
                     pass
             map_error(status_code=response.status_code, response=response, error_map=error_map)
-            error = _deserialize(_models.PetStoreError, response.json())
+            error = _failsafe_deserialize(_models.PetStoreError, response.json())
             raise HttpResponseError(response=response, model=error)
 
         if _stream:
