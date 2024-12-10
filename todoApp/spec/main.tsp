@@ -245,13 +245,6 @@ namespace TodoItems {
   @error
   model NotFoundErrorResponse is NotFoundResponse;
 
-  /**
-   * We need to decorate NoContentResponse with an explicit `@error` decorator so it's clear that
-   * it is not a valid response
-   */
-  @error
-  model NoContentErrorResponse is NoContentResponse;
-
   model Page<T> {
     @pageItems items: T[];
   }
@@ -273,7 +266,7 @@ namespace TodoItems {
   ): TodoItem;
   @delete op delete(
     @path id: TodoItem.id,
-  ): WithStandardErrors<NoContentErrorResponse | NotFoundErrorResponse>;
+  ): WithStandardErrors<NoContentResponse | NotFoundErrorResponse>;
 
   @route("{itemId}/attachments")
   namespace Attachments {
@@ -286,6 +279,6 @@ namespace TodoItems {
     op createAttachment(
       @path itemId: TodoItem.id,
       @body contents: TodoAttachment,
-    ): WithStandardErrors<NoContentErrorResponse | NotFoundErrorResponse>;
+    ): WithStandardErrors<NoContentResponse | NotFoundErrorResponse>;
   }
 }
