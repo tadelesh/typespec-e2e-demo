@@ -25,3 +25,11 @@ Run `mvn clean package -DskipTests -f <RepoRoot>/petstore/clients/java/pom.xml`.
 ## Run PetStore Java sample
 
 Run `mvn exec:java -f <RepoRoot>/petstore/clients/java/pom.xml`.
+
+Output be like
+```
+pet created, id=0
+pet queried, name=Kiwi
+pet updated, age=8
+pet deleted, id=0
+```
