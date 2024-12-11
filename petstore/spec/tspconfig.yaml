@@ -3,6 +3,7 @@ emit:
   - "@typespec/http-client-csharp"
   - "@typespec/http-server-javascript"
   - "@typespec/http-client-java"
+  - "@typespec/http-client-python"
 options:
   "@typespec/http-server-csharp":
     emitter-output-dir: "{project-root}/../servers/aspnet/generated"
@@ -13,3 +14,5 @@ options:
     express: true
   "@typespec/http-client-java":
     emitter-output-dir: "{project-root}/../clients/java"
+  "@typespec/http-client-python":
+    emitter-output-dir: "{project-root}/../clients/python"

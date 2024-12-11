@@ -396,3 +396,18 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# Python Virtual Environments
+venv/
+
+#  Python distribution / packaging
+build/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+package-lock.json
+*coverage/
+temp/
+/artifacts
+*.tgz
