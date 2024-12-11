@@ -1,5 +1,11 @@
 # Sample for PetStore client
 
+## Prerequisite
+
+Install [Java](https://docs.microsoft.com/java/openjdk/download) 17 or above. (Verify by running `java --version`)
+
+Install [Maven](https://maven.apache.org/install.html). (Verify by running `mvn --version`)
+
 ## Install the clientcore library
 
 Since `io.clientcore:core` library is not published to Maven, we need to build and install it locally.
@@ -12,7 +18,7 @@ Since `io.clientcore:core` library is not published to Maven, we need to build a
 
 Run `dotnet run --project <RepoRoot>/petstore/servers/aspnet/petstore.csproj`.
 
-## Build PetStore
+## Build PetStore Java SDK
 
 Run `mvn clean package -DskipTests -f <RepoRoot>/petstore/clients/java/pom.xml`.
 
