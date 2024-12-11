@@ -238,12 +238,11 @@ namespace TodoItems {
     @statusCode statusCode: 422;
   }
 
-  /**
-   * We need to decorate NotFoundResponse with an explicit `@error` decorator so it's clear that
-   * it is not a valid response
-   */
   @error
-  model NotFoundErrorResponse is NotFoundResponse;
+  model NotFoundErrorResponse {
+     @statusCode statusCode: 404;
+     code: "not-found";
+  }
 
   model Page<T> {
     @pageItems items: T[];
