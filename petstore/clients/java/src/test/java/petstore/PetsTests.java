@@ -3,7 +3,6 @@ package petstore;
 import io.clientcore.core.http.exception.HttpResponseException;
 import io.clientcore.core.http.models.HttpLogOptions;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import typespec.rest.resource.PetCollectionWithNextLink;
 import typespec.rest.resource.PetCreate;
@@ -43,7 +42,6 @@ public final class PetsTests {
         Assertions.assertEquals("MyPet", pet.getName());
     }
 
-    @Disabled("clientcore may have bug on PATCH response")
     @Test
     public void update() {
         Pet pet = client.update(0, new PetUpdate().setAge(8));

@@ -55,7 +55,7 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.10.1</version>
         <configuration>
-          <release>11</release>
+          <release>17</release>
         </configuration>
       </plugin>
       <plugin>
@@ -74,21 +74,29 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>build-helper-maven-plugin</artifactId>
-        <version>3.0.0</version>
+        <version>3.6.0</version>
         <executions>
           <execution>
-            <id>add-test-source</id>
-            <phase>generate-test-sources</phase>
+            <id>add-source</id>
+            <phase>generate-sources</phase>
             <goals>
-              <goal>add-test-source</goal>
+              <goal>add-source</goal>
             </goals>
             <configuration>
               <sources>
-                <source>${basedir}/src/samples</source>
+                <source>${basedir}/src/samples/java</source>
               </sources>
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.5.0</version>
+        <configuration>
+          <mainClass>petstore.PetSample</mainClass>
+        </configuration>
       </plugin>
     </plugins>
   </build>
