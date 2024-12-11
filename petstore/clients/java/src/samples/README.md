@@ -14,8 +14,8 @@ Run `dotnet run --project <RepoRoot>/petstore/servers/aspnet/petstore.csproj`.
 
 ## Build PetStore
 
-Run `mvn clean package -DskipTests`.
+Run `mvn clean package -DskipTests -f <RepoRoot>/petstore/clients/java/pom.xml`.
 
 ## Run PetStore Java sample
 
-Run `mvn exec:java`.
+Run `mvn exec:java -f <RepoRoot>/petstore/clients/java/pom.xml`.
