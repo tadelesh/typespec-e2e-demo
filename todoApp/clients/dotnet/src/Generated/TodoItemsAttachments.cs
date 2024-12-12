@@ -5,6 +5,7 @@
 using System;
 using System.ClientModel;
 using System.ClientModel.Primitives;
+using System.Threading;
 using System.Threading.Tasks;
 using Todo.Models;
 
@@ -71,19 +72,21 @@ namespace Todo
 
         /// <summary> list. </summary>
         /// <param name="itemId"></param>
+        /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual ClientResult<PageTodoAttachment> List(long itemId)
+        public virtual ClientResult<PageTodoAttachment> List(long itemId, CancellationToken cancellationToken = default)
         {
-            ClientResult result = List(itemId, null);
+            ClientResult result = List(itemId, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null);
             return ClientResult.FromValue((PageTodoAttachment)result, result.GetRawResponse());
         }
 
         /// <summary> list. </summary>
         /// <param name="itemId"></param>
+        /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual async Task<ClientResult<PageTodoAttachment>> ListAsync(long itemId)
+        public virtual async Task<ClientResult<PageTodoAttachment>> ListAsync(long itemId, CancellationToken cancellationToken = default)
         {
-            ClientResult result = await ListAsync(itemId, null).ConfigureAwait(false);
+            ClientResult result = await ListAsync(itemId, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null).ConfigureAwait(false);
             return ClientResult.FromValue((PageTodoAttachment)result, result.GetRawResponse());
         }
 
@@ -134,25 +137,27 @@ namespace Todo
         /// <summary> createAttachment. </summary>
         /// <param name="itemId"></param>
         /// <param name="contents"></param>
+        /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="contents"/> is null. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual ClientResult CreateAttachment(long itemId, BinaryData contents)
+        public virtual ClientResult CreateAttachment(long itemId, BinaryData contents, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(contents, nameof(contents));
 
-            return CreateAttachment(itemId, BinaryContent.Create(contents), null);
+            return CreateAttachment(itemId, BinaryContent.Create(contents), cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null);
         }
 
         /// <summary> createAttachment. </summary>
         /// <param name="itemId"></param>
         /// <param name="contents"></param>
+        /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="contents"/> is null. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual async Task<ClientResult> CreateAttachmentAsync(long itemId, BinaryData contents)
+        public virtual async Task<ClientResult> CreateAttachmentAsync(long itemId, BinaryData contents, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(contents, nameof(contents));
 
-            return await CreateAttachmentAsync(itemId, BinaryContent.Create(contents), null).ConfigureAwait(false);
+            return await CreateAttachmentAsync(itemId, BinaryContent.Create(contents), cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null).ConfigureAwait(false);
         }
     }
 }

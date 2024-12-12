@@ -45,8 +45,6 @@ namespace Todo.Models
             writer.WriteStringValue(Email);
             writer.WritePropertyName("password"u8);
             writer.WriteStringValue(Password);
-            writer.WritePropertyName("validated"u8);
-            writer.WriteBooleanValue(Validated);
             if (options.Format != "W" && _additionalBinaryDataProperties != null)
             {
                 foreach (var item in _additionalBinaryDataProperties)
@@ -89,7 +87,6 @@ namespace Todo.Models
             string username = default;
             string email = default;
             string password = default;
-            bool validated = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -113,23 +110,12 @@ namespace Todo.Models
                     password = prop.Value.GetString();
                     continue;
                 }
-                if (prop.NameEquals("validated"u8))
-                {
-                    validated = prop.Value.GetBoolean();
-                    continue;
-                }
                 if (options.Format != "W")
                 {
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new User(
-                id,
-                username,
-                email,
-                password,
-                validated,
-                additionalBinaryDataProperties);
+            return new User(id, username, email, password, additionalBinaryDataProperties);
         }
 
         BinaryData IPersistableModel<User>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);

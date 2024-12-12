@@ -41,8 +41,20 @@ namespace Todo.Models
                 writer.WriteObjectValue(item, options);
             }
             writer.WriteEndArray();
-            writer.WritePropertyName("pagination"u8);
-            writer.WriteObjectValue(Pagination, options);
+            writer.WritePropertyName("pageSize"u8);
+            writer.WriteNumberValue(PageSize);
+            writer.WritePropertyName("totalSize"u8);
+            writer.WriteNumberValue(TotalSize);
+            if (Optional.IsDefined(PrevLink))
+            {
+                writer.WritePropertyName("prevLink"u8);
+                writer.WriteStringValue(PrevLink.AbsoluteUri);
+            }
+            if (Optional.IsDefined(NextLink))
+            {
+                writer.WritePropertyName("nextLink"u8);
+                writer.WriteStringValue(NextLink.AbsoluteUri);
+            }
             if (options.Format != "W" && _additionalBinaryDataProperties != null)
             {
                 foreach (var item in _additionalBinaryDataProperties)
@@ -82,7 +94,10 @@ namespace Todo.Models
                 return null;
             }
             IList<TodoItem> items = default;
-            TodoPagePagination pagination = default;
+            int pageSize = default;
+            int totalSize = default;
+            Uri prevLink = default;
+            Uri nextLink = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -96,9 +111,32 @@ namespace Todo.Models
                     items = array;
                     continue;
                 }
-                if (prop.NameEquals("pagination"u8))
+                if (prop.NameEquals("pageSize"u8))
                 {
-                    pagination = TodoPagePagination.DeserializeTodoPagePagination(prop.Value, options);
+                    pageSize = prop.Value.GetInt32();
+                    continue;
+                }
+                if (prop.NameEquals("totalSize"u8))
+                {
+                    totalSize = prop.Value.GetInt32();
+                    continue;
+                }
+                if (prop.NameEquals("prevLink"u8))
+                {
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    prevLink = new Uri(prop.Value.GetString());
+                    continue;
+                }
+                if (prop.NameEquals("nextLink"u8))
+                {
+                    if (prop.Value.ValueKind == JsonValueKind.Null)
+                    {
+                        continue;
+                    }
+                    nextLink = new Uri(prop.Value.GetString());
                     continue;
                 }
                 if (options.Format != "W")
@@ -106,7 +144,13 @@ namespace Todo.Models
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new TodoPage(items, pagination, additionalBinaryDataProperties);
+            return new TodoPage(
+                items,
+                pageSize,
+                totalSize,
+                prevLink,
+                nextLink,
+                additionalBinaryDataProperties);
         }
 
         BinaryData IPersistableModel<TodoPage>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);

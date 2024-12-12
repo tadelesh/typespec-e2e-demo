@@ -109,10 +109,11 @@ namespace PetStore
         }
 
         /// <summary> Lists all instances of the resource. </summary>
+        /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual ClientResult<CheckupCollectionWithNextLink> List()
+        public virtual ClientResult<CheckupCollectionWithNextLink> List(CancellationToken cancellationToken = default)
         {
-            ClientResult result = List(options: null);
+            ClientResult result = List(cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null);
             return ClientResult.FromValue((CheckupCollectionWithNextLink)result, result.GetRawResponse());
         }
 

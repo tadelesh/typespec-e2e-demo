@@ -21,6 +21,7 @@ import todo.Standard4XXResponse;
 import todo.Standard5XXResponse;
 import todo.UpdateResponse;
 import todo.todoitems.InvalidTodoItem;
+import todo.todoitems.NotFoundErrorResponse;
 import todo.todoitems.TodoPage;
 
 /**
@@ -476,7 +477,8 @@ public final class TodoItemsImpl {
             @HeaderParam("content-type") String contentType, @HeaderParam("Accept") String accept,
             @BodyParam("application/json") BinaryData createRequest, RequestOptions requestOptions);
 
-        @HttpRequestInformation(method = HttpMethod.GET, path = "/items/{id}", expectedStatusCodes = { 200, 404 })
+        @HttpRequestInformation(method = HttpMethod.GET, path = "/items/{id}", expectedStatusCodes = { 200 })
+        @UnexpectedResponseExceptionDetail(statusCode = { 404 }, exceptionBodyClass = NotFoundErrorResponse.class)
         @UnexpectedResponseExceptionDetail
         Response<GetResponse> getSync(@HostParam("endpoint") String endpoint, @PathParam("id") long id,
             @HeaderParam("Accept") String accept, RequestOptions requestOptions);
@@ -488,7 +490,7 @@ public final class TodoItemsImpl {
             @HeaderParam("Accept") String accept, @BodyParam("application/merge-patch+json") BinaryData patch,
             RequestOptions requestOptions);
 
-        @HttpRequestInformation(method = HttpMethod.DELETE, path = "/items/{id}", expectedStatusCodes = { 204, 404 })
+        @HttpRequestInformation(method = HttpMethod.DELETE, path = "/items/{id}", expectedStatusCodes = { 204 })
         @UnexpectedResponseExceptionDetail(
             statusCode = {
                 400,
@@ -694,6 +696,7 @@ public final class TodoItemsImpl {
                 598,
                 599 },
             exceptionBodyClass = Standard5XXResponse.class)
+        @UnexpectedResponseExceptionDetail(statusCode = { 404 }, exceptionBodyClass = NotFoundErrorResponse.class)
         @UnexpectedResponseExceptionDetail
         Response<Void> deleteSync(@HostParam("endpoint") String endpoint, @PathParam("id") long id,
             @HeaderParam("Accept") String accept, RequestOptions requestOptions);

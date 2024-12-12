@@ -114,10 +114,11 @@ namespace PetStore
 
         /// <summary> Lists all instances of the extension resource. </summary>
         /// <param name="ownerId"></param>
+        /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual ClientResult<CheckupCollectionWithNextLink> List(long ownerId)
+        public virtual ClientResult<CheckupCollectionWithNextLink> List(long ownerId, CancellationToken cancellationToken = default)
         {
-            ClientResult result = List(ownerId, options: null);
+            ClientResult result = List(ownerId, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null);
             return ClientResult.FromValue((CheckupCollectionWithNextLink)result, result.GetRawResponse());
         }
 

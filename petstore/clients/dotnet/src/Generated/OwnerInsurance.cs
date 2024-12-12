@@ -68,10 +68,11 @@ namespace PetStore
 
         /// <summary> Gets the singleton resource. </summary>
         /// <param name="ownerId"></param>
+        /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual ClientResult<Insurance> Get(long ownerId)
+        public virtual ClientResult<Insurance> Get(long ownerId, CancellationToken cancellationToken = default)
         {
-            ClientResult result = Get(ownerId, options: null);
+            ClientResult result = Get(ownerId, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null);
             return ClientResult.FromValue((Insurance)result, result.GetRawResponse());
         }
 
