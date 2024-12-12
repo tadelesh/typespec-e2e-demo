@@ -14,23 +14,36 @@ namespace Todo.Models
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        internal TodoPage(IEnumerable<TodoItem> items, TodoPagePagination pagination)
+        internal TodoPage(IEnumerable<TodoItem> items, int pageSize, int totalSize)
         {
             Items = items.ToList();
-            Pagination = pagination;
+            PageSize = pageSize;
+            TotalSize = totalSize;
         }
 
-        internal TodoPage(IList<TodoItem> items, TodoPagePagination pagination, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal TodoPage(IList<TodoItem> items, int pageSize, int totalSize, Uri prevLink, Uri nextLink, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Items = items;
-            Pagination = pagination;
+            PageSize = pageSize;
+            TotalSize = totalSize;
+            PrevLink = prevLink;
+            NextLink = nextLink;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
         /// <summary> The items in the page. </summary>
         public IList<TodoItem> Items { get; }
 
-        /// <summary> Gets the Pagination. </summary>
-        public TodoPagePagination Pagination { get; }
+        /// <summary> The number of items returned in this page. </summary>
+        public int PageSize { get; }
+
+        /// <summary> The total number of items. </summary>
+        public int TotalSize { get; }
+
+        /// <summary> A link to the previous page, if it exists. </summary>
+        public Uri PrevLink { get; }
+
+        /// <summary> A link to the next page, if it exists. </summary>
+        public Uri NextLink { get; }
     }
 }

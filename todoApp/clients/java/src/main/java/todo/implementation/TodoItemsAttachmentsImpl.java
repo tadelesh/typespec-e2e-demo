@@ -17,6 +17,7 @@ import io.clientcore.core.http.models.Response;
 import io.clientcore.core.util.binarydata.BinaryData;
 import todo.Standard4XXResponse;
 import todo.Standard5XXResponse;
+import todo.todoitems.NotFoundErrorResponse;
 import todo.todoitems.PageTodoAttachment;
 
 /**
@@ -52,7 +53,7 @@ public final class TodoItemsAttachmentsImpl {
         @HttpRequestInformation(
             method = HttpMethod.GET,
             path = "/items/{itemId}/attachments",
-            expectedStatusCodes = { 200, 404 })
+            expectedStatusCodes = { 200 })
         @UnexpectedResponseExceptionDetail(
             statusCode = {
                 400,
@@ -258,6 +259,7 @@ public final class TodoItemsAttachmentsImpl {
                 598,
                 599 },
             exceptionBodyClass = Standard5XXResponse.class)
+        @UnexpectedResponseExceptionDetail(statusCode = { 404 }, exceptionBodyClass = NotFoundErrorResponse.class)
         @UnexpectedResponseExceptionDetail
         Response<PageTodoAttachment> listSync(@HostParam("endpoint") String endpoint, @PathParam("itemId") long itemId,
             @HeaderParam("Accept") String accept, RequestOptions requestOptions);
@@ -265,7 +267,7 @@ public final class TodoItemsAttachmentsImpl {
         @HttpRequestInformation(
             method = HttpMethod.POST,
             path = "/items/{itemId}/attachments",
-            expectedStatusCodes = { 204, 404 })
+            expectedStatusCodes = { 204 })
         @UnexpectedResponseExceptionDetail(
             statusCode = {
                 400,
@@ -471,6 +473,7 @@ public final class TodoItemsAttachmentsImpl {
                 598,
                 599 },
             exceptionBodyClass = Standard5XXResponse.class)
+        @UnexpectedResponseExceptionDetail(statusCode = { 404 }, exceptionBodyClass = NotFoundErrorResponse.class)
         @UnexpectedResponseExceptionDetail
         Response<Void> createAttachmentSync(@HostParam("endpoint") String endpoint, @PathParam("itemId") long itemId,
             @HeaderParam("Content-Type") String contentType, @HeaderParam("Accept") String accept,

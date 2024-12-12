@@ -68,10 +68,11 @@ namespace PetStore
 
         /// <summary> Gets an instance of the resource. </summary>
         /// <param name="petId"></param>
+        /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual ClientResult<Pet> Get(int petId)
+        public virtual ClientResult<Pet> Get(int petId, CancellationToken cancellationToken = default)
         {
-            ClientResult result = Get(petId, options: null);
+            ClientResult result = Get(petId, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null);
             return ClientResult.FromValue((Pet)result, result.GetRawResponse());
         }
 
@@ -167,10 +168,11 @@ namespace PetStore
 
         /// <summary> Deletes an existing instance of the resource. </summary>
         /// <param name="petId"></param>
+        /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual ClientResult Delete(int petId)
+        public virtual ClientResult Delete(int petId, CancellationToken cancellationToken = default)
         {
-            return Delete(petId, options: null);
+            return Delete(petId, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null);
         }
 
         /// <summary> Deletes an existing instance of the resource. </summary>
@@ -226,13 +228,14 @@ namespace PetStore
 
         /// <summary> Creates a new instance of the resource. </summary>
         /// <param name="resource"></param>
+        /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resource"/> is null. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual ClientResult<Pet> Create(PetCreate resource)
+        public virtual ClientResult<Pet> Create(PetCreate resource, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(resource, nameof(resource));
 
-            ClientResult result = Create(resource, options: null);
+            ClientResult result = Create(resource, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null);
             return ClientResult.FromValue((Pet)result, result.GetRawResponse());
         }
 
@@ -284,10 +287,11 @@ namespace PetStore
         }
 
         /// <summary> Lists all instances of the resource. </summary>
+        /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual ClientResult<PetCollectionWithNextLink> List()
+        public virtual ClientResult<PetCollectionWithNextLink> List(CancellationToken cancellationToken = default)
         {
-            ClientResult result = List(options: null);
+            ClientResult result = List(cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null);
             return ClientResult.FromValue((PetCollectionWithNextLink)result, result.GetRawResponse());
         }
 

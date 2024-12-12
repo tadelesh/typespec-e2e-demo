@@ -37,6 +37,7 @@
     "todo.UsersClient.createWithResponse": "Todo.Users.create",
     "todo.implementation.CreateRequest": "create.Request.anonymous",
     "todo.todoitems.InvalidTodoItem": "Todo.TodoItems.InvalidTodoItem",
+    "todo.todoitems.NotFoundErrorResponse": "Todo.TodoItems.NotFoundErrorResponse",
     "todo.todoitems.PageTodoAttachment": "Todo.TodoItems.Page",
     "todo.todoitems.TodoItemPatch": "Todo.TodoItems.TodoItemPatch",
     "todo.todoitems.TodoPage": "Todo.TodoItems.TodoPage",

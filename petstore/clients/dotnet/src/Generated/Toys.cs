@@ -71,10 +71,11 @@ namespace PetStore
         /// <summary> Gets an instance of the resource. </summary>
         /// <param name="petId"></param>
         /// <param name="toyId"></param>
+        /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual ClientResult<Toy> Get(int petId, long toyId)
+        public virtual ClientResult<Toy> Get(int petId, long toyId, CancellationToken cancellationToken = default)
         {
-            ClientResult result = Get(petId, toyId, options: null);
+            ClientResult result = Get(petId, toyId, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null);
             return ClientResult.FromValue((Toy)result, result.GetRawResponse());
         }
 
@@ -136,13 +137,14 @@ namespace PetStore
         /// <summary> list. </summary>
         /// <param name="petId"></param>
         /// <param name="nameFilter"></param>
+        /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="nameFilter"/> is null. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual ClientResult<ToyCollectionWithNextLink> List(int petId, string nameFilter)
+        public virtual ClientResult<ToyCollectionWithNextLink> List(int petId, string nameFilter, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(nameFilter, nameof(nameFilter));
 
-            ClientResult result = List(petId, nameFilter, options: null);
+            ClientResult result = List(petId, nameFilter, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null);
             return ClientResult.FromValue((ToyCollectionWithNextLink)result, result.GetRawResponse());
         }
 

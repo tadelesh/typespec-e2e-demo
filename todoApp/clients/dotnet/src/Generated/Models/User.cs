@@ -17,11 +17,12 @@ namespace Todo.Models
         /// <summary> Initializes a new instance of <see cref="User"/>. </summary>
         /// <param name="username"> The user's username. </param>
         /// <param name="email"> The user's email address. </param>
-        /// <param name="password"> The user's password, provided when creating a user
-but is otherwise not visible (and hashed by the backend). </param>
-        /// <param name="validated"> Whether the user is validated. Never visible to the API. </param>
+        /// <param name="password">
+        /// The user's password, provided when creating a user
+        /// but is otherwise not visible (and hashed by the backend)
+        /// </param>
         /// <exception cref="ArgumentNullException"> <paramref name="username"/>, <paramref name="email"/> or <paramref name="password"/> is null. </exception>
-        public User(string username, string email, string password, bool validated)
+        public User(string username, string email, string password)
         {
             Argument.AssertNotNull(username, nameof(username));
             Argument.AssertNotNull(email, nameof(email));
@@ -30,16 +31,14 @@ but is otherwise not visible (and hashed by the backend). </param>
             Username = username;
             Email = email;
             Password = password;
-            Validated = validated;
         }
 
-        internal User(long id, string username, string email, string password, bool validated, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal User(long id, string username, string email, string password, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Id = id;
             Username = username;
             Email = email;
             Password = password;
-            Validated = validated;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
@@ -52,11 +51,10 @@ but is otherwise not visible (and hashed by the backend). </param>
         /// <summary> The user's email address. </summary>
         public string Email { get; }
 
-        /// <summary> The user's password, provided when creating a user
-but is otherwise not visible (and hashed by the backend). </summary>
+        /// <summary>
+        /// The user's password, provided when creating a user
+        /// but is otherwise not visible (and hashed by the backend)
+        /// </summary>
         public string Password { get; }
-
-        /// <summary> Whether the user is validated. Never visible to the API. </summary>
-        public bool Validated { get; }
     }
 }

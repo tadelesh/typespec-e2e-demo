@@ -78,7 +78,7 @@ namespace PetStore.Tests
         }
 
         [Test]
-        public async Task Validate_CreatePet_Failed()
+        public void Validate_CreatePet_Failed()
         {
             var exception = Assert.ThrowsAsync<ClientResultException>(async () => await _petsClient.CreateAsync(new PetCreate("MyPet", 50, 100)
             {
@@ -123,7 +123,7 @@ namespace PetStore.Tests
         }
 
         [Test]
-        public async Task Validate_UpdatePet_Invalid()
+        public void Validate_UpdatePet_Invalid()
         {
             var update = new
             {
@@ -142,7 +142,7 @@ namespace PetStore.Tests
         }
 
         [Test]
-        public async Task Validate_UpdatePet_NotFound()
+        public void Validate_UpdatePet_NotFound()
         {
             var update = new
             {
