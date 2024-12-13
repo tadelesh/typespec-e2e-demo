@@ -9,13 +9,12 @@ using System.Text.Json.Serialization;
 namespace Todo.Service.Models
 {
 
-    public partial class TodoFileAttachment
+    ///<summary>
+    /// The user is invalid (e.g. forgot to enter email address)
+    ///</summary>
+    public partial class InvalidUserResponse : ApiError
     {
-        public string ContentType { get; set; }
-
-        public string Filename { get; set; }
-
-        public byte[] Contents { get; set; }
+        public new string Code { get; } = "invalid-user";
 
 
     }

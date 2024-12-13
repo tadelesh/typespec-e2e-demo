@@ -4,9 +4,11 @@ import * as http from "node:http";
 
 import * as serverRaw from "./operations/server-raw.js";
 
-import { Users, TodoItems } from "../models/all/todo/index.js";
+import { UsersOperations } from "../models/all/todo/users.js";
 
-import { Attachments } from "../models/all/todo/todo-items.js";
+import { TodoItemsOperations } from "../models/all/todo/todo-items/index.js";
+
+import { AttachmentsOperations } from "../models/all/todo/todo-items/attachments.js";
 
 import {
   RouterOptions,
@@ -46,13 +48,13 @@ export interface TodoRouter {
 }
 
 export function createTodoRouter(
-  users: Users,
-  todoItems: TodoItems,
-  attachments: Attachments,
+  usersOperations: UsersOperations,
+  todoItemsOperations: TodoItemsOperations,
+  attachmentsOperations: AttachmentsOperations,
   options: RouterOptions<{
-    users: Users<HttpContext>;
-    todoItems: TodoItems<HttpContext>;
-    attachments: Attachments<HttpContext>;
+    usersOperations: UsersOperations<HttpContext>;
+    todoItemsOperations: TodoItemsOperations<HttpContext>;
+    attachmentsOperations: AttachmentsOperations<HttpContext>;
   }> = {},
 ): TodoRouter {
   const onRouteNotFound =
@@ -82,61 +84,75 @@ export function createTodoRouter(
   const routePolicies = options.routePolicies ?? {};
 
   const routeHandlers = {
-    users_create: createPolicyChainForRoute(
-      "usersCreateDispatch",
+    users_operations_create: createPolicyChainForRoute(
+      "usersOperationsCreateDispatch",
       routePolicies,
-      "users",
+      "usersOperations",
       "create",
-      serverRaw.users_create,
+      serverRaw.users_operations_create,
     ),
-    todo_items_list: createPolicyChainForRoute(
-      "todoItemsListDispatch",
+    todo_items_operations_list: createPolicyChainForRoute(
+      "todoItemsOperationsListDispatch",
       routePolicies,
-      "todoItems",
+      "todoItemsOperations",
       "list",
-      serverRaw.todo_items_list,
+      serverRaw.todo_items_operations_list,
     ),
-    todo_items_create: createPolicyChainForRoute(
-      "todoItemsCreateDispatch",
+    todo_items_operations_create_json: createPolicyChainForRoute(
+      "todoItemsOperationsCreateJsonDispatch",
       routePolicies,
-      "todoItems",
-      "create",
-      serverRaw.todo_items_create,
+      "todoItemsOperations",
+      "createJson",
+      serverRaw.todo_items_operations_create_json,
     ),
-    todo_items_get: createPolicyChainForRoute(
-      "todoItemsGetDispatch",
+    todo_items_operations_create_form: createPolicyChainForRoute(
+      "todoItemsOperationsCreateFormDispatch",
       routePolicies,
-      "todoItems",
+      "todoItemsOperations",
+      "createForm",
+      serverRaw.todo_items_operations_create_form,
+    ),
+    todo_items_operations_get: createPolicyChainForRoute(
+      "todoItemsOperationsGetDispatch",
+      routePolicies,
+      "todoItemsOperations",
       "get",
-      serverRaw.todo_items_get,
+      serverRaw.todo_items_operations_get,
     ),
-    todo_items_update: createPolicyChainForRoute(
-      "todoItemsUpdateDispatch",
+    todo_items_operations_update: createPolicyChainForRoute(
+      "todoItemsOperationsUpdateDispatch",
       routePolicies,
-      "todoItems",
+      "todoItemsOperations",
       "update",
-      serverRaw.todo_items_update,
+      serverRaw.todo_items_operations_update,
     ),
-    todo_items_delete: createPolicyChainForRoute(
-      "todoItemsDeleteDispatch",
+    todo_items_operations_delete: createPolicyChainForRoute(
+      "todoItemsOperationsDeleteDispatch",
       routePolicies,
-      "todoItems",
+      "todoItemsOperations",
       "delete",
-      serverRaw.todo_items_delete,
+      serverRaw.todo_items_operations_delete,
     ),
-    attachments_list: createPolicyChainForRoute(
-      "attachmentsListDispatch",
+    attachments_operations_list: createPolicyChainForRoute(
+      "attachmentsOperationsListDispatch",
       routePolicies,
-      "attachments",
+      "attachmentsOperations",
       "list",
-      serverRaw.attachments_list,
+      serverRaw.attachments_operations_list,
     ),
-    attachments_create_attachment: createPolicyChainForRoute(
-      "attachmentsCreateAttachmentDispatch",
+    attachments_operations_create_url_attachment: createPolicyChainForRoute(
+      "attachmentsOperationsCreateUrlAttachmentDispatch",
       routePolicies,
-      "attachments",
-      "createAttachment",
-      serverRaw.attachments_create_attachment,
+      "attachmentsOperations",
+      "createUrlAttachment",
+      serverRaw.attachments_operations_create_url_attachment,
+    ),
+    attachments_operations_create_file_attachment: createPolicyChainForRoute(
+      "attachmentsOperationsCreateFileAttachmentDispatch",
+      routePolicies,
+      "attachmentsOperations",
+      "createFileAttachment",
+      serverRaw.attachments_operations_create_file_attachment,
     ),
   } as const;
 
@@ -158,11 +174,11 @@ export function createTodoRouter(
           if (path.length === 0) {
             switch (request.method) {
               case "POST":
-                return routeHandlers.users_create(
+                return routeHandlers.users_operations_create(
                   ctx,
                   request,
                   response,
-                  users,
+                  usersOperations,
                 );
               default:
                 return onRouteNotFound(request, response);
@@ -175,19 +191,37 @@ export function createTodoRouter(
           if (path.length === 0) {
             switch (request.method) {
               case "GET":
-                return routeHandlers.todo_items_list(
+                return routeHandlers.todo_items_operations_list(
                   ctx,
                   request,
                   response,
-                  todoItems,
+                  todoItemsOperations,
                 );
               case "POST":
-                return routeHandlers.todo_items_create(
-                  ctx,
-                  request,
-                  response,
-                  todoItems,
-                );
+                const contentType = request.headers["content-type"];
+                switch (contentType) {
+                  case "application/json":
+                    return routeHandlers.todo_items_operations_create_json(
+                      ctx,
+                      request,
+                      response,
+                      todoItemsOperations,
+                    );
+                  case "multipart/form-data":
+                    return routeHandlers.todo_items_operations_create_form(
+                      ctx,
+                      request,
+                      response,
+                      todoItemsOperations,
+                    );
+                  default:
+                    return onInvalidRequest(
+                      request,
+                      response,
+                      "/items",
+                      `No operation in route '/items' matched content-type "${contentType}"`,
+                    );
+                }
               default:
                 return onRouteNotFound(request, response);
             }
@@ -205,27 +239,27 @@ export function createTodoRouter(
               if (path.length === 0) {
                 switch (request.method) {
                   case "GET":
-                    return routeHandlers.todo_items_get(
+                    return routeHandlers.todo_items_operations_get(
                       ctx,
                       request,
                       response,
-                      todoItems,
+                      todoItemsOperations,
                       id,
                     );
                   case "PATCH":
-                    return routeHandlers.todo_items_update(
+                    return routeHandlers.todo_items_operations_update(
                       ctx,
                       request,
                       response,
-                      todoItems,
+                      todoItemsOperations,
                       id,
                     );
                   case "DELETE":
-                    return routeHandlers.todo_items_delete(
+                    return routeHandlers.todo_items_operations_delete(
                       ctx,
                       request,
                       response,
-                      todoItems,
+                      todoItemsOperations,
                       id,
                     );
                   default:
@@ -236,21 +270,40 @@ export function createTodoRouter(
                 if (path.length === 0) {
                   switch (request.method) {
                     case "GET":
-                      return routeHandlers.attachments_list(
+                      return routeHandlers.attachments_operations_list(
                         ctx,
                         request,
                         response,
-                        attachments,
+                        attachmentsOperations,
                         itemId,
                       );
                     case "POST":
-                      return routeHandlers.attachments_create_attachment(
-                        ctx,
-                        request,
-                        response,
-                        attachments,
-                        itemId,
-                      );
+                      const contentType = request.headers["content-type"];
+                      switch (contentType) {
+                        case "application/json":
+                          return routeHandlers.attachments_operations_create_url_attachment(
+                            ctx,
+                            request,
+                            response,
+                            attachmentsOperations,
+                            itemId,
+                          );
+                        case "multipart/form-data":
+                          return routeHandlers.attachments_operations_create_file_attachment(
+                            ctx,
+                            request,
+                            response,
+                            attachmentsOperations,
+                            itemId,
+                          );
+                        default:
+                          return onInvalidRequest(
+                            request,
+                            response,
+                            "/items/{itemId}/attachments",
+                            `No operation in route '/items/{itemId}/attachments' matched content-type "${contentType}"`,
+                          );
+                      }
                     default:
                       return onRouteNotFound(request, response);
                   }

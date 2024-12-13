@@ -9,13 +9,9 @@ using System.Text.Json.Serialization;
 namespace Todo.Service.Models
 {
 
-    public partial class TodoFileAttachment
+    public partial class NotFoundErrorResponse
     {
-        public string ContentType { get; set; }
-
-        public string Filename { get; set; }
-
-        public byte[] Contents { get; set; }
+        public string Code { get; } = "not-found";
 
 
     }

@@ -4,27 +4,30 @@ import * as http from "node:http";
 
 import { HttpContext } from "../../helpers/router.js";
 
+import { UsersOperations } from "../../models/all/todo/users.js";
+
 import {
-  Users,
   User,
-  TodoItems,
-  TodoFileAttachment,
+  ToDoItemMultipartRequest,
   TodoUrlAttachment,
+  TodoFileAttachment,
 } from "../../models/all/todo/index.js";
 
 import {
+  TodoItemsOperations,
   TodoPage,
   TodoItemPatch,
-  Attachments,
-} from "../../models/all/todo/todo-items.js";
+} from "../../models/all/todo/todo-items/index.js";
 
-import { CreateRequestBody } from "../../models/synthetic.js";
+import { CreateJsonRequestBody } from "../../models/synthetic.js";
 
-export async function users_create(
+import { AttachmentsOperations } from "../../models/all/todo/todo-items/attachments.js";
+
+export async function users_operations_create(
   ctx: HttpContext,
   request: http.IncomingMessage,
   response: http.ServerResponse,
-  operations: Users,
+  operations: UsersOperations,
 ): Promise<void> {
   if (!request.headers["content-type"]?.startsWith("application/json")) {
     throw new Error(
@@ -75,11 +78,11 @@ export async function users_create(
   }
 }
 
-export async function todo_items_list(
+export async function todo_items_operations_list(
   ctx: HttpContext,
   request: http.IncomingMessage,
   response: http.ServerResponse,
-  operations: TodoItems,
+  operations: TodoItemsOperations,
 ): Promise<void> {
   const __query_params = new URLSearchParams(
     request.url!.split("?", 1)[1] ?? "",
@@ -113,11 +116,11 @@ export async function todo_items_list(
   }
 }
 
-export async function todo_items_create(
+export async function todo_items_operations_create_json(
   ctx: HttpContext,
   request: http.IncomingMessage,
   response: http.ServerResponse,
-  operations: TodoItems,
+  operations: TodoItemsOperations,
 ): Promise<void> {
   const contentType = request.headers["Content-Type"] as string | undefined;
   if (contentType === undefined) {
@@ -130,21 +133,20 @@ export async function todo_items_create(
     );
   }
 
-  const createRequestBody = (await new Promise(function parseCreateRequestBody(
-    resolve,
-    reject,
-  ) {
-    const chunks: Array<Buffer> = [];
-    request.on("data", function appendChunk(chunk) {
-      chunks.push(chunk);
-    });
-    request.on("end", function finalize() {
-      resolve(JSON.parse(Buffer.concat(chunks).toString()));
-    });
-  })) as CreateRequestBody;
+  const createJsonRequestBody = (await new Promise(
+    function parseCreateJsonRequestBody(resolve, reject) {
+      const chunks: Array<Buffer> = [];
+      request.on("data", function appendChunk(chunk) {
+        chunks.push(chunk);
+      });
+      request.on("end", function finalize() {
+        resolve(JSON.parse(Buffer.concat(chunks).toString()));
+      });
+    },
+  )) as CreateJsonRequestBody;
 
-  const result = await operations.create(ctx, createRequestBody.item, {
-    attachments: createRequestBody.attachments,
+  const result = await operations.createJson(ctx, createJsonRequestBody.item, {
+    attachments: createJsonRequestBody.attachments,
   });
 
   if ("id" in result) {
@@ -172,11 +174,102 @@ export async function todo_items_create(
   }
 }
 
-export async function todo_items_get(
+export async function todo_items_operations_create_form(
   ctx: HttpContext,
   request: http.IncomingMessage,
   response: http.ServerResponse,
-  operations: TodoItems,
+  operations: TodoItemsOperations,
+): Promise<void> {
+  const contentType = request.headers["Content-Type"] as string | undefined;
+  if (contentType === undefined) {
+    throw new Error("Invalid request: missing required header 'Content-Type'.");
+  }
+
+  if (!request.headers["content-type"]?.startsWith("multipart/form-data")) {
+    throw new Error(
+      `Invalid Request: expected content-type 'multipart/form-data' but got '${request.headers["content-type"]?.split(";", 2)[0]}'.`,
+    );
+  }
+
+  const body = (await new Promise(function parseBodyMultipartRequest(
+    resolve,
+    reject,
+  ) {
+    const boundary = request.headers["content-type"]
+      ?.split(";")
+      .find((s) => s.includes("boundary="))
+      ?.split("=", 2)[1];
+    if (!boundary) {
+      return reject("Invalid request: missing boundary in content-type.");
+    }
+
+    const chunks: Array<Buffer> = [];
+    request.on("data", function appendChunk(chunk) {
+      chunks.push(chunk);
+    });
+    request.on("end", function finalize() {
+      const text = Buffer.concat(chunks).toString();
+      const parts = text.split(boundary).slice(1, -1);
+      const fields: { [k: string]: any } = {};
+
+      for (const part of parts) {
+        const [headerText, body] = part.split("\r\n\r\n", 2);
+        const headers = Object.fromEntries(
+          headerText.split("\r\n").map((line) => line.split(": ", 2)),
+        ) as { [k: string]: string };
+        const name = headers["Content-Disposition"]
+          .split('name="')[1]
+          .split('"')[0];
+        const contentType = headers["Content-Type"] ?? "text/plain";
+
+        switch (contentType) {
+          case "application/json":
+            fields[name] = JSON.parse(body);
+            break;
+          case "application/octet-stream":
+            fields[name] = Buffer.from(body, "utf-8");
+            break;
+          default:
+            fields[name] = body;
+        }
+      }
+
+      resolve(fields as ToDoItemMultipartRequest);
+    });
+  })) as ToDoItemMultipartRequest;
+
+  const result = await operations.createForm(ctx, body);
+
+  if ("id" in result) {
+    response.end(JSON.stringify(result));
+  } else if ("statusCode" in result && result.statusCode === 422) {
+    response.statusCode = result.statusCode;
+    delete (result as any).statusCode;
+    response.end();
+  } else if (
+    "statusCode" in result &&
+    result.statusCode >= 400 &&
+    result.statusCode <= 499
+  ) {
+    response.statusCode = result.statusCode;
+    delete (result as any).statusCode;
+    response.end();
+  } else if (
+    "statusCode" in result &&
+    result.statusCode >= 500 &&
+    result.statusCode <= 599
+  ) {
+    response.statusCode = result.statusCode;
+    delete (result as any).statusCode;
+    response.end();
+  }
+}
+
+export async function todo_items_operations_get(
+  ctx: HttpContext,
+  request: http.IncomingMessage,
+  response: http.ServerResponse,
+  operations: TodoItemsOperations,
   id: string,
 ): Promise<void> {
   const result = await operations.get(ctx, Number(id));
@@ -190,11 +283,11 @@ export async function todo_items_get(
   }
 }
 
-export async function todo_items_update(
+export async function todo_items_operations_update(
   ctx: HttpContext,
   request: http.IncomingMessage,
   response: http.ServerResponse,
-  operations: TodoItems,
+  operations: TodoItemsOperations,
   id: string,
 ): Promise<void> {
   const contentType = request.headers["Content-Type"] as string | undefined;
@@ -225,11 +318,11 @@ export async function todo_items_update(
   response.end(JSON.stringify(result));
 }
 
-export async function todo_items_delete(
+export async function todo_items_operations_delete(
   ctx: HttpContext,
   request: http.IncomingMessage,
   response: http.ServerResponse,
-  operations: TodoItems,
+  operations: TodoItemsOperations,
   id: string,
 ): Promise<void> {
   const result = await operations.delete(ctx, Number(id));
@@ -261,11 +354,11 @@ export async function todo_items_delete(
   }
 }
 
-export async function attachments_list(
+export async function attachments_operations_list(
   ctx: HttpContext,
   request: http.IncomingMessage,
   response: http.ServerResponse,
-  operations: Attachments,
+  operations: AttachmentsOperations,
   itemId: string,
 ): Promise<void> {
   const result = await operations.list(ctx, Number(itemId));
@@ -295,13 +388,18 @@ export async function attachments_list(
   }
 }
 
-export async function attachments_create_attachment(
+export async function attachments_operations_create_url_attachment(
   ctx: HttpContext,
   request: http.IncomingMessage,
   response: http.ServerResponse,
-  operations: Attachments,
+  operations: AttachmentsOperations,
   itemId: string,
 ): Promise<void> {
+  const contentType = request.headers["Content-Type"] as string | undefined;
+  if (contentType === undefined) {
+    throw new Error("Invalid request: missing required header 'Content-Type'.");
+  }
+
   if (!request.headers["content-type"]?.startsWith("application/json")) {
     throw new Error(
       `Invalid Request: expected content-type 'application/json' but got '${request.headers["content-type"]?.split(";", 2)[0]}'.`,
@@ -316,9 +414,9 @@ export async function attachments_create_attachment(
     request.on("end", function finalize() {
       resolve(JSON.parse(Buffer.concat(chunks).toString()));
     });
-  })) as TodoFileAttachment | TodoUrlAttachment;
+  })) as TodoUrlAttachment;
 
-  const result = await operations.createAttachment(
+  const result = await operations.createUrlAttachment(
     ctx,
     Number(itemId),
     contents,
@@ -331,7 +429,105 @@ export async function attachments_create_attachment(
   } else if ("statusCode" in result && result.statusCode === 404) {
     response.statusCode = result.statusCode;
     delete (result as any).statusCode;
-    response.end(JSON.stringify(result));
+    response.end();
+  } else if (
+    "statusCode" in result &&
+    result.statusCode >= 400 &&
+    result.statusCode <= 499
+  ) {
+    response.statusCode = result.statusCode;
+    delete (result as any).statusCode;
+    response.end();
+  } else if (
+    "statusCode" in result &&
+    result.statusCode >= 500 &&
+    result.statusCode <= 599
+  ) {
+    response.statusCode = result.statusCode;
+    delete (result as any).statusCode;
+    response.end();
+  }
+}
+
+export async function attachments_operations_create_file_attachment(
+  ctx: HttpContext,
+  request: http.IncomingMessage,
+  response: http.ServerResponse,
+  operations: AttachmentsOperations,
+  itemId: string,
+): Promise<void> {
+  const contentType = request.headers["Content-Type"] as string | undefined;
+  if (contentType === undefined) {
+    throw new Error("Invalid request: missing required header 'Content-Type'.");
+  }
+
+  if (!request.headers["content-type"]?.startsWith("multipart/form-data")) {
+    throw new Error(
+      `Invalid Request: expected content-type 'multipart/form-data' but got '${request.headers["content-type"]?.split(";", 2)[0]}'.`,
+    );
+  }
+
+  const contents = (await new Promise(function parseContentsMultipartRequest(
+    resolve,
+    reject,
+  ) {
+    const boundary = request.headers["content-type"]
+      ?.split(";")
+      .find((s) => s.includes("boundary="))
+      ?.split("=", 2)[1];
+    if (!boundary) {
+      return reject("Invalid request: missing boundary in content-type.");
+    }
+
+    const chunks: Array<Buffer> = [];
+    request.on("data", function appendChunk(chunk) {
+      chunks.push(chunk);
+    });
+    request.on("end", function finalize() {
+      const text = Buffer.concat(chunks).toString();
+      const parts = text.split(boundary).slice(1, -1);
+      const fields: { [k: string]: any } = {};
+
+      for (const part of parts) {
+        const [headerText, body] = part.split("\r\n\r\n", 2);
+        const headers = Object.fromEntries(
+          headerText.split("\r\n").map((line) => line.split(": ", 2)),
+        ) as { [k: string]: string };
+        const name = headers["Content-Disposition"]
+          .split('name="')[1]
+          .split('"')[0];
+        const contentType = headers["Content-Type"] ?? "text/plain";
+
+        switch (contentType) {
+          case "application/json":
+            fields[name] = JSON.parse(body);
+            break;
+          case "application/octet-stream":
+            fields[name] = Buffer.from(body, "utf-8");
+            break;
+          default:
+            fields[name] = body;
+        }
+      }
+
+      resolve(fields as TodoFileAttachment);
+    });
+  })) as TodoFileAttachment;
+
+  const result = await operations.createFileAttachment(
+    ctx,
+    Number(itemId),
+    contents,
+  );
+
+  if ("statusCode" in result && result.statusCode === 204) {
+    response.statusCode = result.statusCode;
+    delete (result as any).statusCode;
+    response.end();
+  } else if ("statusCode" in result && result.statusCode === 404) {
+    response.statusCode = result.statusCode;
+    delete (result as any).statusCode;
+    response.end();
   } else if (
     "statusCode" in result &&
     result.statusCode >= 400 &&

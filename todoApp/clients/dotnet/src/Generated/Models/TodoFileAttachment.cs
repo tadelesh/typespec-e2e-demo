@@ -15,37 +15,31 @@ namespace Todo.Models
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
         /// <summary> Initializes a new instance of <see cref="TodoFileAttachment"/>. </summary>
-        /// <param name="filename"> The file name of the attachment. </param>
-        /// <param name="mediaType"> The media type of the attachment. </param>
-        /// <param name="contents"> The contents of the file. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="filename"/>, <paramref name="mediaType"/> or <paramref name="contents"/> is null. </exception>
-        public TodoFileAttachment(string filename, string mediaType, BinaryData contents)
+        /// <param name="contents"></param>
+        /// <exception cref="ArgumentNullException"> <paramref name="contents"/> is null. </exception>
+        public TodoFileAttachment(BinaryData contents)
         {
-            Argument.AssertNotNull(filename, nameof(filename));
-            Argument.AssertNotNull(mediaType, nameof(mediaType));
             Argument.AssertNotNull(contents, nameof(contents));
 
-            Filename = filename;
-            MediaType = mediaType;
             Contents = contents;
         }
 
-        internal TodoFileAttachment(string filename, string mediaType, BinaryData contents, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal TodoFileAttachment(string contentType, string filename, BinaryData contents, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
+            ContentType = contentType;
             Filename = filename;
-            MediaType = mediaType;
             Contents = contents;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;
         }
 
-        /// <summary> The file name of the attachment. </summary>
+        /// <summary> Gets or sets the ContentType. </summary>
+        public string ContentType { get; set; }
+
+        /// <summary> Gets or sets the Filename. </summary>
         public string Filename { get; set; }
 
-        /// <summary> The media type of the attachment. </summary>
-        public string MediaType { get; set; }
-
         /// <summary>
-        /// The contents of the file
+        /// Gets or sets the Contents.
         /// <para>
         /// To assign a byte[] to this property use <see cref="BinaryData.FromBytes(byte[])"/>.
         /// The byte[] will be serialized to a Base64 encoded string.

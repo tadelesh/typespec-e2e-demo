@@ -34,7 +34,7 @@ namespace Todo
             return message;
         }
 
-        internal PipelineMessage CreateCreateAttachmentRequest(long itemId, BinaryContent content, RequestOptions options)
+        internal PipelineMessage CreateCreateUrlAttachmentRequest(long itemId, BinaryContent content, RequestOptions options)
         {
             PipelineMessage message = Pipeline.CreateMessage();
             message.ResponseClassifier = PipelineMessageClassifier204;
@@ -47,6 +47,25 @@ namespace Todo
             uri.AppendPath("/attachments", false);
             request.Uri = uri.ToUri();
             request.Headers.Set("Content-Type", "application/json");
+            request.Headers.Set("Accept", "application/json");
+            request.Content = content;
+            message.Apply(options);
+            return message;
+        }
+
+        internal PipelineMessage CreateCreateFileAttachmentRequest(long itemId, BinaryContent content, string contentType, RequestOptions options)
+        {
+            PipelineMessage message = Pipeline.CreateMessage();
+            message.ResponseClassifier = PipelineMessageClassifier204;
+            PipelineRequest request = message.Request;
+            request.Method = "POST";
+            ClientUriBuilder uri = new ClientUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/items/", false);
+            uri.AppendPath(itemId.ToString(), true);
+            uri.AppendPath("/attachments", false);
+            request.Uri = uri.ToUri();
+            request.Headers.Set("Content-Type", contentType);
             request.Headers.Set("Accept", "application/json");
             request.Content = content;
             message.Apply(options);

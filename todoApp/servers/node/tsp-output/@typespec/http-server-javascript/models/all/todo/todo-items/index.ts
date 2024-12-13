@@ -4,12 +4,15 @@ import {
   TodoItem,
   Standard4XxResponse,
   Standard5XxResponse,
-  TodoFileAttachment,
   TodoUrlAttachment,
+  TodoFileAttachment,
+  ToDoItemMultipartRequest,
   ApiError,
-} from "./index.js";
+} from "../index.js";
 
-import { NoContentResponse } from "../typespec/http.js";
+import { NoContentResponse, NotFoundResponse } from "../../typespec/http.js";
+
+import { ListOptions, CreateJsonOptions } from "../../../synthetic.js";
 
 export interface TodoPage {
   /**
@@ -82,10 +85,57 @@ export interface Attachments<Context = unknown> {
     | Standard5XxResponse
   >;
 
-  createAttachment(
+  createUrlAttachment(
     ctx: Context,
     itemId: number,
-    contents: TodoFileAttachment | TodoUrlAttachment,
+    contents: TodoUrlAttachment,
+  ): Promise<
+    | NoContentResponse
+    | NotFoundResponse
+    | Standard4XxResponse
+    | Standard5XxResponse
+  >;
+
+  createFileAttachment(
+    ctx: Context,
+    itemId: number,
+    contents: TodoFileAttachment,
+  ): Promise<
+    | NoContentResponse
+    | NotFoundResponse
+    | Standard4XxResponse
+    | Standard5XxResponse
+  >;
+}
+
+export interface TodoItemsOperations<Context = unknown> {
+  list(
+    ctx: Context,
+    options?: ListOptions,
+  ): Promise<TodoPage | Standard4XxResponse | Standard5XxResponse>;
+
+  createJson(
+    ctx: Context,
+    item: TodoItem,
+    options?: CreateJsonOptions,
+  ): Promise<
+    TodoItem | InvalidTodoItem | Standard4XxResponse | Standard5XxResponse
+  >;
+
+  createForm(
+    ctx: Context,
+    body: ToDoItemMultipartRequest,
+  ): Promise<
+    TodoItem | InvalidTodoItem | Standard4XxResponse | Standard5XxResponse
+  >;
+
+  get(ctx: Context, id: number): Promise<TodoItem | NotFoundErrorResponse>;
+
+  update(ctx: Context, id: number, patch: TodoItemPatch): Promise<TodoItem>;
+
+  delete(
+    ctx: Context,
+    id: number,
   ): Promise<
     | NoContentResponse
     | NotFoundErrorResponse

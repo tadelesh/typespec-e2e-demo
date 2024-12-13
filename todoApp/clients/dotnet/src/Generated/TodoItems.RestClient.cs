@@ -40,7 +40,7 @@ namespace Todo
             return message;
         }
 
-        internal PipelineMessage CreateCreateRequest(BinaryContent content, RequestOptions options)
+        internal PipelineMessage CreateCreateJsonRequest(BinaryContent content, RequestOptions options)
         {
             PipelineMessage message = Pipeline.CreateMessage();
             message.ResponseClassifier = PipelineMessageClassifier200;
@@ -51,6 +51,23 @@ namespace Todo
             uri.AppendPath("/items", false);
             request.Uri = uri.ToUri();
             request.Headers.Set("Content-Type", "application/json");
+            request.Headers.Set("Accept", "application/json");
+            request.Content = content;
+            message.Apply(options);
+            return message;
+        }
+
+        internal PipelineMessage CreateCreateFormRequest(BinaryContent content, string contentType, RequestOptions options)
+        {
+            PipelineMessage message = Pipeline.CreateMessage();
+            message.ResponseClassifier = PipelineMessageClassifier200;
+            PipelineRequest request = message.Request;
+            request.Method = "POST";
+            ClientUriBuilder uri = new ClientUriBuilder();
+            uri.Reset(_endpoint);
+            uri.AppendPath("/items", false);
+            request.Uri = uri.ToUri();
+            request.Headers.Set("Content-Type", contentType);
             request.Headers.Set("Accept", "application/json");
             request.Content = content;
             message.Apply(options);

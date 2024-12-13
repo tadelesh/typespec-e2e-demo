@@ -34,10 +34,16 @@ namespace Todo.Models
             {
                 throw new FormatException($"The model {nameof(TodoFileAttachment)} does not support writing '{format}' format.");
             }
-            writer.WritePropertyName("filename"u8);
-            writer.WriteStringValue(Filename);
-            writer.WritePropertyName("mediaType"u8);
-            writer.WriteStringValue(MediaType);
+            if (Optional.IsDefined(ContentType))
+            {
+                writer.WritePropertyName("contentType"u8);
+                writer.WriteStringValue(ContentType);
+            }
+            if (Optional.IsDefined(Filename))
+            {
+                writer.WritePropertyName("filename"u8);
+                writer.WriteStringValue(Filename);
+            }
             writer.WritePropertyName("contents"u8);
             writer.WriteBase64StringValue(Contents.ToArray(), "D");
             if (options.Format != "W" && _additionalBinaryDataProperties != null)
@@ -78,20 +84,20 @@ namespace Todo.Models
             {
                 return null;
             }
+            string contentType = default;
             string filename = default;
-            string mediaType = default;
             BinaryData contents = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
+                if (prop.NameEquals("contentType"u8))
+                {
+                    contentType = prop.Value.GetString();
+                    continue;
+                }
                 if (prop.NameEquals("filename"u8))
                 {
                     filename = prop.Value.GetString();
-                    continue;
-                }
-                if (prop.NameEquals("mediaType"u8))
-                {
-                    mediaType = prop.Value.GetString();
                     continue;
                 }
                 if (prop.NameEquals("contents"u8))
@@ -104,7 +110,7 @@ namespace Todo.Models
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new TodoFileAttachment(filename, mediaType, contents, additionalBinaryDataProperties);
+            return new TodoFileAttachment(contentType, filename, contents, additionalBinaryDataProperties);
         }
 
         BinaryData IPersistableModel<TodoFileAttachment>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
