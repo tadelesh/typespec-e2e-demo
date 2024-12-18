@@ -106,7 +106,7 @@ model TodoLabelRecord {
 
 @jsonSchema
 model TodoFileBytesAttachment extends TodoAttachment {
-  kind: "file";
+  kind: TodoAttachmentType.File;
   /** The file contents */
   file: bytes;
 }
