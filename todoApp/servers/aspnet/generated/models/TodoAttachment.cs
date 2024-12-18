@@ -10,7 +10,7 @@
       ///<summary>
 /// discriminator kind
 ///</summary>
-public string Kind { get; set; }
+public TodoAttachmentType Kind { get; set; }
 
     
     }

@@ -121,11 +121,18 @@ model TodoUrlAttachment extends TodoAttachment {
   url: url;
 }
 
+
+union TodoAttachmentType {
+  string,
+  File: "file",
+  Url: "url",
+}
+
 @jsonSchema
 @discriminator("kind")
 model TodoAttachment {
   /** discriminator kind */
-  kind: "file" | "url";
+  kind: TodoAttachmentType;
 }
 
 @jsonSchema
