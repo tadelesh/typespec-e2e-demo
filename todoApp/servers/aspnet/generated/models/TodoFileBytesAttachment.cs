@@ -6,7 +6,7 @@
       
       namespace Todo.Service.Models {
 
-      public partial class TodoFileBytesAttachment : TodoAttachment {
+      public partial class TodoFileBytesAttachment  {
       public string Kind { get; } = "file";
 
     ///<summary>

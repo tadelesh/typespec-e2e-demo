@@ -6,7 +6,7 @@
       
       namespace Todo.Service.Models {
 
-      public partial class TodoUrlAttachment : TodoAttachment {
+      public partial class TodoUrlAttachment  {
       public string Kind { get; } = "url";
 
     ///<summary>
