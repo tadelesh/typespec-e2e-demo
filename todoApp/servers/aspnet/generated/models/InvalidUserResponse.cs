@@ -6,13 +6,11 @@
       
       namespace Todo.Service.Models {
 
-      public partial class TodoFileBytesAttachment : TodoAttachment {
-      public new string Kind { get; } = "file";
-
-    ///<summary>
-/// The file contents
+      ///<summary>
+/// The user is invalid (e.g. forgot to enter email address)
 ///</summary>
-public byte[] File { get; set; }
+public partial class InvalidUserResponse : ApiError {
+      public new string Code { get; } = "invalid-user";
 
     
     }

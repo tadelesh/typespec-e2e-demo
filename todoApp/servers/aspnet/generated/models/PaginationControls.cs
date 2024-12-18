@@ -6,13 +6,16 @@
       
       namespace Todo.Service.Models {
 
-      public partial class TodoFileBytesAttachment : TodoAttachment {
-      public new string Kind { get; } = "file";
+      public partial class PaginationControls  {
+      ///<summary>
+/// The limit to the number of items
+///</summary>
+public int? Limit { get; set; } = 50;
 
     ///<summary>
-/// The file contents
+/// The offset to start paginating at
 ///</summary>
-public byte[] File { get; set; }
+public int? Offset { get; set; } = 0;
 
     
     }

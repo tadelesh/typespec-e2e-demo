@@ -7,9 +7,11 @@
       namespace Todo.Service.Models {
 
       ///<summary>
-/// Something is wrong with me.
+/// The user already exists
 ///</summary>
-public partial class Standard5XxResponse : ApiError {
-      
+public partial class UserExistsResponse : ApiError {
+      public new string Code { get; } = "user-exists";
+
+    
     }
    } 

@@ -10,7 +10,7 @@
       ///<summary>
 /// The item's unique id
 ///</summary>
-[TypeSpec.Helpers.JsonConverters.SafeInt]
+[TypeSpec.Helpers.JsonConverters.NumericConstraint<long>( MinValue = -9007199254740991, MaxValue = 9007199254740991)]
 public long Id { get; set; }
 
     ///<summary>
@@ -22,13 +22,13 @@ public string Title { get; set; }
     ///<summary>
 /// User that created the todo
 ///</summary>
-[TypeSpec.Helpers.JsonConverters.SafeInt]
+[TypeSpec.Helpers.JsonConverters.NumericConstraint<long>( MinValue = -9007199254740991, MaxValue = 9007199254740991)]
 public long CreatedBy { get; set; }
 
     ///<summary>
 /// User that the todo is assigned to
 ///</summary>
-[TypeSpec.Helpers.JsonConverters.SafeInt]
+[TypeSpec.Helpers.JsonConverters.NumericConstraint<long>( MinValue = -9007199254740991, MaxValue = 9007199254740991)]
 public long AssignedTo { get; set; }
 
     ///<summary>
@@ -58,7 +58,8 @@ public DateTimeOffset? CompletedAt { get; set; }
 
     public object Labels { get; set; }
 
-    public string Dummy { get; set; }
+    [JsonPropertyName( "_dummy")]
+public string Dummy { get; set; }
 
     
     }

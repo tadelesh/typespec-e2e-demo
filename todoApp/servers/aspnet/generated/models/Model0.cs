@@ -6,13 +6,10 @@
       
       namespace Todo.Service.Models {
 
-      public partial class TodoFileBytesAttachment : TodoAttachment {
-      public new string Kind { get; } = "file";
+      public partial class Model0  {
+      public TodoItem Item { get; set; }
 
-    ///<summary>
-/// The file contents
-///</summary>
-public byte[] File { get; set; }
+    public TodoAttachment[] Attachments { get; set; }
 
     
     }

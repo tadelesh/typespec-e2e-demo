@@ -6,13 +6,8 @@
       
       namespace Todo.Service.Models {
 
-      public partial class TodoFileBytesAttachment : TodoAttachment {
-      public new string Kind { get; } = "file";
-
-    ///<summary>
-/// The file contents
-///</summary>
-public byte[] File { get; set; }
+      public partial class NotFoundErrorResponse  {
+      public string Code { get; } = "not-found";
 
     
     }

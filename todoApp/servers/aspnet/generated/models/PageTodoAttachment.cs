@@ -6,10 +6,9 @@
       
       namespace Todo.Service.Models {
 
-      ///<summary>
-/// Something is wrong with you.
-///</summary>
-public partial class Standard4XxResponse : ApiError {
-      
+      public partial class PageTodoAttachment  {
+      public TodoAttachment[] Items { get; set; }
+
+    
     }
    } 
