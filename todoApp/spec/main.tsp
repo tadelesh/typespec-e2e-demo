@@ -113,7 +113,7 @@ model TodoFileBytesAttachment extends TodoAttachment {
 
 @jsonSchema
 model TodoUrlAttachment extends TodoAttachment {
-  kind: "url";
+  kind: TodoAttachmentType.Url;
   /** A description of the URL */
   description: string;
 
