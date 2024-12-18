@@ -84,6 +84,10 @@ model ToDoItemMultipartRequest {
   attachments?: HttpPart<TodoFileAttachment>[];
 }
 
+model FileAttachmentMultipartRequest {
+  contents: HttpPart<TodoFileAttachment>;
+}
+
 @jsonSchema
 union TodoLabels {
   string,
@@ -101,7 +105,7 @@ model TodoLabelRecord {
 }
 
 union TodoAttachment {
-  file: TodoFileAttachment,
+  file: bytes,
   url: TodoUrlAttachment,
 }
 
@@ -289,7 +293,7 @@ namespace TodoItems {
     op createFileAttachment(
       @header contentType: "multipart/form-data",
       @path itemId: TodoItem.id,
-      @multipartBody body: {contents: HttpPart<TodoFileAttachment>},
+      @multipartBody body: FileAttachmentMultipartRequest,
     ): WithStandardErrors<NoContentResponse | NotFoundResponse>;
   }
 }
