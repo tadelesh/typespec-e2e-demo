@@ -81,7 +81,7 @@ model TodoItem {
 
 model ToDoItemMultipartRequest {
   item: HttpPart<TodoItem>;
-  attachments?: HttpPart<TodoAttachment[]>;
+  attachments?: HttpPart<TodoFileAttachment>[];
 }
 
 @jsonSchema
@@ -257,7 +257,7 @@ namespace TodoItems {
   @post
   op createForm(
     @header contentType: "multipart/form-data",
-    @body body: ToDoItemMultipartRequest,
+    @multipartBody body: ToDoItemMultipartRequest,
   ): WithStandardErrors<TodoItem | InvalidTodoItem>;
 
   @get op get(@path id: TodoItem.id): TodoItem | NotFoundErrorResponse;
@@ -289,7 +289,7 @@ namespace TodoItems {
     op createFileAttachment(
       @header contentType: "multipart/form-data",
       @path itemId: TodoItem.id,
-      @body contents: TodoFileAttachment,
+      @multipartBody body: {contents: HttpPart<TodoFileAttachment>},
     ): WithStandardErrors<NoContentResponse | NotFoundResponse>;
   }
 }
