@@ -104,27 +104,27 @@ model TodoLabelRecord {
   color?: string;
 }
 
-@discriminator("kind")
-union TodoAttachment {
-  TodoFileBytesAttachment,
-  TodoUrlAttachment,
-}
-
 @jsonSchema
-model TodoFileBytesAttachment {
+model TodoFileBytesAttachment extends TodoAttachment {
   kind: "file";
   /** The file contents */
   file: bytes;
 }
 
 @jsonSchema
-model TodoUrlAttachment {
+model TodoUrlAttachment extends TodoAttachment {
   kind: "url";
   /** A description of the URL */
   description: string;
 
   /** The url */
   url: url;
+}
+
+@jsonSchema
+model TodoAttachment {
+  /** discriminator kind */
+  kind: "file" | "url";
 }
 
 @jsonSchema

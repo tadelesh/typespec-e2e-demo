@@ -6,11 +6,10 @@
       
       namespace Todo.Service.Models {
 
-      public partial class ToDoItemMultipartRequest  {
-      public HttpPartTodoItem Item { get; set; }
-
-    public HttpPartTodoFileAttachment[] Attachments { get; set; }
-
-    
+      ///<summary>
+/// Something is wrong with you.
+///</summary>
+public partial class Standard4XxResponse : ApiError {
+      
     }
    } 
