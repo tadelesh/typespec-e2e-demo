@@ -121,7 +121,7 @@ model TodoUrlAttachment extends TodoAttachment {
   url: url;
 }
 
-
+@jsonSchema
 union TodoAttachmentType {
   string,
   File: "file",
