@@ -291,7 +291,7 @@ namespace TodoItems {
       @header contentType: "application/json",
       @path itemId: TodoItem.id,
       @body contents: TodoUrlAttachment,
-    ): WithStandardErrors<NoContentResponse | NotFoundResponse>;
+    ): WithStandardErrors<NoContentResponse | NotFoundErrorResponse>;
 
    @sharedRoute
     @post
@@ -299,6 +299,6 @@ namespace TodoItems {
       @header contentType: "multipart/form-data",
       @path itemId: TodoItem.id,
       @multipartBody body: FileAttachmentMultipartRequest,
-    ): WithStandardErrors<NoContentResponse | NotFoundResponse>;
+    ): WithStandardErrors<NoContentResponse | NotFoundErrorResponse>;
   }
 }
