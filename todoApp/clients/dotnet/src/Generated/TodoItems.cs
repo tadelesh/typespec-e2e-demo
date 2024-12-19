@@ -98,7 +98,7 @@ namespace Todo
         }
 
         /// <summary>
-        /// [Protocol Method] create
+        /// [Protocol Method] createJson
         /// <list type="bullet">
         /// <item>
         /// <description> This <see href="https://aka.ms/azsdk/net/protocol-methods">protocol method</see> allows explicit creation of the request and processing of the response for advanced scenarios. </description>
@@ -110,16 +110,16 @@ namespace Todo
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual ClientResult Create(BinaryContent content, RequestOptions options = null)
+        public virtual ClientResult CreateJson(BinaryContent content, RequestOptions options = null)
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using PipelineMessage message = CreateCreateRequest(content, options);
+            using PipelineMessage message = CreateCreateJsonRequest(content, options);
             return ClientResult.FromResponse(Pipeline.ProcessMessage(message, options));
         }
 
         /// <summary>
-        /// [Protocol Method] create
+        /// [Protocol Method] createJson
         /// <list type="bullet">
         /// <item>
         /// <description> This <see href="https://aka.ms/azsdk/net/protocol-methods">protocol method</see> allows explicit creation of the request and processing of the response for advanced scenarios. </description>
@@ -131,42 +131,86 @@ namespace Todo
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual async Task<ClientResult> CreateAsync(BinaryContent content, RequestOptions options = null)
+        public virtual async Task<ClientResult> CreateJsonAsync(BinaryContent content, RequestOptions options = null)
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using PipelineMessage message = CreateCreateRequest(content, options);
+            using PipelineMessage message = CreateCreateJsonRequest(content, options);
             return ClientResult.FromResponse(await Pipeline.ProcessMessageAsync(message, options).ConfigureAwait(false));
         }
 
-        /// <summary> create. </summary>
+        /// <summary> createJson. </summary>
         /// <param name="item"></param>
         /// <param name="attachments"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="item"/> is null. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual ClientResult<CreateResponse> Create(TodoItem item, IEnumerable<BinaryData> attachments = default, CancellationToken cancellationToken = default)
+        public virtual ClientResult<CreateJsonResponse> CreateJson(TodoItem item, IEnumerable<BinaryData> attachments = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(item, nameof(item));
 
-            CreateRequest spreadModel = new CreateRequest(item, attachments?.ToList() as IList<BinaryData> ?? new ChangeTrackingList<BinaryData>(), null);
-            ClientResult result = Create(spreadModel, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null);
-            return ClientResult.FromValue((CreateResponse)result, result.GetRawResponse());
+            CreateJsonRequest spreadModel = new CreateJsonRequest(item, attachments?.ToList() as IList<BinaryData> ?? new ChangeTrackingList<BinaryData>(), null);
+            ClientResult result = CreateJson(spreadModel, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null);
+            return ClientResult.FromValue((CreateJsonResponse)result, result.GetRawResponse());
         }
 
-        /// <summary> create. </summary>
+        /// <summary> createJson. </summary>
         /// <param name="item"></param>
         /// <param name="attachments"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="item"/> is null. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual async Task<ClientResult<CreateResponse>> CreateAsync(TodoItem item, IEnumerable<BinaryData> attachments = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ClientResult<CreateJsonResponse>> CreateJsonAsync(TodoItem item, IEnumerable<BinaryData> attachments = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(item, nameof(item));
 
-            CreateRequest spreadModel = new CreateRequest(item, attachments?.ToList() as IList<BinaryData> ?? new ChangeTrackingList<BinaryData>(), null);
-            ClientResult result = await CreateAsync(spreadModel, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null).ConfigureAwait(false);
-            return ClientResult.FromValue((CreateResponse)result, result.GetRawResponse());
+            CreateJsonRequest spreadModel = new CreateJsonRequest(item, attachments?.ToList() as IList<BinaryData> ?? new ChangeTrackingList<BinaryData>(), null);
+            ClientResult result = await CreateJsonAsync(spreadModel, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null).ConfigureAwait(false);
+            return ClientResult.FromValue((CreateJsonResponse)result, result.GetRawResponse());
+        }
+
+        /// <summary>
+        /// [Protocol Method] createForm
+        /// <list type="bullet">
+        /// <item>
+        /// <description> This <see href="https://aka.ms/azsdk/net/protocol-methods">protocol method</see> allows explicit creation of the request and processing of the response for advanced scenarios. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="content"> The content to send as the body of the request. </param>
+        /// <param name="contentType"> The contentType to use which has the multipart/form-data boundary. </param>
+        /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
+        /// <returns> The response returned from the service. </returns>
+        public virtual ClientResult CreateForm(BinaryContent content, string contentType, RequestOptions options = null)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using PipelineMessage message = CreateCreateFormRequest(content, contentType, options);
+            return ClientResult.FromResponse(Pipeline.ProcessMessage(message, options));
+        }
+
+        /// <summary>
+        /// [Protocol Method] createForm
+        /// <list type="bullet">
+        /// <item>
+        /// <description> This <see href="https://aka.ms/azsdk/net/protocol-methods">protocol method</see> allows explicit creation of the request and processing of the response for advanced scenarios. </description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        /// <param name="content"> The content to send as the body of the request. </param>
+        /// <param name="contentType"> The contentType to use which has the multipart/form-data boundary. </param>
+        /// <param name="options"> The request options, which can override default behaviors of the client pipeline on a per-call basis. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
+        /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
+        /// <returns> The response returned from the service. </returns>
+        public virtual async Task<ClientResult> CreateFormAsync(BinaryContent content, string contentType, RequestOptions options = null)
+        {
+            Argument.AssertNotNull(content, nameof(content));
+
+            using PipelineMessage message = CreateCreateFormRequest(content, contentType, options);
+            return ClientResult.FromResponse(await Pipeline.ProcessMessageAsync(message, options).ConfigureAwait(false));
         }
 
         /// <summary>

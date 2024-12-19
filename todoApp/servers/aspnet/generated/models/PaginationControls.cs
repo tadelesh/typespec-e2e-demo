@@ -9,17 +9,17 @@ using System.Text.Json.Serialization;
 namespace Todo.Service.Models
 {
 
-    public partial class TodoUrlAttachment
+    public partial class PaginationControls
     {
         ///<summary>
-        /// A description of the URL
+        /// The limit to the number of items
         ///</summary>
-        public string Description { get; set; }
+        public int? Limit { get; set; } = 50;
 
         ///<summary>
-        /// The url
+        /// The offset to start paginating at
         ///</summary>
-        public string Url { get; set; }
+        public int? Offset { get; set; } = 0;
 
 
     }

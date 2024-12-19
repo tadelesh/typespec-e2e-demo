@@ -9,19 +9,19 @@ using Todo;
 
 namespace Todo.Models
 {
-    /// <summary> The CreateRequest. </summary>
-    internal partial class CreateRequest
+    /// <summary> The CreateJsonRequest. </summary>
+    internal partial class CreateJsonRequest
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        internal CreateRequest(TodoItem item)
+        internal CreateJsonRequest(TodoItem item)
         {
             Item = item;
             Attachments = new ChangeTrackingList<BinaryData>();
         }
 
-        internal CreateRequest(TodoItem item, IList<BinaryData> attachments, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal CreateJsonRequest(TodoItem item, IList<BinaryData> attachments, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Item = item;
             Attachments = attachments;

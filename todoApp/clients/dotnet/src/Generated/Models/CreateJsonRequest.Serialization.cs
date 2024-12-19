@@ -12,13 +12,13 @@ using Todo;
 namespace Todo.Models
 {
     /// <summary></summary>
-    internal partial class CreateRequest : IJsonModel<CreateRequest>
+    internal partial class CreateJsonRequest : IJsonModel<CreateJsonRequest>
     {
-        internal CreateRequest()
+        internal CreateJsonRequest()
         {
         }
 
-        void IJsonModel<CreateRequest>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
+        void IJsonModel<CreateJsonRequest>.Write(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
             writer.WriteStartObject();
             JsonModelWriteCore(writer, options);
@@ -29,10 +29,10 @@ namespace Todo.Models
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual void JsonModelWriteCore(Utf8JsonWriter writer, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<CreateRequest>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<CreateJsonRequest>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(CreateRequest)} does not support writing '{format}' format.");
+                throw new FormatException($"The model {nameof(CreateJsonRequest)} does not support writing '{format}' format.");
             }
             writer.WritePropertyName("item"u8);
             writer.WriteObjectValue(Item, options);
@@ -75,22 +75,22 @@ namespace Todo.Models
             }
         }
 
-        CreateRequest IJsonModel<CreateRequest>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
+        CreateJsonRequest IJsonModel<CreateJsonRequest>.Create(ref Utf8JsonReader reader, ModelReaderWriterOptions options) => JsonModelCreateCore(ref reader, options);
 
         /// <param name="reader"> The JSON reader. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual CreateRequest JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
+        protected virtual CreateJsonRequest JsonModelCreateCore(ref Utf8JsonReader reader, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<CreateRequest>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<CreateJsonRequest>)this).GetFormatFromOptions(options) : options.Format;
             if (format != "J")
             {
-                throw new FormatException($"The model {nameof(CreateRequest)} does not support reading '{format}' format.");
+                throw new FormatException($"The model {nameof(CreateJsonRequest)} does not support reading '{format}' format.");
             }
             using JsonDocument document = JsonDocument.ParseValue(ref reader);
-            return DeserializeCreateRequest(document.RootElement, options);
+            return DeserializeCreateJsonRequest(document.RootElement, options);
         }
 
-        internal static CreateRequest DeserializeCreateRequest(JsonElement element, ModelReaderWriterOptions options)
+        internal static CreateJsonRequest DeserializeCreateJsonRequest(JsonElement element, ModelReaderWriterOptions options)
         {
             if (element.ValueKind == JsonValueKind.Null)
             {
@@ -132,61 +132,61 @@ namespace Todo.Models
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new CreateRequest(item, attachments ?? new ChangeTrackingList<BinaryData>(), additionalBinaryDataProperties);
+            return new CreateJsonRequest(item, attachments ?? new ChangeTrackingList<BinaryData>(), additionalBinaryDataProperties);
         }
 
-        BinaryData IPersistableModel<CreateRequest>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
+        BinaryData IPersistableModel<CreateJsonRequest>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
 
         /// <param name="options"> The client options for reading and writing models. </param>
         protected virtual BinaryData PersistableModelWriteCore(ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<CreateRequest>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<CreateJsonRequest>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     return ModelReaderWriter.Write(this, options);
                 default:
-                    throw new FormatException($"The model {nameof(CreateRequest)} does not support writing '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(CreateJsonRequest)} does not support writing '{options.Format}' format.");
             }
         }
 
-        CreateRequest IPersistableModel<CreateRequest>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
+        CreateJsonRequest IPersistableModel<CreateJsonRequest>.Create(BinaryData data, ModelReaderWriterOptions options) => PersistableModelCreateCore(data, options);
 
         /// <param name="data"> The data to parse. </param>
         /// <param name="options"> The client options for reading and writing models. </param>
-        protected virtual CreateRequest PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
+        protected virtual CreateJsonRequest PersistableModelCreateCore(BinaryData data, ModelReaderWriterOptions options)
         {
-            string format = options.Format == "W" ? ((IPersistableModel<CreateRequest>)this).GetFormatFromOptions(options) : options.Format;
+            string format = options.Format == "W" ? ((IPersistableModel<CreateJsonRequest>)this).GetFormatFromOptions(options) : options.Format;
             switch (format)
             {
                 case "J":
                     using (JsonDocument document = JsonDocument.Parse(data))
                     {
-                        return DeserializeCreateRequest(document.RootElement, options);
+                        return DeserializeCreateJsonRequest(document.RootElement, options);
                     }
                 default:
-                    throw new FormatException($"The model {nameof(CreateRequest)} does not support reading '{options.Format}' format.");
+                    throw new FormatException($"The model {nameof(CreateJsonRequest)} does not support reading '{options.Format}' format.");
             }
         }
 
-        string IPersistableModel<CreateRequest>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
+        string IPersistableModel<CreateJsonRequest>.GetFormatFromOptions(ModelReaderWriterOptions options) => "J";
 
-        /// <param name="createRequest"> The <see cref="CreateRequest"/> to serialize into <see cref="BinaryContent"/>. </param>
-        public static implicit operator BinaryContent(CreateRequest createRequest)
+        /// <param name="createJsonRequest"> The <see cref="CreateJsonRequest"/> to serialize into <see cref="BinaryContent"/>. </param>
+        public static implicit operator BinaryContent(CreateJsonRequest createJsonRequest)
         {
-            if (createRequest == null)
+            if (createJsonRequest == null)
             {
                 return null;
             }
-            return BinaryContent.Create(createRequest, ModelSerializationExtensions.WireOptions);
+            return BinaryContent.Create(createJsonRequest, ModelSerializationExtensions.WireOptions);
         }
 
-        /// <param name="result"> The <see cref="ClientResult"/> to deserialize the <see cref="CreateRequest"/> from. </param>
-        public static explicit operator CreateRequest(ClientResult result)
+        /// <param name="result"> The <see cref="ClientResult"/> to deserialize the <see cref="CreateJsonRequest"/> from. </param>
+        public static explicit operator CreateJsonRequest(ClientResult result)
         {
             using PipelineResponse response = result.GetRawResponse();
             using JsonDocument document = JsonDocument.Parse(response.Content);
-            return DeserializeCreateRequest(document.RootElement, ModelSerializationExtensions.WireOptions);
+            return DeserializeCreateJsonRequest(document.RootElement, ModelSerializationExtensions.WireOptions);
         }
     }
 }

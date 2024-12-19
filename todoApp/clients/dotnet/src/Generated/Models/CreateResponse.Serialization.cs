@@ -39,52 +39,12 @@ namespace Todo.Models
                 writer.WritePropertyName("id"u8);
                 writer.WriteNumberValue(Id);
             }
-            writer.WritePropertyName("title"u8);
-            writer.WriteStringValue(Title);
-            if (options.Format != "W")
-            {
-                writer.WritePropertyName("createdBy"u8);
-                writer.WriteNumberValue(CreatedBy);
-            }
-            if (Optional.IsDefined(AssignedTo))
-            {
-                writer.WritePropertyName("assignedTo"u8);
-                writer.WriteNumberValue(AssignedTo.Value);
-            }
-            if (Optional.IsDefined(Description))
-            {
-                writer.WritePropertyName("description"u8);
-                writer.WriteStringValue(Description);
-            }
-            writer.WritePropertyName("status"u8);
-            writer.WriteStringValue(Status.ToSerialString());
-            if (options.Format != "W")
-            {
-                writer.WritePropertyName("createdAt"u8);
-                writer.WriteStringValue(CreatedAt, "O");
-            }
-            if (options.Format != "W")
-            {
-                writer.WritePropertyName("updatedAt"u8);
-                writer.WriteStringValue(UpdatedAt, "O");
-            }
-            if (options.Format != "W" && Optional.IsDefined(CompletedAt))
-            {
-                writer.WritePropertyName("completedAt"u8);
-                writer.WriteStringValue(CompletedAt.Value, "O");
-            }
-            if (Optional.IsDefined(Labels))
-            {
-                writer.WritePropertyName("labels"u8);
-#if NET6_0_OR_GREATER
-                writer.WriteRawValue(Labels);
-#else
-                using (JsonDocument document = JsonDocument.Parse(Labels))
-                {
-                    JsonSerializer.Serialize(writer, document.RootElement);
-                }
-#endif
-            }
+            writer.WritePropertyName("username"u8);
+            writer.WriteStringValue(Username);
+            writer.WritePropertyName("email"u8);
+            writer.WriteStringValue(Email);
+            writer.WritePropertyName("token"u8);
+            writer.WriteStringValue(Token);
             if (options.Format != "W" && _additionalBinaryDataProperties != null)
             {
                 foreach (var item in _additionalBinaryDataProperties)
@@ -124,15 +84,9 @@ namespace Todo.Models
                 return null;
             }
             long id = default;
-            string title = default;
-            long createdBy = default;
-            long? assignedTo = default;
-            string description = default;
-            TodoItemStatus status = default;
-            DateTimeOffset createdAt = default;
-            DateTimeOffset updatedAt = default;
-            DateTimeOffset? completedAt = default;
-            BinaryData labels = default;
+            string username = default;
+            string email = default;
+            string token = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -141,61 +95,19 @@ namespace Todo.Models
                     id = prop.Value.GetInt64();
                     continue;
                 }
-                if (prop.NameEquals("title"u8))
+                if (prop.NameEquals("username"u8))
                 {
-                    title = prop.Value.GetString();
+                    username = prop.Value.GetString();
                     continue;
                 }
-                if (prop.NameEquals("createdBy"u8))
+                if (prop.NameEquals("email"u8))
                 {
-                    createdBy = prop.Value.GetInt64();
+                    email = prop.Value.GetString();
                     continue;
                 }
-                if (prop.NameEquals("assignedTo"u8))
+                if (prop.NameEquals("token"u8))
                 {
-                    if (prop.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    assignedTo = prop.Value.GetInt64();
-                    continue;
-                }
-                if (prop.NameEquals("description"u8))
-                {
-                    description = prop.Value.GetString();
-                    continue;
-                }
-                if (prop.NameEquals("status"u8))
-                {
-                    status = prop.Value.GetString().ToTodoItemStatus();
-                    continue;
-                }
-                if (prop.NameEquals("createdAt"u8))
-                {
-                    createdAt = prop.Value.GetDateTimeOffset("O");
-                    continue;
-                }
-                if (prop.NameEquals("updatedAt"u8))
-                {
-                    updatedAt = prop.Value.GetDateTimeOffset("O");
-                    continue;
-                }
-                if (prop.NameEquals("completedAt"u8))
-                {
-                    if (prop.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    completedAt = prop.Value.GetDateTimeOffset("O");
-                    continue;
-                }
-                if (prop.NameEquals("labels"u8))
-                {
-                    if (prop.Value.ValueKind == JsonValueKind.Null)
-                    {
-                        continue;
-                    }
-                    labels = BinaryData.FromString(prop.Value.GetRawText());
+                    token = prop.Value.GetString();
                     continue;
                 }
                 if (options.Format != "W")
@@ -203,18 +115,7 @@ namespace Todo.Models
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new CreateResponse(
-                id,
-                title,
-                createdBy,
-                assignedTo,
-                description,
-                status,
-                createdAt,
-                updatedAt,
-                completedAt,
-                labels,
-                additionalBinaryDataProperties);
+            return new CreateResponse(id, username, email, token, additionalBinaryDataProperties);
         }
 
         BinaryData IPersistableModel<CreateResponse>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);

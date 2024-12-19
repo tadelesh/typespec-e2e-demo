@@ -9,12 +9,9 @@ using System.Text.Json.Serialization;
 namespace Todo.Service.Models
 {
 
-    public partial class TodoLabelRecord
+    public partial class FileAttachmentMultipartRequest
     {
-        public string Name { get; set; }
-
-        [TypeSpec.Helpers.JsonConverters.StringConstraint(Pattern = "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$")]
-        public string Color { get; set; }
+        public HttpPartFile Contents { get; set; }
 
 
     }

@@ -6,7 +6,7 @@ import {
   TodoUrlAttachment,
 } from "./all/todo/index.js";
 
-export interface CreateRequestBody {
+export interface CreateJsonRequestBody {
   item: TodoItem;
 
   attachments?: Array<TodoFileAttachment | TodoUrlAttachment>;
@@ -17,6 +17,15 @@ export interface ListOptions {
   offset?: number;
 }
 
-export interface CreateOptions {
+export interface CreateJsonOptions {
+  attachments?: Array<TodoFileAttachment | TodoUrlAttachment>;
+}
+
+export interface ListOptions {
+  limit?: number;
+  offset?: number;
+}
+
+export interface CreateJsonOptions {
   attachments?: Array<TodoFileAttachment | TodoUrlAttachment>;
 }
