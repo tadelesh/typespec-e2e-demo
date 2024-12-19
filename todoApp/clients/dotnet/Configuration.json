@@ -1,0 +1,6 @@
+{
+  "output-folder": ".",
+  "namespace": "Todo",
+  "library-name": "Todo",
+  "use-model-reader-writer": true
+}

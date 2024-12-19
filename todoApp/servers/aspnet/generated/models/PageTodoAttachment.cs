@@ -11,7 +11,7 @@ namespace Todo.Service.Models
 
     public partial class PageTodoAttachment
     {
-        public object[] Items { get; set; }
+        public TodoAttachment[] Items { get; set; }
 
 
     }

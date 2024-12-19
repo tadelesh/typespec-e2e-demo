@@ -17,7 +17,7 @@ namespace Todo.Service
     {
         Task<Placeholder> ListAsync(long itemId);
         Task CreateUrlAttachmentAsync(string contentType, long itemId, TodoUrlAttachment contents);
-        Task CreateFileAttachmentAsync(string contentType, long itemId, TodoFileAttachment contents);
+        Task CreateFileAttachmentAsync(string contentType, long itemId, FileAttachmentMultipartRequest body);
 
     }
 }

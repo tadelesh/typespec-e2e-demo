@@ -16,7 +16,7 @@ namespace Todo.Service
     public interface ITodoItemsOperations
     {
         Task<TodoPage> ListAsync(int? limit, int? offset);
-        Task<TodoItem> CreateJsonAsync(string contentType, TodoItem item, object[]? attachments);
+        Task<TodoItem> CreateJsonAsync(string contentType, TodoItem item, TodoAttachment[]? attachments);
         Task<TodoItem> CreateFormAsync(string contentType, ToDoItemMultipartRequest body);
         Task<TodoItem> GetAsync(long id);
         Task<TodoItem> UpdateAsync(string contentType, long id, TodoItemPatch patch);

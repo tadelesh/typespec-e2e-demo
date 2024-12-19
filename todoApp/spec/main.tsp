@@ -104,11 +104,6 @@ model TodoLabelRecord {
   color?: string;
 }
 
-union TodoAttachment {
-  file: bytes,
-  url: TodoUrlAttachment,
-}
-
 @jsonSchema
 model TodoUrlAttachment {
   /** A description of the URL */
@@ -116,6 +111,19 @@ model TodoUrlAttachment {
 
   /** The url */
   url: url;
+}
+
+@jsonSchema
+model TodoAttachment {
+  /** The file name of the attachment */
+  @maxLength(255)
+  filename: string;
+
+  /** The media type of the attachment */
+  mediaType: string;
+
+  /** The contents of the file */
+  contents: bytes;
 }
 
 @jsonSchema

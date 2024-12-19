@@ -43,7 +43,7 @@ namespace Todo.Service.Controllers
         [HttpPost]
         [Route("/items/{itemId}/attachments")]
         [ProducesResponseType((int)HttpStatusCode.NoContent, Type = typeof(void))]
-        public virtual async Task<IActionResult> CreateFileAttachment([FromHeader(Name = "Content-Type")] string contentType = "multipart/form-data", long itemId, TodoFileAttachment body)
+        public virtual async Task<IActionResult> CreateFileAttachment([FromHeader(Name = "Content-Type")] string contentType = "multipart/form-data", long itemId, FileAttachmentMultipartRequest body)
         {
             await AttachmentsOperationsImpl.CreateFileAttachmentAsync(contentType, itemId, body);
             return Ok();

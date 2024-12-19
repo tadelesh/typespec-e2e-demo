@@ -9,12 +9,8 @@ using System.Text.Json.Serialization;
 namespace Todo.Service.Models
 {
 
-    public partial class Model0
+    public partial class HttpPartTodoFileAttachment
     {
-        public TodoItem Item { get; set; }
-
-        public TodoAttachment[] Attachments { get; set; }
-
 
     }
 }
