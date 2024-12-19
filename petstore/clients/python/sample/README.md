@@ -18,7 +18,7 @@ First, run the following command to start the server:
 dotnet run --project <RepoRoot>/petstore/servers/aspnet/petstore.csproj
 ```
 
-Install the library with:
+Create and activate your own Python virtual environment ([reference](https://docs.python.org/3/library/venv.html)), and install the library with:
 ```
 python <RepoRoot>/petstore/clients/python/setup.py install
 ```
