@@ -4,9 +4,6 @@ import io.clientcore.core.http.exception.HttpResponseException;
 import io.clientcore.core.http.models.HttpLogOptions;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import typespec.rest.resource.PetCollectionWithNextLink;
-import typespec.rest.resource.PetCreate;
-import typespec.rest.resource.PetUpdate;
 
 public final class PetsTests {
 

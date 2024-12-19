@@ -8,7 +8,6 @@ import io.clientcore.core.http.exception.HttpResponseException;
 import io.clientcore.core.http.models.RequestOptions;
 import io.clientcore.core.http.models.Response;
 import petstore.implementation.ToysImpl;
-import typespec.rest.resource.ToyCollectionWithNextLink;
 
 /**
  * Initializes a new instance of the synchronous PetStoreClient type.

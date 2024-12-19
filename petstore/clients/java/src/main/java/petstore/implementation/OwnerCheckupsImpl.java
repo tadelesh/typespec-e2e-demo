@@ -16,8 +16,8 @@ import io.clientcore.core.http.models.RequestOptions;
 import io.clientcore.core.http.models.Response;
 import io.clientcore.core.util.binarydata.BinaryData;
 import petstore.Checkup;
+import petstore.CheckupCollectionWithNextLink;
 import petstore.PetStoreError;
-import typespec.rest.resource.CheckupCollectionWithNextLink;
 
 /**
  * An instance of this class provides access to all the operations defined in OwnerCheckups.
@@ -74,7 +74,10 @@ public final class OwnerCheckupsImpl {
      * 
      * <pre>
      * {@code
-     * CheckupUpdate
+     * {
+     *     vetName: String (Optional)
+     *     notes: String (Optional)
+     * }
      * }
      * </pre>
      * 

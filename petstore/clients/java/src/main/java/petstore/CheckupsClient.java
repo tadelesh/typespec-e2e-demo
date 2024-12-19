@@ -9,8 +9,6 @@ import io.clientcore.core.http.models.RequestOptions;
 import io.clientcore.core.http.models.Response;
 import io.clientcore.core.util.binarydata.BinaryData;
 import petstore.implementation.CheckupsImpl;
-import typespec.rest.resource.CheckupCollectionWithNextLink;
-import typespec.rest.resource.CheckupUpdate;
 
 /**
  * Initializes a new instance of the synchronous PetStoreClient type.
@@ -36,7 +34,10 @@ public final class CheckupsClient {
      * 
      * <pre>
      * {@code
-     * CheckupUpdate
+     * {
+     *     vetName: String (Optional)
+     *     notes: String (Optional)
+     * }
      * }
      * </pre>
      * 

@@ -10,6 +10,7 @@ import io.clientcore.core.http.models.HttpLogOptions;
 import io.clientcore.core.http.models.HttpRedirectOptions;
 import io.clientcore.core.http.models.HttpRetryOptions;
 import io.clientcore.core.http.models.ProxyOptions;
+import io.clientcore.core.http.pipeline.HttpLoggingPolicy;
 import io.clientcore.core.http.pipeline.HttpPipeline;
 import io.clientcore.core.http.pipeline.HttpPipelineBuilder;
 import io.clientcore.core.http.pipeline.HttpPipelinePolicy;
@@ -242,6 +243,7 @@ public final class TodoClientBuilder implements HttpTrait<TodoClientBuilder>, Pr
         if (keyCredential != null) {
             policies.add(new KeyCredentialPolicy("authorization", keyCredential, "Bearer"));
         }
+        policies.add(new HttpLoggingPolicy(localHttpLogOptions));
         httpPipelineBuilder.policies(policies.toArray(new HttpPipelinePolicy[0]));
         return httpPipelineBuilder.build();
     }

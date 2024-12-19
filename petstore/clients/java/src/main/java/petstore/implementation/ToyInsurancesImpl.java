@@ -87,7 +87,11 @@ public final class ToyInsurancesImpl {
      * 
      * <pre>
      * {@code
-     * InsuranceUpdate
+     * {
+     *     provider: String (Optional)
+     *     premium: Integer (Optional)
+     *     deductible: Integer (Optional)
+     * }
      * }
      * </pre>
      * 

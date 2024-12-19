@@ -1,8 +1,5 @@
 package petstore;
 
-import typespec.rest.resource.PetCreate;
-import typespec.rest.resource.PetUpdate;
-
 public final class PetSample {
 
     public static void main(String... args) {

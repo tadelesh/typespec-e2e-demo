@@ -85,7 +85,11 @@ public final class OwnerInsurancesImpl {
      * 
      * <pre>
      * {@code
-     * InsuranceUpdate
+     * {
+     *     provider: String (Optional)
+     *     premium: Integer (Optional)
+     *     deductible: Integer (Optional)
+     * }
      * }
      * </pre>
      * 

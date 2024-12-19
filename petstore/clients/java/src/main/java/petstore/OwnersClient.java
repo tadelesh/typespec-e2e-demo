@@ -9,9 +9,6 @@ import io.clientcore.core.http.models.RequestOptions;
 import io.clientcore.core.http.models.Response;
 import io.clientcore.core.util.binarydata.BinaryData;
 import petstore.implementation.OwnersImpl;
-import typespec.rest.resource.OwnerCollectionWithNextLink;
-import typespec.rest.resource.OwnerCreate;
-import typespec.rest.resource.OwnerUpdate;
 
 /**
  * Initializes a new instance of the synchronous PetStoreClient type.
@@ -50,7 +47,10 @@ public final class OwnersClient {
      * 
      * <pre>
      * {@code
-     * OwnerUpdate
+     * {
+     *     name: String (Optional)
+     *     age: Integer (Optional)
+     * }
      * }
      * </pre>
      * 
@@ -84,7 +84,10 @@ public final class OwnersClient {
      * 
      * <pre>
      * {@code
-     * OwnerCreate
+     * {
+     *     name: String (Required)
+     *     age: int (Required)
+     * }
      * }
      * </pre>
      * 

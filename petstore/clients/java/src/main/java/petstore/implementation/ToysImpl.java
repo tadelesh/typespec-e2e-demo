@@ -16,7 +16,7 @@ import io.clientcore.core.http.models.RequestOptions;
 import io.clientcore.core.http.models.Response;
 import petstore.PetStoreError;
 import petstore.Toy;
-import typespec.rest.resource.ToyCollectionWithNextLink;
+import petstore.ToyCollectionWithNextLink;
 
 /**
  * An instance of this class provides access to all the operations defined in Toys.

@@ -16,8 +16,8 @@ import io.clientcore.core.http.models.RequestOptions;
 import io.clientcore.core.http.models.Response;
 import io.clientcore.core.util.binarydata.BinaryData;
 import petstore.Pet;
+import petstore.PetCollectionWithNextLink;
 import petstore.PetStoreError;
-import typespec.rest.resource.PetCollectionWithNextLink;
 
 /**
  * An instance of this class provides access to all the operations defined in Pets.
@@ -96,7 +96,12 @@ public final class PetsImpl {
      * 
      * <pre>
      * {@code
-     * PetUpdate
+     * {
+     *     name: String (Optional)
+     *     tag: String (Optional)
+     *     age: Integer (Optional)
+     *     ownerId: Long (Optional)
+     * }
      * }
      * </pre>
      * 
@@ -131,7 +136,12 @@ public final class PetsImpl {
      * 
      * <pre>
      * {@code
-     * PetCreate
+     * {
+     *     name: String (Required)
+     *     tag: String (Optional)
+     *     age: int (Required)
+     *     ownerId: long (Required)
+     * }
      * }
      * </pre>
      * 

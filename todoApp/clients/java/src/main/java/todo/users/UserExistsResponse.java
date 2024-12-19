@@ -4,9 +4,9 @@ package todo.users;
 
 import io.clientcore.core.annotation.Metadata;
 import io.clientcore.core.annotation.TypeConditions;
-import io.clientcore.core.json.JsonReader;
-import io.clientcore.core.json.JsonToken;
-import io.clientcore.core.json.JsonWriter;
+import io.clientcore.core.serialization.json.JsonReader;
+import io.clientcore.core.serialization.json.JsonToken;
+import io.clientcore.core.serialization.json.JsonWriter;
 import java.io.IOException;
 import todo.ApiError;
 

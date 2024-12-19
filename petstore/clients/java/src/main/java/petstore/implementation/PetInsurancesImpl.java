@@ -85,7 +85,11 @@ public final class PetInsurancesImpl {
      * 
      * <pre>
      * {@code
-     * InsuranceUpdate
+     * {
+     *     provider: String (Optional)
+     *     premium: Integer (Optional)
+     *     deductible: Integer (Optional)
+     * }
      * }
      * </pre>
      * 
