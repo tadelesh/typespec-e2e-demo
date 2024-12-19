@@ -16,8 +16,8 @@ import io.clientcore.core.http.models.RequestOptions;
 import io.clientcore.core.http.models.Response;
 import io.clientcore.core.util.binarydata.BinaryData;
 import petstore.Owner;
+import petstore.OwnerCollectionWithNextLink;
 import petstore.PetStoreError;
-import typespec.rest.resource.OwnerCollectionWithNextLink;
 
 /**
  * An instance of this class provides access to all the operations defined in Owners.
@@ -96,7 +96,10 @@ public final class OwnersImpl {
      * 
      * <pre>
      * {@code
-     * OwnerUpdate
+     * {
+     *     name: String (Optional)
+     *     age: Integer (Optional)
+     * }
      * }
      * </pre>
      * 
@@ -131,7 +134,10 @@ public final class OwnersImpl {
      * 
      * <pre>
      * {@code
-     * OwnerCreate
+     * {
+     *     name: String (Required)
+     *     age: int (Required)
+     * }
      * }
      * </pre>
      * 

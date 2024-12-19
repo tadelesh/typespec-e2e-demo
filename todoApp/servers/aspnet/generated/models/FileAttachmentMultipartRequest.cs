@@ -11,7 +11,7 @@ namespace Todo.Service.Models
 
     public partial class FileAttachmentMultipartRequest
     {
-        public HttpPartTodoFileAttachment Contents { get; set; }
+        public HttpPartFile Contents { get; set; }
 
 
     }

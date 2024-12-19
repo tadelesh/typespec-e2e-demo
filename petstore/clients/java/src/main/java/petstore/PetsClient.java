@@ -9,9 +9,6 @@ import io.clientcore.core.http.models.RequestOptions;
 import io.clientcore.core.http.models.Response;
 import io.clientcore.core.util.binarydata.BinaryData;
 import petstore.implementation.PetsImpl;
-import typespec.rest.resource.PetCollectionWithNextLink;
-import typespec.rest.resource.PetCreate;
-import typespec.rest.resource.PetUpdate;
 
 /**
  * Initializes a new instance of the synchronous PetStoreClient type.
@@ -50,7 +47,12 @@ public final class PetsClient {
      * 
      * <pre>
      * {@code
-     * PetUpdate
+     * {
+     *     name: String (Optional)
+     *     tag: String (Optional)
+     *     age: Integer (Optional)
+     *     ownerId: Long (Optional)
+     * }
      * }
      * </pre>
      * 
@@ -84,7 +86,12 @@ public final class PetsClient {
      * 
      * <pre>
      * {@code
-     * PetCreate
+     * {
+     *     name: String (Required)
+     *     tag: String (Optional)
+     *     age: int (Required)
+     *     ownerId: long (Required)
+     * }
      * }
      * </pre>
      * 

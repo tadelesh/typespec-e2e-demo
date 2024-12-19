@@ -81,11 +81,11 @@ model TodoItem {
 
 model ToDoItemMultipartRequest {
   item: HttpPart<TodoItem>;
-  attachments?: HttpPart<TodoFileAttachment>[];
+  attachments?: HttpPart<File>[];
 }
 
 model FileAttachmentMultipartRequest {
-  contents: HttpPart<TodoFileAttachment>;
+  contents: HttpPart<File>;
 }
 
 @jsonSchema
@@ -125,9 +125,6 @@ model TodoAttachment {
   /** The contents of the file */
   contents: bytes;
 }
-
-@jsonSchema
-model TodoFileAttachment is File;
 
 @jsonSchema
 @error

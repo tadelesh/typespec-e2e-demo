@@ -21,7 +21,7 @@ export function createPetStore(
     userAgentOptions: { userAgentPrefix },
   };
   const clientContext = getClient(
-    options.endpoint ?? options.endpoint ?? String(endpointParam),
+    options.endpoint ?? String(endpointParam),
     undefined,
     updatedOptions,
   );

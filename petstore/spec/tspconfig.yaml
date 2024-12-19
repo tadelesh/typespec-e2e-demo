@@ -17,10 +17,7 @@ options:
     emitter-output-dir: "{project-root}/../clients/java"
   "@azure-tools/typespec-ts":
     isModularLibrary: true
-    generateMetadata: true
     azureSdkForJs: false
-    generateSample: false
-    generateTest: false
     emitter-output-dir: "{project-root}/../clients/javascript"
     packageDetails:
       name: "@unbranded/petstore"

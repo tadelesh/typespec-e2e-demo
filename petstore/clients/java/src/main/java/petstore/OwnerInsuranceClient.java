@@ -9,7 +9,6 @@ import io.clientcore.core.http.models.RequestOptions;
 import io.clientcore.core.http.models.Response;
 import io.clientcore.core.util.binarydata.BinaryData;
 import petstore.implementation.OwnerInsurancesImpl;
-import typespec.rest.resource.InsuranceUpdate;
 
 /**
  * Initializes a new instance of the synchronous PetStoreClient type.
@@ -48,7 +47,11 @@ public final class OwnerInsuranceClient {
      * 
      * <pre>
      * {@code
-     * InsuranceUpdate
+     * {
+     *     provider: String (Optional)
+     *     premium: Integer (Optional)
+     *     deductible: Integer (Optional)
+     * }
      * }
      * </pre>
      * 

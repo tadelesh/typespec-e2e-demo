@@ -9,7 +9,7 @@ using System.Text.Json.Serialization;
 namespace Todo.Service.Models
 {
 
-    public partial class HttpPartTodoItem
+    public partial class HttpPartFile
     {
 
     }

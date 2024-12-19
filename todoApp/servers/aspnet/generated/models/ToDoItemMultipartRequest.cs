@@ -13,7 +13,7 @@ namespace Todo.Service.Models
     {
         public HttpPartTodoItem Item { get; set; }
 
-        public HttpPartTodoFileAttachment[] Attachments { get; set; }
+        public HttpPartFile[] Attachments { get; set; }
 
 
     }
