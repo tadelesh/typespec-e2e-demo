@@ -105,15 +105,7 @@ model TodoLabelRecord {
 }
 
 @jsonSchema
-model TodoFileBytesAttachment extends TodoAttachment {
-  kind: TodoAttachmentType.File;
-  /** The file contents */
-  file: bytes;
-}
-
-@jsonSchema
-model TodoUrlAttachment extends TodoAttachment {
-  kind: TodoAttachmentType.Url;
+model TodoUrlAttachment {
   /** A description of the URL */
   description: string;
 
@@ -123,15 +115,15 @@ model TodoUrlAttachment extends TodoAttachment {
 
 @jsonSchema
 model TodoAttachment {
-  /** discriminator kind */
-  kind: TodoAttachmentType;
-}
+  /** The file name of the attachment */
+  @maxLength(255)
+  filename: string;
 
-@jsonSchema
-union TodoAttachmentType {
-  string,
-  File: "file",
-  Url: "url",
+  /** The media type of the attachment */
+  mediaType: string;
+
+  /** The contents of the file */
+  contents: bytes;
 }
 
 @jsonSchema

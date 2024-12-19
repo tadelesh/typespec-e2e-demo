@@ -1,8 +1,8 @@
 emit:
  - "@typespec/http-server-csharp"
- - "@typespec/http-server-javascript"
- - "@typespec/http-client-csharp"
- - "@typespec/http-client-java"
+#  - "@typespec/http-server-javascript"
+#  - "@typespec/http-client-csharp"
+#  - "@typespec/http-client-java"
 options:
   "@typespec/http-client-csharp":
     emitter-output-dir: "{project-root}/../clients/dotnet"

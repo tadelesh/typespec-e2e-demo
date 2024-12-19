@@ -12,9 +12,20 @@ namespace Todo.Service.Models
     public partial class TodoAttachment
     {
         ///<summary>
-        /// discriminator kind
+        /// The file name of the attachment
         ///</summary>
-        public TodoAttachmentType Kind { get; set; }
+        [TypeSpec.Helpers.JsonConverters.StringConstraint(MaxLength = 255)]
+        public string Filename { get; set; }
+
+        ///<summary>
+        /// The media type of the attachment
+        ///</summary>
+        public string MediaType { get; set; }
+
+        ///<summary>
+        /// The contents of the file
+        ///</summary>
+        public byte[] Contents { get; set; }
 
 
     }

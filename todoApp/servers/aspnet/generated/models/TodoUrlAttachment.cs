@@ -9,10 +9,8 @@ using System.Text.Json.Serialization;
 namespace Todo.Service.Models
 {
 
-    public partial class TodoUrlAttachment : TodoAttachment
+    public partial class TodoUrlAttachment
     {
-        public new string Kind { get; } = "url";
-
         ///<summary>
         /// A description of the URL
         ///</summary>
