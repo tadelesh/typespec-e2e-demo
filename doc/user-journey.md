@@ -32,9 +32,26 @@ npm install
 npx tsp compile .
 ```
 
+Once the above steps are completed, you should see the following depending on the emitters you have selected.
+```
+    \XXXX
+        \openapi                    # Generated OpenAPI 3.0 spec
+            openapi.yaml
+        \clients                    # Generated Client SDK for selected language
+            \dotnet
+            \java
+            ...
+        \servers                    # Generated Server Code
+            \aspnet
+            \node
+        main.tsp
+        tspconfig.yaml
+        package.json
+```
+
 ### Compile Client SDKs
 
-If you have selected client emitters, you can use the following commands to compile the client project.
+If you have selected client emitters, you can use the following commands to compile the client project in the client sdk folder.
 
 | **Language** | **Command**                |
 | ------------ | -------------------------- |
