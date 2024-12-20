@@ -14,7 +14,7 @@ import io.clientcore.core.http.models.HttpMethod;
 import io.clientcore.core.http.models.RequestOptions;
 import io.clientcore.core.http.models.Response;
 import io.clientcore.core.util.binarydata.BinaryData;
-import todo.CreateResponse1;
+import todo.CreateResponse;
 import todo.Standard4XXResponse;
 import todo.Standard5XXResponse;
 import todo.users.InvalidUserResponse;
@@ -258,7 +258,7 @@ public final class UsersImpl {
                 599 },
             exceptionBodyClass = Standard5XXResponse.class)
         @UnexpectedResponseExceptionDetail
-        Response<CreateResponse1> createSync(@HostParam("endpoint") String endpoint,
+        Response<CreateResponse> createSync(@HostParam("endpoint") String endpoint,
             @HeaderParam("Content-Type") String contentType, @HeaderParam("Accept") String accept,
             @BodyParam("application/json") BinaryData user, RequestOptions requestOptions);
     }
@@ -283,7 +283,7 @@ public final class UsersImpl {
      * @throws HttpResponseException thrown if the service returns an error.
      * @return the response.
      */
-    public Response<CreateResponse1> createWithResponse(BinaryData user, RequestOptions requestOptions) {
+    public Response<CreateResponse> createWithResponse(BinaryData user, RequestOptions requestOptions) {
         final String contentType = "application/json";
         final String accept = "application/json";
         return service.createSync(this.client.getEndpoint(), contentType, accept, user, requestOptions);
