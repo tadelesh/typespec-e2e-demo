@@ -1,0 +1,52 @@
+{
+  "azure-core": {
+    "title": "REST API with client or server project",
+    "description": "Create a project representing a generic REST API with options to include client or server project",
+    "compilerVersion": "0.63.0",
+    "libraries": ["@typespec/http", "@typespec/rest", "@typespec/openapi3"],
+    "config": {},
+    "emitters": {
+      "@typespec/openapi3": {
+        "selected": true,
+        "description": "Generate OpenAPI 3.0 or 3.1 specification",
+        "options": {
+          "emitter-output-dir": "{project-root}/openapi/"
+        }
+      },
+      "@typespec/http-client-csharp": {
+        "description": "Client: generate CSharp client",
+        "options": {
+          "emitter-output-dir": "{project-root}/clients/csharp"
+        },
+        "message": "Please ensure dotnet SDK has been installed. Download from https://dotnet.microsoft.com/download"
+      },
+      "@typespec/http-client-java": {
+        "description": "Client: generate Java client",
+        "options": {
+          "emitter-output-dir": "{project-root}/clients/java"
+        },
+        "message": "Please ensure JDK has been installed. Download from https://www.oracle.com/java/technologies/downloads/"
+      },
+      "@typespec/http-client-python": {
+        "description": "Client: generate Python client",
+        "options": {
+          "emitter-output-dir": "{project-root}/clients/python"
+        },
+        "message": "Please ensure Python has been installed. Download from https://test.python.org/downloads/"
+      },
+      "@typespec/http-server-csharp": {
+        "description": "Server: generate ASP.NET Core server",
+        "options": {
+          "emitter-output-dir": "{project-root}/servers/aspnet/generated"
+        },
+        "message": "Please ensure dotnet SDK has been installed. Download from https://dotnet.microsoft.com/download"
+      },
+      "@typespec/http-server-javascript": {
+        "description": "Server: generate Node/Express server",
+        "options": {
+          "emitter-output-dir": "{project-root}/servers/node/tsp-output/@typespec/http-server-javascript"
+        }
+      }      
+    }
+  }
+}

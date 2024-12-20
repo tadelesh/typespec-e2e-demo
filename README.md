@@ -24,25 +24,9 @@ Run the following command **once or every time `package.json` is updated**:
 npm install
 ```
 
-## Try out generated service code
+## Take TypeSpec For a Spin
 
-List of TypeSpec server emitters:
-
-| Emitters enabled | Emitter Source                                                                                   |
-| ---------------- | ------------------------------------------------------------------------------------------------ |
-| C# ASP.NET       | [GitHub Source](https://github.com/microsoft/typespec/tree/main/packages/http-server-csharp)     |
-| Node.JS/Express  | [GitHub Source](https://github.com/microsoft/typespec/tree/main/packages/http-server-javascript) |
-
-List of specification with server demos:
-
-| specification | Description              | ASP.NET                                              | Node                                               | C# Client                                            |
-| ------------- | ------------------------ | ---------------------------------------------------- | -------------------------------------------------- | ---------------------------------------------------- |
-| widget        | Sample REST service      | [:white_check_mark: Yes](./widget/servers/aspnet/)   | [:white_check_mark: Yes](./widget/servers/aspnet/) | -                                                    |
-| petstore      | Sample Pet Store Service | [:white_check_mark: Yes](./petstore/servers/aspnet/) | [:white_check_mark: Yes](./petstore/servers/node/) | [:white_check_mark: Yes](./petstore/clients/dotnet/) |
-| todoApp       | Sample ToDo App          |                                                      |                                                    |                                                      |
-
-To try out generated service code for a TypeSpec, please follow the `README.MD` under `[spec]/servers/[PLATFORM]/`. If an existing
-spec does not have corresponding server project listed, it means it is still work in progress.
+To experience the API First development with TypeSpec from scratch, please see [user-journey](./doc/user-journey.md)
 
 ## License
 

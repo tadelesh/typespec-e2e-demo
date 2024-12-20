@@ -5,6 +5,7 @@ emit:
   - "@typespec/http-client-java"
   - "@azure-tools/typespec-ts"
   - "@typespec/http-client-python"
+  - "@typespec/openapi3"
 options:
   "@typespec/http-server-csharp":
     emitter-output-dir: "{project-root}/../servers/aspnet/generated"
@@ -23,3 +24,5 @@ options:
       name: "@unbranded/petstore"
   "@typespec/http-client-python":
     emitter-output-dir: "{project-root}/../clients/python"
+  "@typespec/openapi3":
+    emitter-output-dir: "{project-root}/../openapi/"
