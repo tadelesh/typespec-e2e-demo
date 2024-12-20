@@ -15,9 +15,9 @@ namespace Todo
     public partial class TodoItemsAttachments
     {
         private readonly Uri _endpoint;
-        private const string AuthorizationHeader = "session-id";
         /// <summary> A credential used to authenticate to the service. </summary>
         private readonly ApiKeyCredential _keyCredential;
+        private const string AuthorizationHeader = "session-id";
 
         /// <summary> Initializes a new instance of TodoItemsAttachments for mocking. </summary>
         protected TodoItemsAttachments()
@@ -74,20 +74,20 @@ namespace Todo
         /// <param name="itemId"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual ClientResult<PageTodoAttachment> List(long itemId, CancellationToken cancellationToken = default)
+        public virtual ClientResult<TodoAttachmentList> List(long itemId, CancellationToken cancellationToken = default)
         {
             ClientResult result = List(itemId, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null);
-            return ClientResult.FromValue((PageTodoAttachment)result, result.GetRawResponse());
+            return ClientResult.FromValue((TodoAttachmentList)result, result.GetRawResponse());
         }
 
         /// <summary> list. </summary>
         /// <param name="itemId"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual async Task<ClientResult<PageTodoAttachment>> ListAsync(long itemId, CancellationToken cancellationToken = default)
+        public virtual async Task<ClientResult<TodoAttachmentList>> ListAsync(long itemId, CancellationToken cancellationToken = default)
         {
             ClientResult result = await ListAsync(itemId, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null).ConfigureAwait(false);
-            return ClientResult.FromValue((PageTodoAttachment)result, result.GetRawResponse());
+            return ClientResult.FromValue((TodoAttachmentList)result, result.GetRawResponse());
         }
 
         /// <summary>
@@ -140,7 +140,7 @@ namespace Todo
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="contents"/> is null. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual ClientResult CreateUrlAttachment(long itemId, TodoUrlAttachment contents, CancellationToken cancellationToken = default)
+        public virtual ClientResult CreateUrlAttachment(long itemId, TodoAttachment contents, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(contents, nameof(contents));
 
@@ -153,7 +153,7 @@ namespace Todo
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="contents"/> is null. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual async Task<ClientResult> CreateUrlAttachmentAsync(long itemId, TodoUrlAttachment contents, CancellationToken cancellationToken = default)
+        public virtual async Task<ClientResult> CreateUrlAttachmentAsync(long itemId, TodoAttachment contents, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(contents, nameof(contents));
 
