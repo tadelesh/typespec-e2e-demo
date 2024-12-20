@@ -1,5 +1,9 @@
 # TypeSpec Out-of-box User Journey
 
+## North Star
+
+**We envision a seamless experience where TypeSpec users can leverage the `tsp init` command or VSCode to effortlessly create new projects. With intuitive options to select from a variety of emitters, users can kickstart their projects with confidence, knowing that each selected emitter is fully integrated, properly configured, and ready to work out-of-the-box. This empowers developers to focus on designing great APIs without being burdened by setup complexities.**
+
 This document outlines the streamlined user experience for creating and working with a TypeSpec project, from the initial setup to generating client and server projects. It provides guidance on two primary workflows:
 
 - [Using the Command-Line Interface (CLI)](#cli)
