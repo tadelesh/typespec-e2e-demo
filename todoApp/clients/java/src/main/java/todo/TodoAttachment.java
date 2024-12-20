@@ -11,10 +11,10 @@ import io.clientcore.core.serialization.json.JsonWriter;
 import java.io.IOException;
 
 /**
- * The TodoFileAttachment model.
+ * The TodoAttachment model.
  */
 @Metadata(conditions = { TypeConditions.IMMUTABLE })
-public final class TodoFileAttachment implements JsonSerializable<TodoFileAttachment> {
+public final class TodoAttachment implements JsonSerializable<TodoAttachment> {
     /*
      * The file name of the attachment
      */
@@ -34,14 +34,14 @@ public final class TodoFileAttachment implements JsonSerializable<TodoFileAttach
     private final byte[] contents;
 
     /**
-     * Creates an instance of TodoFileAttachment class.
+     * Creates an instance of TodoAttachment class.
      * 
      * @param filename the filename value to set.
      * @param mediaType the mediaType value to set.
      * @param contents the contents value to set.
      */
     @Metadata(generated = true)
-    public TodoFileAttachment(String filename, String mediaType, byte[] contents) {
+    public TodoAttachment(String filename, String mediaType, byte[] contents) {
         this.filename = filename;
         this.mediaType = mediaType;
         this.contents = contents;
@@ -91,16 +91,16 @@ public final class TodoFileAttachment implements JsonSerializable<TodoFileAttach
     }
 
     /**
-     * Reads an instance of TodoFileAttachment from the JsonReader.
+     * Reads an instance of TodoAttachment from the JsonReader.
      * 
      * @param jsonReader The JsonReader being read.
-     * @return An instance of TodoFileAttachment if the JsonReader was pointing to an instance of it, or null if it was
+     * @return An instance of TodoAttachment if the JsonReader was pointing to an instance of it, or null if it was
      * pointing to JSON null.
      * @throws IllegalStateException If the deserialized JSON object was missing any required properties.
-     * @throws IOException If an error occurs while reading the TodoFileAttachment.
+     * @throws IOException If an error occurs while reading the TodoAttachment.
      */
     @Metadata(generated = true)
-    public static TodoFileAttachment fromJson(JsonReader jsonReader) throws IOException {
+    public static TodoAttachment fromJson(JsonReader jsonReader) throws IOException {
         return jsonReader.readObject(reader -> {
             String filename = null;
             String mediaType = null;
@@ -119,7 +119,7 @@ public final class TodoFileAttachment implements JsonSerializable<TodoFileAttach
                     reader.skipChildren();
                 }
             }
-            return new TodoFileAttachment(filename, mediaType, contents);
+            return new TodoAttachment(filename, mediaType, contents);
         });
     }
 }

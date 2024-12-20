@@ -7,9 +7,11 @@ module todo {
     exports todo.users;
     exports todo.implementation;
     exports todo.todoitems;
+    exports typespec.http;
 
     opens todo to io.clientcore.core;
     opens todo.users to io.clientcore.core;
     opens todo.implementation to io.clientcore.core;
     opens todo.todoitems to io.clientcore.core;
+    opens typespec.http to io.clientcore.core;
 }

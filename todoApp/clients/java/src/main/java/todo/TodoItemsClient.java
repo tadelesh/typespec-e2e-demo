@@ -9,8 +9,9 @@ import io.clientcore.core.http.models.RequestOptions;
 import io.clientcore.core.http.models.Response;
 import io.clientcore.core.util.binarydata.BinaryData;
 import java.util.List;
-import todo.implementation.CreateRequest;
+import todo.implementation.CreateJsonRequest;
 import todo.implementation.JsonMergePatchHelper;
+import todo.implementation.MultipartFormDataHelper;
 import todo.implementation.TodoItemsImpl;
 import todo.todoitems.TodoItemPatch;
 import todo.todoitems.TodoPage;
@@ -54,7 +55,7 @@ public final class TodoItemsClient {
     }
 
     /**
-     * The create operation.
+     * The createJson operation.
      * <p><strong>Request Body Schema</strong></p>
      * 
      * <pre>
@@ -74,20 +75,40 @@ public final class TodoItemsClient {
      *         _dummy: String (Optional)
      *     }
      *     attachments (Optional): [
-     *         BinaryData (Optional)
+     *          (Optional){
+     *             filename: String (Required)
+     *             mediaType: String (Required)
+     *             contents: byte[] (Required)
+     *         }
      *     ]
      * }
      * }
      * </pre>
      * 
-     * @param createRequest The createRequest parameter.
+     * @param createJsonRequest The createJsonRequest parameter.
      * @param requestOptions The options to configure the HTTP request before HTTP client sends it.
      * @throws HttpResponseException thrown if the service returns an error.
      * @return the response.
      */
     @Metadata(generated = true)
-    public Response<CreateResponse> createWithResponse(BinaryData createRequest, RequestOptions requestOptions) {
-        return this.serviceClient.createWithResponse(createRequest, requestOptions);
+    public Response<CreateJsonResponse> createJsonWithResponse(BinaryData createJsonRequest,
+        RequestOptions requestOptions) {
+        return this.serviceClient.createJsonWithResponse(createJsonRequest, requestOptions);
+    }
+
+    /**
+     * The createForm operation.
+     * 
+     * @param body The body parameter.
+     * @param requestOptions The options to configure the HTTP request before HTTP client sends it.
+     * @throws HttpResponseException thrown if the service returns an error.
+     * @return the response.
+     */
+    @Metadata(generated = true)
+    Response<CreateFormResponse> createFormWithResponse(BinaryData body, RequestOptions requestOptions) {
+        // Protocol API requires serialization of parts with content-disposition and data, as operation 'createForm' is
+        // 'multipart/form-data'
+        return this.serviceClient.createFormWithResponse(body, requestOptions);
     }
 
     /**
@@ -180,7 +201,7 @@ public final class TodoItemsClient {
     }
 
     /**
-     * The create operation.
+     * The createJson operation.
      * 
      * @param item The item parameter.
      * @param attachments The attachments parameter.
@@ -190,16 +211,16 @@ public final class TodoItemsClient {
      * @return the response.
      */
     @Metadata(generated = true)
-    public CreateResponse create(TodoItem item, List<BinaryData> attachments) {
-        // Generated convenience method for createWithResponse
+    public CreateJsonResponse createJson(TodoItem item, List<TodoAttachment> attachments) {
+        // Generated convenience method for createJsonWithResponse
         RequestOptions requestOptions = new RequestOptions();
-        CreateRequest createRequestObj = new CreateRequest(item).setAttachments(attachments);
-        BinaryData createRequest = BinaryData.fromObject(createRequestObj);
-        return createWithResponse(createRequest, requestOptions).getValue();
+        CreateJsonRequest createJsonRequestObj = new CreateJsonRequest(item).setAttachments(attachments);
+        BinaryData createJsonRequest = BinaryData.fromObject(createJsonRequestObj);
+        return createJsonWithResponse(createJsonRequest, requestOptions).getValue();
     }
 
     /**
-     * The create operation.
+     * The createJson operation.
      * 
      * @param item The item parameter.
      * @throws IllegalArgumentException thrown if parameters fail the validation.
@@ -208,12 +229,33 @@ public final class TodoItemsClient {
      * @return the response.
      */
     @Metadata(generated = true)
-    public CreateResponse create(TodoItem item) {
-        // Generated convenience method for createWithResponse
+    public CreateJsonResponse createJson(TodoItem item) {
+        // Generated convenience method for createJsonWithResponse
         RequestOptions requestOptions = new RequestOptions();
-        CreateRequest createRequestObj = new CreateRequest(item);
-        BinaryData createRequest = BinaryData.fromObject(createRequestObj);
-        return createWithResponse(createRequest, requestOptions).getValue();
+        CreateJsonRequest createJsonRequestObj = new CreateJsonRequest(item);
+        BinaryData createJsonRequest = BinaryData.fromObject(createJsonRequestObj);
+        return createJsonWithResponse(createJsonRequest, requestOptions).getValue();
+    }
+
+    /**
+     * The createForm operation.
+     * 
+     * @param body The body parameter.
+     * @throws IllegalArgumentException thrown if parameters fail the validation.
+     * @throws HttpResponseException thrown if the service returns an error.
+     * @throws RuntimeException all other wrapped checked exceptions if the request fails to be sent.
+     * @return the response.
+     */
+    @Metadata(generated = true)
+    public CreateFormResponse createForm(ToDoItemMultipartRequest body) {
+        // Generated convenience method for createFormWithResponse
+        RequestOptions requestOptions = new RequestOptions();
+        return createFormWithResponse(
+            new MultipartFormDataHelper(requestOptions).serializeJsonField("item", body.getItem())
+                .serializeJsonField("attachments", body.getAttachments())
+                .end()
+                .getRequestBody(),
+            requestOptions).getValue();
     }
 
     /**

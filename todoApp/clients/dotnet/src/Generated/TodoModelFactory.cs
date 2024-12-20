@@ -73,25 +73,15 @@ namespace Todo.Models
             return new TodoLabelRecord(name, color, additionalBinaryDataProperties: null);
         }
 
-        /// <summary> The TodoFileAttachment. </summary>
-        /// <param name="contentType"></param>
-        /// <param name="filename"></param>
-        /// <param name="contents"></param>
-        /// <returns> A new <see cref="Models.TodoFileAttachment"/> instance for mocking. </returns>
-        public static TodoFileAttachment TodoFileAttachment(string contentType = default, string filename = default, BinaryData contents = default)
+        /// <summary> The TodoAttachment. </summary>
+        /// <param name="filename"> The file name of the attachment. </param>
+        /// <param name="mediaType"> The media type of the attachment. </param>
+        /// <param name="contents"> The contents of the file. </param>
+        /// <returns> A new <see cref="Models.TodoAttachment"/> instance for mocking. </returns>
+        public static TodoAttachment TodoAttachment(string filename = default, string mediaType = default, BinaryData contents = default)
         {
 
-            return new TodoFileAttachment(contentType, filename, contents, additionalBinaryDataProperties: null);
-        }
-
-        /// <summary> The TodoUrlAttachment. </summary>
-        /// <param name="description"> A description of the URL. </param>
-        /// <param name="url"> The url. </param>
-        /// <returns> A new <see cref="Models.TodoUrlAttachment"/> instance for mocking. </returns>
-        public static TodoUrlAttachment TodoUrlAttachment(string description = default, Uri url = default)
-        {
-
-            return new TodoUrlAttachment(description, url, additionalBinaryDataProperties: null);
+            return new TodoAttachment(filename, mediaType, contents, additionalBinaryDataProperties: null);
         }
 
         /// <summary> The CreateJsonResponse. </summary>
@@ -155,9 +145,9 @@ namespace Todo.Models
         /// <summary> The PageTodoAttachment. </summary>
         /// <param name="items"></param>
         /// <returns> A new <see cref="Models.PageTodoAttachment"/> instance for mocking. </returns>
-        public static PageTodoAttachment PageTodoAttachment(IEnumerable<BinaryData> items = default)
+        public static PageTodoAttachment PageTodoAttachment(IEnumerable<TodoAttachment> items = default)
         {
-            items ??= new ChangeTrackingList<BinaryData>();
+            items ??= new ChangeTrackingList<TodoAttachment>();
 
             return new PageTodoAttachment(items?.ToList(), additionalBinaryDataProperties: null);
         }

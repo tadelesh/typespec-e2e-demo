@@ -17,9 +17,9 @@ namespace Todo
     public partial class TodoItems
     {
         private readonly Uri _endpoint;
-        private const string AuthorizationHeader = "session-id";
         /// <summary> A credential used to authenticate to the service. </summary>
         private readonly ApiKeyCredential _keyCredential;
+        private const string AuthorizationHeader = "session-id";
         private TodoItemsAttachments _cachedTodoItemsAttachments;
 
         /// <summary> Initializes a new instance of TodoItems for mocking. </summary>
@@ -145,11 +145,11 @@ namespace Todo
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="item"/> is null. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual ClientResult<CreateJsonResponse> CreateJson(TodoItem item, IEnumerable<BinaryData> attachments = default, CancellationToken cancellationToken = default)
+        public virtual ClientResult<CreateJsonResponse> CreateJson(TodoItem item, IEnumerable<TodoAttachment> attachments = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(item, nameof(item));
 
-            CreateJsonRequest spreadModel = new CreateJsonRequest(item, attachments?.ToList() as IList<BinaryData> ?? new ChangeTrackingList<BinaryData>(), null);
+            CreateJsonRequest spreadModel = new CreateJsonRequest(item, attachments?.ToList() as IList<TodoAttachment> ?? new ChangeTrackingList<TodoAttachment>(), null);
             ClientResult result = CreateJson(spreadModel, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null);
             return ClientResult.FromValue((CreateJsonResponse)result, result.GetRawResponse());
         }
@@ -160,11 +160,11 @@ namespace Todo
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="item"/> is null. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual async Task<ClientResult<CreateJsonResponse>> CreateJsonAsync(TodoItem item, IEnumerable<BinaryData> attachments = default, CancellationToken cancellationToken = default)
+        public virtual async Task<ClientResult<CreateJsonResponse>> CreateJsonAsync(TodoItem item, IEnumerable<TodoAttachment> attachments = default, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(item, nameof(item));
 
-            CreateJsonRequest spreadModel = new CreateJsonRequest(item, attachments?.ToList() as IList<BinaryData> ?? new ChangeTrackingList<BinaryData>(), null);
+            CreateJsonRequest spreadModel = new CreateJsonRequest(item, attachments?.ToList() as IList<TodoAttachment> ?? new ChangeTrackingList<TodoAttachment>(), null);
             ClientResult result = await CreateJsonAsync(spreadModel, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null).ConfigureAwait(false);
             return ClientResult.FromValue((CreateJsonResponse)result, result.GetRawResponse());
         }

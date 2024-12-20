@@ -4,7 +4,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text.Json;
 using Todo;
 
 namespace Todo.Models
@@ -18,10 +17,10 @@ namespace Todo.Models
         internal CreateJsonRequest(TodoItem item)
         {
             Item = item;
-            Attachments = new ChangeTrackingList<BinaryData>();
+            Attachments = new ChangeTrackingList<TodoAttachment>();
         }
 
-        internal CreateJsonRequest(TodoItem item, IList<BinaryData> attachments, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal CreateJsonRequest(TodoItem item, IList<TodoAttachment> attachments, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Item = item;
             Attachments = attachments;
@@ -31,45 +30,7 @@ namespace Todo.Models
         /// <summary> Gets the Item. </summary>
         public TodoItem Item { get; }
 
-        /// <summary>
-        /// Gets the Attachments.
-        /// <para> To assign an object to the element of this property use <see cref="BinaryData.FromObjectAsJson{T}(T, JsonSerializerOptions?)"/>. </para>
-        /// <para> To assign an already formatted json string to this property use <see cref="BinaryData.FromString(string)"/>. </para>
-        /// <para>
-        /// <remarks>
-        /// Supported types:
-        /// <list type="bullet">
-        /// <item>
-        /// <description> <see cref="TodoFileAttachment"/>. </description>
-        /// </item>
-        /// <item>
-        /// <description> <see cref="TodoUrlAttachment"/>. </description>
-        /// </item>
-        /// </list>
-        /// </remarks>
-        /// </para>
-        /// <para>
-        /// Examples:
-        /// <list type="bullet">
-        /// <item>
-        /// <term> BinaryData.FromObjectAsJson("foo"). </term>
-        /// <description> Creates a payload of "foo". </description>
-        /// </item>
-        /// <item>
-        /// <term> BinaryData.FromString("\"foo\""). </term>
-        /// <description> Creates a payload of "foo". </description>
-        /// </item>
-        /// <item>
-        /// <term> BinaryData.FromObjectAsJson(new { key = "value" }). </term>
-        /// <description> Creates a payload of { "key": "value" }. </description>
-        /// </item>
-        /// <item>
-        /// <term> BinaryData.FromString("{\"key\": \"value\"}"). </term>
-        /// <description> Creates a payload of { "key": "value" }. </description>
-        /// </item>
-        /// </list>
-        /// </para>
-        /// </summary>
-        public IList<BinaryData> Attachments { get; }
+        /// <summary> Gets the Attachments. </summary>
+        public IList<TodoAttachment> Attachments { get; }
     }
 }

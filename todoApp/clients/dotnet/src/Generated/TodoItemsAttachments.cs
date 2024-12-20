@@ -15,9 +15,9 @@ namespace Todo
     public partial class TodoItemsAttachments
     {
         private readonly Uri _endpoint;
-        private const string AuthorizationHeader = "session-id";
         /// <summary> A credential used to authenticate to the service. </summary>
         private readonly ApiKeyCredential _keyCredential;
+        private const string AuthorizationHeader = "session-id";
 
         /// <summary> Initializes a new instance of TodoItemsAttachments for mocking. </summary>
         protected TodoItemsAttachments()
@@ -91,7 +91,7 @@ namespace Todo
         }
 
         /// <summary>
-        /// [Protocol Method] createUrlAttachment
+        /// [Protocol Method] createJsonAttachment
         /// <list type="bullet">
         /// <item>
         /// <description> This <see href="https://aka.ms/azsdk/net/protocol-methods">protocol method</see> allows explicit creation of the request and processing of the response for advanced scenarios. </description>
@@ -104,16 +104,16 @@ namespace Todo
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual ClientResult CreateUrlAttachment(long itemId, BinaryContent content, RequestOptions options = null)
+        public virtual ClientResult CreateJsonAttachment(long itemId, BinaryContent content, RequestOptions options = null)
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using PipelineMessage message = CreateCreateUrlAttachmentRequest(itemId, content, options);
+            using PipelineMessage message = CreateCreateJsonAttachmentRequest(itemId, content, options);
             return ClientResult.FromResponse(Pipeline.ProcessMessage(message, options));
         }
 
         /// <summary>
-        /// [Protocol Method] createUrlAttachment
+        /// [Protocol Method] createJsonAttachment
         /// <list type="bullet">
         /// <item>
         /// <description> This <see href="https://aka.ms/azsdk/net/protocol-methods">protocol method</see> allows explicit creation of the request and processing of the response for advanced scenarios. </description>
@@ -126,38 +126,38 @@ namespace Todo
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
         /// <returns> The response returned from the service. </returns>
-        public virtual async Task<ClientResult> CreateUrlAttachmentAsync(long itemId, BinaryContent content, RequestOptions options = null)
+        public virtual async Task<ClientResult> CreateJsonAttachmentAsync(long itemId, BinaryContent content, RequestOptions options = null)
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using PipelineMessage message = CreateCreateUrlAttachmentRequest(itemId, content, options);
+            using PipelineMessage message = CreateCreateJsonAttachmentRequest(itemId, content, options);
             return ClientResult.FromResponse(await Pipeline.ProcessMessageAsync(message, options).ConfigureAwait(false));
         }
 
-        /// <summary> createUrlAttachment. </summary>
+        /// <summary> createJsonAttachment. </summary>
         /// <param name="itemId"></param>
         /// <param name="contents"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="contents"/> is null. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual ClientResult CreateUrlAttachment(long itemId, TodoUrlAttachment contents, CancellationToken cancellationToken = default)
+        public virtual ClientResult CreateJsonAttachment(long itemId, TodoAttachment contents, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(contents, nameof(contents));
 
-            return CreateUrlAttachment(itemId, contents, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null);
+            return CreateJsonAttachment(itemId, contents, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null);
         }
 
-        /// <summary> createUrlAttachment. </summary>
+        /// <summary> createJsonAttachment. </summary>
         /// <param name="itemId"></param>
         /// <param name="contents"></param>
         /// <param name="cancellationToken"> The cancellation token that can be used to cancel the operation. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="contents"/> is null. </exception>
         /// <exception cref="ClientResultException"> Service returned a non-success status code. </exception>
-        public virtual async Task<ClientResult> CreateUrlAttachmentAsync(long itemId, TodoUrlAttachment contents, CancellationToken cancellationToken = default)
+        public virtual async Task<ClientResult> CreateJsonAttachmentAsync(long itemId, TodoAttachment contents, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(contents, nameof(contents));
 
-            return await CreateUrlAttachmentAsync(itemId, contents, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null).ConfigureAwait(false);
+            return await CreateJsonAttachmentAsync(itemId, contents, cancellationToken.CanBeCanceled ? new RequestOptions { CancellationToken = cancellationToken } : null).ConfigureAwait(false);
         }
 
         /// <summary>

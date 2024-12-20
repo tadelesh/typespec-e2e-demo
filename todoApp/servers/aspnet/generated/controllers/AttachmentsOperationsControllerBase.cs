@@ -33,9 +33,9 @@ namespace Todo.Service.Controllers
         [HttpPost]
         [Route("/items/{itemId}/attachments")]
         [ProducesResponseType((int)HttpStatusCode.NoContent, Type = typeof(void))]
-        public virtual async Task<IActionResult> CreateUrlAttachment([FromHeader(Name = "Content-Type")] string contentType = "application/json", long itemId, TodoUrlAttachment body)
+        public virtual async Task<IActionResult> CreateJsonAttachment([FromHeader(Name = "Content-Type")] string contentType = "application/json", long itemId, TodoAttachment body)
         {
-            await AttachmentsOperationsImpl.CreateUrlAttachmentAsync(contentType, itemId, body);
+            await AttachmentsOperationsImpl.CreateJsonAttachmentAsync(contentType, itemId, body);
             return Ok();
         }
 

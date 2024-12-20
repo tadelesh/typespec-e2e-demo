@@ -36,21 +36,9 @@ namespace Todo.Models
             }
             writer.WritePropertyName("items"u8);
             writer.WriteStartArray();
-            foreach (BinaryData item in Items)
+            foreach (TodoAttachment item in Items)
             {
-                if (item == null)
-                {
-                    writer.WriteNullValue();
-                    continue;
-                }
-#if NET6_0_OR_GREATER
-                writer.WriteRawValue(item);
-#else
-                using (JsonDocument document = JsonDocument.Parse(item))
-                {
-                    JsonSerializer.Serialize(writer, document.RootElement);
-                }
-#endif
+                writer.WriteObjectValue(item, options);
             }
             writer.WriteEndArray();
             if (options.Format != "W" && _additionalBinaryDataProperties != null)
@@ -91,23 +79,16 @@ namespace Todo.Models
             {
                 return null;
             }
-            IList<BinaryData> items = default;
+            IList<TodoAttachment> items = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
                 if (prop.NameEquals("items"u8))
                 {
-                    List<BinaryData> array = new List<BinaryData>();
+                    List<TodoAttachment> array = new List<TodoAttachment>();
                     foreach (var item in prop.Value.EnumerateArray())
                     {
-                        if (item.ValueKind == JsonValueKind.Null)
-                        {
-                            array.Add(null);
-                        }
-                        else
-                        {
-                            array.Add(BinaryData.FromString(item.GetRawText()));
-                        }
+                        array.Add(TodoAttachment.DeserializeTodoAttachment(item, options));
                     }
                     items = array;
                     continue;

@@ -49,7 +49,7 @@ public final class UsersClient {
      * @return the response.
      */
     @Metadata(generated = true)
-    public Response<CreateResponse1> createWithResponse(BinaryData user, RequestOptions requestOptions) {
+    public Response<CreateResponse> createWithResponse(BinaryData user, RequestOptions requestOptions) {
         return this.serviceClient.createWithResponse(user, requestOptions);
     }
 
@@ -63,7 +63,7 @@ public final class UsersClient {
      * @return the response.
      */
     @Metadata(generated = true)
-    public CreateResponse1 create(User user) {
+    public CreateResponse create(User user) {
         // Generated convenience method for createWithResponse
         RequestOptions requestOptions = new RequestOptions();
         return createWithResponse(BinaryData.fromObject(user), requestOptions).getValue();

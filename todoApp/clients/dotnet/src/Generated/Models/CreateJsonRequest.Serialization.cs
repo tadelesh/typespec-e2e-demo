@@ -40,21 +40,9 @@ namespace Todo.Models
             {
                 writer.WritePropertyName("attachments"u8);
                 writer.WriteStartArray();
-                foreach (BinaryData item in Attachments)
+                foreach (TodoAttachment item in Attachments)
                 {
-                    if (item == null)
-                    {
-                        writer.WriteNullValue();
-                        continue;
-                    }
-#if NET6_0_OR_GREATER
-                    writer.WriteRawValue(item);
-#else
-                    using (JsonDocument document = JsonDocument.Parse(item))
-                    {
-                        JsonSerializer.Serialize(writer, document.RootElement);
-                    }
-#endif
+                    writer.WriteObjectValue(item, options);
                 }
                 writer.WriteEndArray();
             }
@@ -97,7 +85,7 @@ namespace Todo.Models
                 return null;
             }
             TodoItem item = default;
-            IList<BinaryData> attachments = default;
+            IList<TodoAttachment> attachments = default;
             IDictionary<string, BinaryData> additionalBinaryDataProperties = new ChangeTrackingDictionary<string, BinaryData>();
             foreach (var prop in element.EnumerateObject())
             {
@@ -112,17 +100,10 @@ namespace Todo.Models
                     {
                         continue;
                     }
-                    List<BinaryData> array = new List<BinaryData>();
+                    List<TodoAttachment> array = new List<TodoAttachment>();
                     foreach (var item0 in prop.Value.EnumerateArray())
                     {
-                        if (item0.ValueKind == JsonValueKind.Null)
-                        {
-                            array.Add(null);
-                        }
-                        else
-                        {
-                            array.Add(BinaryData.FromString(item0.GetRawText()));
-                        }
+                        array.Add(TodoAttachment.DeserializeTodoAttachment(item0, options));
                     }
                     attachments = array;
                     continue;
@@ -132,7 +113,7 @@ namespace Todo.Models
                     additionalBinaryDataProperties.Add(prop.Name, BinaryData.FromString(prop.Value.GetRawText()));
                 }
             }
-            return new CreateJsonRequest(item, attachments ?? new ChangeTrackingList<BinaryData>(), additionalBinaryDataProperties);
+            return new CreateJsonRequest(item, attachments ?? new ChangeTrackingList<TodoAttachment>(), additionalBinaryDataProperties);
         }
 
         BinaryData IPersistableModel<CreateJsonRequest>.Write(ModelReaderWriterOptions options) => PersistableModelWriteCore(options);
