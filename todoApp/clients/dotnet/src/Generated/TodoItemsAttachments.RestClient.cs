@@ -34,7 +34,7 @@ namespace Todo
             return message;
         }
 
-        internal PipelineMessage CreateCreateUrlAttachmentRequest(long itemId, BinaryContent content, RequestOptions options)
+        internal PipelineMessage CreateCreateJsonAttachmentRequest(long itemId, BinaryContent content, RequestOptions options)
         {
             PipelineMessage message = Pipeline.CreateMessage();
             message.ResponseClassifier = PipelineMessageClassifier204;

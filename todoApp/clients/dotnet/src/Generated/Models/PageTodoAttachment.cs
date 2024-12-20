@@ -8,18 +8,18 @@ using System.Linq;
 
 namespace Todo.Models
 {
-    /// <summary> The TodoAttachmentList. </summary>
-    public partial class TodoAttachmentList
+    /// <summary> The PageTodoAttachment. </summary>
+    public partial class PageTodoAttachment
     {
         /// <summary> Keeps track of any properties unknown to the library. </summary>
         private protected readonly IDictionary<string, BinaryData> _additionalBinaryDataProperties;
 
-        internal TodoAttachmentList(IEnumerable<TodoAttachment> items)
+        internal PageTodoAttachment(IEnumerable<TodoAttachment> items)
         {
             Items = items.ToList();
         }
 
-        internal TodoAttachmentList(IList<TodoAttachment> items, IDictionary<string, BinaryData> additionalBinaryDataProperties)
+        internal PageTodoAttachment(IList<TodoAttachment> items, IDictionary<string, BinaryData> additionalBinaryDataProperties)
         {
             Items = items;
             _additionalBinaryDataProperties = additionalBinaryDataProperties;

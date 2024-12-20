@@ -718,41 +718,6 @@ class TodoLabelRecord(_model_base.Model):
         super().__init__(*args, **kwargs)
 
 
-class TodoUrlAttachment(_model_base.Model):
-    """TodoUrlAttachment.
-
-    All required parameters must be populated in order to send to server.
-
-    :ivar description: A description of the URL. Required.
-    :vartype description: str
-    :ivar url: The url. Required.
-    :vartype url: str
-    """
-
-    description: str = rest_field()
-    """A description of the URL. Required."""
-    url: str = rest_field()
-    """The url. Required."""
-
-    @overload
-    def __init__(
-        self,
-        *,
-        description: str,
-        url: str,
-    ) -> None: ...
-
-    @overload
-    def __init__(self, mapping: Mapping[str, Any]) -> None:
-        """
-        :param mapping: raw JSON to initialize the model.
-        :type mapping: Mapping[str, Any]
-        """
-
-    def __init__(self, *args: Any, **kwargs: Any) -> None:
-        super().__init__(*args, **kwargs)
-
-
 class UpdateResponse(_model_base.Model):
     """UpdateResponse.
 

@@ -191,7 +191,7 @@ def build_todo_items_attachments_list_request(  # pylint: disable=name-too-long
     return HttpRequest(method="GET", url=_url, headers=_headers, **kwargs)
 
 
-def build_todo_items_attachments_create_url_attachment_request(  # pylint: disable=name-too-long
+def build_todo_items_attachments_create_json_attachment_request(  # pylint: disable=name-too-long
     item_id: int, **kwargs: Any
 ) -> HttpRequest:
     _headers = case_insensitive_dict(kwargs.pop("headers", {}) or {})
@@ -1031,20 +1031,15 @@ class TodoItemsAttachmentsOperations:
         return ItemPaged(get_next, extract_data)
 
     @overload
-    def create_url_attachment(
-        self,
-        item_id: int,
-        contents: _models.TodoUrlAttachment,
-        *,
-        content_type: str = "application/json",
-        **kwargs: Any
+    def create_json_attachment(
+        self, item_id: int, contents: _models.TodoAttachment, *, content_type: str = "application/json", **kwargs: Any
     ) -> None:
-        """create_url_attachment.
+        """create_json_attachment.
 
         :param item_id: Required.
         :type item_id: int
         :param contents: Required.
-        :type contents: ~todo.models.TodoUrlAttachment
+        :type contents: ~todo.models.TodoAttachment
         :keyword content_type: Body Parameter content-type. Content type parameter for JSON body.
          Default value is "application/json".
         :paramtype content_type: str
@@ -1054,10 +1049,10 @@ class TodoItemsAttachmentsOperations:
         """
 
     @overload
-    def create_url_attachment(
+    def create_json_attachment(
         self, item_id: int, contents: JSON, *, content_type: str = "application/json", **kwargs: Any
     ) -> None:
-        """create_url_attachment.
+        """create_json_attachment.
 
         :param item_id: Required.
         :type item_id: int
@@ -1072,10 +1067,10 @@ class TodoItemsAttachmentsOperations:
         """
 
     @overload
-    def create_url_attachment(
+    def create_json_attachment(
         self, item_id: int, contents: IO[bytes], *, content_type: str = "application/json", **kwargs: Any
     ) -> None:
-        """create_url_attachment.
+        """create_json_attachment.
 
         :param item_id: Required.
         :type item_id: int
@@ -1089,15 +1084,15 @@ class TodoItemsAttachmentsOperations:
         :raises ~corehttp.exceptions.HttpResponseError:
         """
 
-    def create_url_attachment(  # pylint: disable=inconsistent-return-statements
-        self, item_id: int, contents: Union[_models.TodoUrlAttachment, JSON, IO[bytes]], **kwargs: Any
+    def create_json_attachment(  # pylint: disable=inconsistent-return-statements
+        self, item_id: int, contents: Union[_models.TodoAttachment, JSON, IO[bytes]], **kwargs: Any
     ) -> None:
-        """create_url_attachment.
+        """create_json_attachment.
 
         :param item_id: Required.
         :type item_id: int
-        :param contents: Is one of the following types: TodoUrlAttachment, JSON, IO[bytes] Required.
-        :type contents: ~todo.models.TodoUrlAttachment or JSON or IO[bytes]
+        :param contents: Is one of the following types: TodoAttachment, JSON, IO[bytes] Required.
+        :type contents: ~todo.models.TodoAttachment or JSON or IO[bytes]
         :return: None
         :rtype: None
         :raises ~corehttp.exceptions.HttpResponseError:
@@ -1120,7 +1115,7 @@ class TodoItemsAttachmentsOperations:
         else:
             _content = json.dumps(contents, cls=SdkJSONEncoder, exclude_readonly=True)  # type: ignore
 
-        _request = build_todo_items_attachments_create_url_attachment_request(
+        _request = build_todo_items_attachments_create_json_attachment_request(
             item_id=item_id,
             content_type=content_type,
             content=_content,

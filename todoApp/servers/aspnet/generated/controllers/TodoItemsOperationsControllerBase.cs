@@ -10,8 +10,6 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using Todo.Service.Models;
 using Todo.Service;
-using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.AspNetCore.Http.Extensions;
 
 namespace Todo.Service.Controllers
 {
@@ -35,28 +33,19 @@ namespace Todo.Service.Controllers
         [HttpPost]
         [Route("/items")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(TodoItem))]
-        public virtual async Task<IActionResult> CreateJson(Model0 body)
+        public virtual async Task<IActionResult> CreateJson([FromHeader(Name = "Content-Type")] string contentType = "application/json", Model0 body)
         {
-            var result = await TodoItemsOperationsImpl.CreateJsonAsync(body?.Item, body?.Attachments);
+            var result = await TodoItemsOperationsImpl.CreateJsonAsync(contentType, body?.Item, body?.Attachments);
             return Ok(result);
         }
 
 
         [HttpPost]
         [Route("/items")]
-        [Consumes("multipart/form-data")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(TodoItem))]
-        public virtual async Task<IActionResult> CreateForm(HttpRequest request, Stream body)
+        public virtual async Task<IActionResult> CreateForm([FromHeader(Name = "Content-Type")] string contentType = "multipart/form-data", ToDoItemMultipartRequest body)
         {
-            var boundary = request.GetMultipartBoundary();
-            if (boundary == null)
-            {
-                return BadRequest("Request missing multipart boundary");
-            }
-
-
-            var reader = new MultipartReader(boundary, body);
-            var result = await TodoItemsOperationsImpl.CreateFormAsync(reader);
+            var result = await TodoItemsOperationsImpl.CreateFormAsync(contentType, body);
             return Ok(result);
         }
 
@@ -74,9 +63,9 @@ namespace Todo.Service.Controllers
         [HttpPatch]
         [Route("/items/{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(TodoItem))]
-        public virtual async Task<IActionResult> Update(long id, TodoItemPatch body)
+        public virtual async Task<IActionResult> Update([FromHeader(Name = "Content-Type")] string contentType = "application/merge-patch+json", long id, TodoItemPatch body)
         {
-            var result = await TodoItemsOperationsImpl.UpdateAsync(id, body);
+            var result = await TodoItemsOperationsImpl.UpdateAsync(contentType, id, body);
             return Ok(result);
         }
 

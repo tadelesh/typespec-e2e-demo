@@ -3,7 +3,7 @@ emit:
  - "@typespec/http-server-csharp"
  - "@typespec/http-client-csharp"
  - "@typespec/http-client-java"
- - "@typespec/http-server-javascript"
+#  - "@typespec/http-server-javascript" # js server gen throws error: Error: Unimplemented: new form of multipart requests
  - "@typespec/http-client-python"
 options:
   "@typespec/openapi3":
@@ -12,9 +12,9 @@ options:
     emitter-output-dir: "{project-root}/../clients/dotnet"
   "@typespec/http-server-csharp":
     emitter-output-dir: "{project-root}/../servers/aspnet/generated"  
-  "@typespec/http-server-javascript":
-    emitter-output-dir: "{project-root}/../servers/node/tsp-output/@typespec/http-server-javascript"
-    express: true
+  # "@typespec/http-server-javascript":
+  #   emitter-output-dir: "{project-root}/../servers/node/tsp-output/@typespec/http-server-javascript"
+  #   express: true
   "@typespec/http-client-java":
     emitter-output-dir: "{project-root}/../clients/java"
   "@typespec/http-client-python":
