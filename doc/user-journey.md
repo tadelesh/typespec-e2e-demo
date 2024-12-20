@@ -11,9 +11,11 @@ These workflows are designed to offer a seamless and productive experience for n
 
 ### Overview
 
-Leveraging built-in or separate [test template file](../tsptemplate.json), `tsp init` provides a convenient way to scaffold TypeSpec projects. [tsptemplate.json](../tsptemplate.json) contains list of known client and server emitters for you to choose from. We can later if we will make this a built-in template.
+Leveraging built-in or separate [test template file](../tsptemplate.json), `tsp init` provides a convenient way to scaffold TypeSpec projects. [The tsptemplate.json](../tsptemplate.json) contains list of known client and server emitters for you to choose from. We can decide later if we will make this a built-in template.
 
-You can use `sandbox` folder to test out the CLI experience. Please follow these steps to create a TypeSpec project along with selected protocol/client/server emitters. Select the emitters you want to be included in the project. Please follow the post creation message and install any development kit required for that language.
+- You can use `sandbox` folder to test out the CLI experience.
+- During `npx tsp init`, you will be prompted to select include different protocol/client/server emitters.
+- Please review the post creation message and install any development kit required for that language.
 
 ```bash
 # Available Project Spec: widget, petstore, todoApp. Replace XXXX with one of these.
