@@ -34,7 +34,7 @@ npm install
 npx tsp compile .
 ```
 
-Once the above steps are completed, you should see the following depending on the emitters you have selected.
+Once the above steps are completed, you should see the following folder structure depending on the emitters you have selected.
 ```
     \XXXX
         \openapi                    # Generated OpenAPI 3.0 spec
