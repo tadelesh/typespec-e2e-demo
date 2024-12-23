@@ -9,11 +9,13 @@ using System.Text.Json.Serialization;
 namespace Todo.Service.Models
 {
 
-    public partial class ToDoItemMultipartRequest
+    public partial class File
     {
-        public HttpPartTodoItem Item { get; set; }
+        public string ContentType { get; set; }
 
-        public HttpPartFile[] Attachments { get; set; }
+        public string Filename { get; set; }
+
+        public byte[] Contents { get; set; }
 
 
     }
