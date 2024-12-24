@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get It Done - Todo App</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h2 {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        textarea,
+        select {
+            width: calc(100% - 12px);
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 5px;
+        }
+        button {
+            background-color: #5cb85c;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #4cae4c;
+        }
+        .output {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            white-space: pre-wrap;
+        }
+        .todo-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .todo-list li {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Create Project</h2>
+        <div class="form-group">
+            <label for="projectName">Project Name:</label>
+            <input type="text" id="projectName" placeholder="Enter project name">
+        </div>
+        <div class="form-group">
+            <label for="projectColor">Project Color:</label>
+            <input type="text" id="projectColor" placeholder="Enter color (e.g., #FF0000)">
+        </div>
+        <button onclick="createProject()">Create Project</button>
+
+        <h2>Create Section</h2>
+        <div class="form-group">
+            <label for="sectionName">Section Name:</label>
+            <input type="text" id="sectionName" placeholder="Enter section name">
+        </div>
+        <div class="form-group">
+            <label for="projectIdForSection">Project ID:</label>
+            <input type="text" id="projectIdForSection" placeholder="Enter project ID">
+        </div>
+        <button onclick="createSection()">Create Section</button>
+
+        <h2>Create Todo Item</h2>
+        <div class="form-group">
+            <label for="todoContent">Todo Content:</label>
+            <input type="text" id="todoContent" placeholder="Enter todo content">
+        </div>
+        <div class="form-group">
+            <label for="todoDescription">Todo Description:</label>
+            <textarea id="todoDescription" placeholder="Enter todo description"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="projectIdForTodo">Project ID:</label>
+            <input type="text" id="projectIdForTodo" placeholder="Enter project ID">
+        </div>
+        <div class="form-group">
+            <label for="sectionIdForTodo">Section ID:</label>
+            <input type="text" id="sectionIdForTodo" placeholder="Enter section ID">
+        </div>
+        <button onclick="createTodoItem()">Create Todo Item</button>
+
+        <h2>Create Label</h2>
+        <div class="form-group">
+            <label for="labelName">Label Name:</label>
+            <input type="text" id="labelName" placeholder="Enter label name">
+        </div>
+        <div class="form-group">
+            <label for="labelColor">Label Color:</label>
+            <input type="text" id="labelColor" placeholder="Enter color (e.g., #00FF00)">
+        </div>
+        <button onclick="createLabel()">Create Label</button>
+
+        <h2>Get All Todo Items</h2>
+        <button onclick="getAllTodoItems()">Get All Todo Items</button>
+
+        <h2>Get All Projects</h2>
+        <button onclick="getAllProjects()">Get All Projects</button>
+
+        <h2>Get All Labels</h2>
+        <button onclick="getAllLabels()">Get All Labels</button>
+
+        <div class="output">
+            <pre id="output"></pre>
+        </div>
+    </div>
+
+    <script>
+        const apiUrl = 'http://localhost:5091'; // Replace with your API URL
+
+        async function createProject() {
+            const projectName = document.getElementById('projectName').value;
+            const projectColor = document.getElementById('projectColor').value;
+
+            const data = {
+                name: projectName,
+                color: projectColor,
+                parentId: null,
+                order: 1,
+                isFavorite: false
+            };
+
+            await makeApiRequest('/projects', 'POST', data);
+        }
+
+        async function createSection() {
+            const sectionName = document.getElementById('sectionName').value;
+            const projectId = document.getElementById('projectIdForSection').value;
+
+            const data = {
+                name: sectionName,
+                projectId: projectId,
+                order: 1
+            };
+
+            await makeApiRequest('/sections', 'POST', data);
+        }
+
+        async function createTodoItem() {
+            const todoContent = document.getElementById('todoContent').value;
+            const todoDescription = document.getElementById('todoDescription').value;
+            const projectId = document.getElementById('projectIdForTodo').value;
+            const sectionId = document.getElementById('sectionIdForTodo').value;
+
+            const data = {
+                content: todoContent,
+                description: todoDescription,
+                due: {
+                    date: null,
+                    isRecurring: false,
+                    datetime: null,
+                    string: null,
+                    timezone: null
+                },
+                labels: [],
+                priority: 1,
+                parentId: null,
+                order: 1,
+                projectId: projectId,
+                sectionId: sectionId,
+                assigneeId: null
+            };
+
+            await makeApiRequest('/todoitems', 'POST', data);
+        }
+
+        async function createLabel() {
+            const labelName = document.getElementById('labelName').value;
+            const labelColor = document.getElementById('labelColor').value;
+
+            const data = {
+                name: labelName,
+                color: labelColor,
+                order: 1,
+                isFavorite: true
+            };
+
+            await makeApiRequest('/labels', 'POST', data);
+        }
+
+        async function getAllTodoItems() {
+            await makeApiRequest('/todoitems', 'GET');
+        }
+
+        async function getAllProjects() {
+            await makeApiRequest('/projects', 'GET');
+        }
+
+        async function getAllLabels() {
+            await makeApiRequest('/labels', 'GET');
+        }
+
+        async function makeApiRequest(endpoint, method = 'GET', body = null) {
+            const outputDiv = document.getElementById('output');
+            outputDiv.textContent = 'Loading...';
+
+            try {
+                const options = {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                };
+
+                if (body) {
+                    options.body = JSON.stringify(body);
+                }
+
+                const response = await fetch(apiUrl + endpoint, options);
+                const data = await response.json();
+
+                outputDiv.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                outputDiv.textContent = `Error: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>

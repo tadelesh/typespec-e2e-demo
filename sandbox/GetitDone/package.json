@@ -1,0 +1,22 @@
+{
+  "name": "GetitDone",
+  "version": "0.1.0",
+  "type": "module",
+  "peerDependencies": {
+    "@typespec/compiler": "latest",
+    "@typespec/http": "latest",
+    "@typespec/rest": "latest",
+    "@typespec/openapi3": "latest",
+    "@typespec/http-client-csharp": "latest",
+    "@typespec/http-server-csharp": "latest"
+  },
+  "devDependencies": {
+    "@typespec/compiler": "latest",
+    "@typespec/http": "latest",
+    "@typespec/rest": "latest",
+    "@typespec/openapi3": "latest",
+    "@typespec/http-client-csharp": "latest",
+    "@typespec/http-server-csharp": "latest"
+  },
+  "private": true
+}

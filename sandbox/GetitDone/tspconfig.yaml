@@ -1,0 +1,11 @@
+emit:
+  - "@typespec/openapi3"
+  - "@typespec/http-client-csharp"
+  - "@typespec/http-server-csharp"
+options:
+  "@typespec/openapi3":
+    emitter-output-dir: "{project-root}/openapi/"
+  "@typespec/http-client-csharp":
+    emitter-output-dir: "{project-root}/clients/csharp"
+  "@typespec/http-server-csharp":
+    emitter-output-dir: "{project-root}/servers/aspnet/generated"
