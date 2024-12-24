@@ -6,14 +6,6 @@ Install [Java](https://docs.microsoft.com/java/openjdk/download) 17 or above. (V
 
 Install [Maven](https://maven.apache.org/install.html). (Verify by running `mvn --version`)
 
-## Install the clientcore library
-
-Since `io.clientcore:core` library is not published to Maven, we need to build and install it locally.
-
-1. Checkout [azure-sdk-for-java](https://github.com/Azure/azure-sdk-for-java) repository.
-2. Use commit ID `99aad5951bbbbd45fda81321194b4fc1dbe29c7c`. Run `git checkout 99aad5951bbbbd45fda81321194b4fc1dbe29c7c`.
-3. Build and install `io.clientcore:core`. Run `mvn install -pl io.clientcore:core -am` in its root directory.
-
 ## Start the server
 
 Run `dotnet run --project <RepoRoot>/petstore/servers/aspnet/petstore.csproj`.
