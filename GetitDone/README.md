@@ -1,3 +1,5 @@
+*NOTE - These instructions are incomplete, this is a work in progress. I still need to add details on generating the service code as well as building/testing the client code.*
+
 # Build a ToDoIst clone API with C#/.NET using service code generated from TypeSpec
 
 ## Introduction
