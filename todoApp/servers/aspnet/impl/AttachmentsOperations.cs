@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.WebUtilities;
-// Copyright (c) Microsoft Corporation. All rights reserved.
+﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
+using Microsoft.AspNetCore.WebUtilities;
 using Todo.Service.Common;
 using Todo.Service.Models;
 
@@ -25,7 +25,7 @@ namespace Todo.Service.Impl
                     break;
                 }
                 var fileSection = section.AsFileSection();
-                if ( fileSection == null || fileSection.FileStream == null)
+                if (fileSection == null || fileSection.FileStream == null)
                 {
                     throw new BadHttpRequestException("Must contain files");
                 }
@@ -68,7 +68,7 @@ namespace Todo.Service.Impl
             else result.Items = Array.Empty<TodoAttachment>();
             return result;
         }
-        
-       
+
+
     }
 }

@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
+using System.Collections.Concurrent;
+
 namespace Todo.Service.Common
 {
     public interface IResourceStore<Key, Model> where Model : class where Key : notnull
@@ -13,7 +15,7 @@ namespace Todo.Service.Common
     }
     public class InMemoryStore<Key, Model> : IResourceStore<Key, Model> where Model :class where Key : notnull 
     {
-        private readonly Dictionary<Key, Model> _store = new();
+        private readonly ConcurrentDictionary<Key, Model> _store = new();
 
         public Task<Model> CreateAsync(Key id, Model model)
         {
@@ -42,7 +44,7 @@ namespace Todo.Service.Common
 
         public Task<bool> DeleteAsync(Key id)
         {
-            return Task.FromResult(_store.Remove(id));
+            return Task.FromResult(_store.TryRemove(id, out _));
         }
 
         public Task<Model[]> ListAsync(int? offset, int? limit)

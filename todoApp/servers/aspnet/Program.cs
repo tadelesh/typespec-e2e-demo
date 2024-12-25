@@ -1,13 +1,18 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
+using Todo.Exceptions;
 using Todo.Service.Common;
 using Todo.Service.Models;
+using Todo.Temp;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options =>
+{
+    options.Filters.Add(new CustomExceptionFilter());
+});
 builder.Services.AddSingleton<IResourceStore<long, TodoItem>, InMemoryStore<long, TodoItem>>();
 builder.Services.AddSingleton<IResourceStore<long, List<TodoAttachment>>, InMemoryStore<long, List<TodoAttachment>>>();
 builder.Services.AddSingleton<IResourceStore<long, User>, InMemoryStore<long, User>>();
@@ -29,6 +34,7 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+app.UseRequestLogging();
 
 app.MapControllerRoute(
     name: "default",
