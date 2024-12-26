@@ -4,7 +4,7 @@
 using Todo.Exceptions;
 using Todo.Service.Common;
 using Todo.Service.Models;
-using Todo.Temp;
+// using Todo.Temp;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,7 +34,7 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.UseRequestLogging();
+// app.UseRequestLogging();
 
 app.MapControllerRoute(
     name: "default",
