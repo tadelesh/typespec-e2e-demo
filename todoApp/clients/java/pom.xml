@@ -30,6 +30,12 @@
       <artifactId>core</artifactId>
       <version>1.0.0-beta.1</version> <!-- {x-version-update;io.clientcore:core;external_dependency} -->
     </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>5.8.1</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
@@ -57,21 +63,29 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>build-helper-maven-plugin</artifactId>
-        <version>3.0.0</version>
+        <version>3.6.0</version>
         <executions>
           <execution>
-            <id>add-test-source</id>
-            <phase>generate-test-sources</phase>
+            <id>add-source</id>
+            <phase>generate-sources</phase>
             <goals>
-              <goal>add-test-source</goal>
+              <goal>add-source</goal>
             </goals>
             <configuration>
               <sources>
-                <source>${basedir}/src/samples</source>
+                <source>${basedir}/src/samples/java</source>
               </sources>
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.5.0</version>
+        <configuration>
+          <mainClass>todo.TodoSample</mainClass>
+        </configuration>
       </plugin>
     </plugins>
   </build>
